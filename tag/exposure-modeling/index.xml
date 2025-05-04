@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Exposure Modeling | Prince Modi</title>
+    <link>http://localhost:1313/tag/exposure-modeling/</link>
+      <atom:link href="http://localhost:1313/tag/exposure-modeling/index.xml" rel="self" type="application/rss+xml" />
+    <description>Exposure Modeling</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 01 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/media/icon_hua5d2116872382d6405c4fb215e02fa8e_2300_512x512_fill_lanczos_center_3.png</url>
+      <title>Exposure Modeling</title>
+      <link>http://localhost:1313/tag/exposure-modeling/</link>
+    </image>
+    
+    <item>
+      <title>Probabilistic seismic risk assessment of Africa</title>
+      <link>http://localhost:1313/publication/journal-article/2025-africa-risk/</link>
+      <pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2025-africa-risk/</guid>
+      <description>&lt;h3 id=&#34;example-figure&#34;&gt;Example figure&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-seismic-hazard-map-for-the-top-475-year-return-period-and-the-bottom-2475-year-return-period-in-terms-of-peak-ground-acceleration-pga-on-rock-vs30--760-ms&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;publication/journal-article/2025_africa_risk.png&#34; alt=&#34;A map of the African content where the seismic hazard is visualized at two different return periods&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Seismic hazard map for the (top) 475-year return period and the (bottom) 2475-year return period in terms of peak ground acceleration (PGA) on rock (VS,30 = 760 m/s).
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Calibrating collapse and fatality rates for the assessment of fatalities due to earthquakes</title>
+      <link>http://localhost:1313/publication/journal-article/2025-calibrating-fatality-collapse/</link>
+      <pubDate>Thu, 27 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2025-calibrating-fatality-collapse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Global building exposure model for earthquake risk assessment</title>
+      <link>http://localhost:1313/publication/journal-article/2023-global-exposure-model-earthquakes/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2023-global-exposure-model-earthquakes/</guid>
+      <description>&lt;h3 id=&#34;policy-documents&#34;&gt;Policy documents&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://op.europa.eu/en/publication-detail/-/publication/e7ccf960-1ef7-11ef-a251-01aa75ed71a1/language-en&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Cross-border and emerging risks in Europe&lt;/a&gt; by the European Commission Joint Research Centre (JRC), 2024&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Development of a uniform exposure model for the African continent for use in disaster risk assessment</title>
+      <link>http://localhost:1313/publication/journal-article/2022-africa-exposure-model/</link>
+      <pubDate>Tue, 01 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2022-africa-exposure-model/</guid>
+      <description>&lt;h3 id=&#34;example-figure&#34;&gt;Example figure&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-estimated-number-of-residential-buildings-in-africa-aggregated-on-a-uniform-hexagonal-grid-of-05-decimal-degrees&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;publication/journal-article/2022_africa_exposure.png&#34; alt=&#34;A map of the African content where the number of estimated residential buildings is visualized using a uniform hexagonal grid of 0.5 decimal degrees&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Estimated number of residential buildings in Africa, aggregated on a uniform hexagonal grid of 0.5 decimal degrees.
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;press&#34;&gt;Press&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://eos.org/articles/new-hazard-exposure-model-for-africa&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;New Hazard Exposure Model for Africa&amp;rdquo;&lt;/a&gt; by Munyaradzi Makoni for EOS&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://africapolis.org/en/research/mapping-exposure-of-urban-and-rural-communities-to-natural-hazards&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;Mapping exposure of urban and rural communities to natural hazards&amp;rdquo;&lt;/a&gt; by Nicole Paul for Africapolis&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;policy-documents&#34;&gt;Policy documents&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://openknowledge.worldbank.org/entities/publication/6a0da039-a2d4-4117-bf30-04c58ccd0847&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Building Regulations in Sub-Saharan Africa: A Status Review of the Building Regulatory Environment&lt;/a&gt; by the World Bank Global Facility for Disaster Reduction and Recovery (GFDRR), 2023&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Impact of exposure spatial resolution on seismic loss estimates in regional portfolios</title>
+      <link>http://localhost:1313/publication/journal-article/2021-exposure-spatial-resolution/</link>
+      <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2021-exposure-spatial-resolution/</guid>
+      <description>&lt;h3 id=&#34;policy-documents&#34;&gt;Policy documents&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://op.europa.eu/en/publication-detail/-/publication/b35b92a4-5c08-11ed-92ed-01aa75ed71a1/language-en&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Prioritising EU regions for building renovation&lt;/a&gt; by the European Commission Joint Research Centre (JRC), 2022&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

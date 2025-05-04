@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Paper-Conference | Nicole Paul</title>
+    <link>http://localhost:1313/publication-type/paper-conference/</link>
+      <atom:link href="http://localhost:1313/publication-type/paper-conference/index.xml" rel="self" type="application/rss+xml" />
+    <description>Paper-Conference</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Fri, 15 Sep 2023 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/media/icon_hu209de9eb93bbf92fdbefdbfdebe32890_3589_512x512_fill_lanczos_center_3.png</url>
+      <title>Paper-Conference</title>
+      <link>http://localhost:1313/publication-type/paper-conference/</link>
+    </image>
+    
+    <item>
+      <title>Benchmarking housing damage as a driver of population displacement following earthquakes</title>
+      <link>http://localhost:1313/publication/conference-paper/2023-benchmarking-displacement-earthquakes/</link>
+      <pubDate>Fri, 15 Sep 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2023-benchmarking-displacement-earthquakes/</guid>
+      <description>&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Presenting slides at the SECED2023 conference.&#34; srcset=&#34;
+               /media/publication/conference-paper/2023_seced_hu3d71e125209e305054d7fc3401cdc01f_347761_07d6f440ee1867dd9d11c9df784ab72c.webp 400w,
+               /media/publication/conference-paper/2023_seced_hu3d71e125209e305054d7fc3401cdc01f_347761_dff7c011d95570ebf2c3ce6ea7f582ad.webp 760w,
+               /media/publication/conference-paper/2023_seced_hu3d71e125209e305054d7fc3401cdc01f_347761_1200x1200_fit_q75_h2_lanczos.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/publication/conference-paper/2023_seced_hu3d71e125209e305054d7fc3401cdc01f_347761_07d6f440ee1867dd9d11c9df784ab72c.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;428&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Updates to GEM&#39;s Global Seismic Risk Model</title>
+      <link>http://localhost:1313/publication/conference-paper/2022-updates-global-model/</link>
+      <pubDate>Fri, 01 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2022-updates-global-model/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Estimation of post-earthquake recovery on a university campus using REDi methodology</title>
+      <link>http://localhost:1313/publication/conference-paper/2018-recovery-university-campus/</link>
+      <pubDate>Fri, 29 Jun 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2018-recovery-university-campus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Implications of the Vertical Component of Ground Motion on Building Response</title>
+      <link>http://localhost:1313/publication/conference-paper/2018-vertical-ground-motion/</link>
+      <pubDate>Fri, 29 Jun 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2018-vertical-ground-motion/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Predicting earthquake-induced downtime in buildings: An overview of the state of the art</title>
+      <link>http://localhost:1313/publication/conference-paper/2018-earthquake-downtime-review/</link>
+      <pubDate>Fri, 29 Jun 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2018-earthquake-downtime-review/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Improving estimates of earthquake-induced downtime in individual buildings using the REDi methodology</title>
+      <link>http://localhost:1313/publication/conference-paper/2018-improving-earthquake-downtime/</link>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2018-improving-earthquake-downtime/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Is there a basin effect in Mexico city? Validation of three urban lakebed sites using nonlinear site response analysis provides the clue</title>
+      <link>http://localhost:1313/publication/conference-paper/2017-mexico-city-sra/</link>
+      <pubDate>Wed, 19 Jul 2017 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2017-mexico-city-sra/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rapid Automation of Performance-Based Geo-Seismic Analysis in the Digital Age</title>
+      <link>http://localhost:1313/publication/conference-paper/2017-geoseismic-automation/</link>
+      <pubDate>Wed, 19 Jul 2017 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2017-geoseismic-automation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Practical Insights from Project Implementation of the REDi Rating System</title>
+      <link>http://localhost:1313/publication/conference-paper/2016-practical-insights-redi/</link>
+      <pubDate>Wed, 12 Oct 2016 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2016-practical-insights-redi/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

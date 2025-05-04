@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Covid-19 Pandemic | Prince Modi</title>
+    <link>http://localhost:1313/tag/covid-19-pandemic/</link>
+      <atom:link href="http://localhost:1313/tag/covid-19-pandemic/index.xml" rel="self" type="application/rss+xml" />
+    <description>Covid-19 Pandemic</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 18 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/media/icon_hua5d2116872382d6405c4fb215e02fa8e_2300_512x512_fill_lanczos_center_3.png</url>
+      <title>Covid-19 Pandemic</title>
+      <link>http://localhost:1313/tag/covid-19-pandemic/</link>
+    </image>
+    
+    <item>
+      <title>Potential impact of earthquakes during the 2020 COVID-19 pandemic</title>
+      <link>http://localhost:1313/publication/journal-article/2021-covid-earthquake/</link>
+      <pubDate>Tue, 18 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2021-covid-earthquake/</guid>
+      <description>&lt;h3 id=&#34;example-figure&#34;&gt;Example figure&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-forecasting-of-the-aggregated-number-of-cumulative-covid-19-cases-for-the-three-regions-lisbon-and-the-tagus-valley-alentejo-and-algarve-considering-the-displaced-population-from-the-m57-onshore-left-and-m87-offshore-right-earthquake-scenarios-the-darker-line-represents-the-mean-results-while-the-lighter-lines-represent-individual-simulations&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img src=&#34;publication/journal-article/2021_covid_earthquake.png&#34; alt=&#34;A plot showing the increase in Covid cases over time due to two different earthquake scenarios affecting Portugal&#34; loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Forecasting of the (aggregated) number of cumulative COVID-19 cases for the three regions (Lisbon and the Tagus Valley, Alentejo, and Algarve) considering the displaced population from the M5.7 onshore (left) and M8.7 offshore (right) earthquake scenarios. The darker line represents the mean results, while the lighter lines represent individual simulations.
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;press&#34;&gt;Press&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://eos.org/features/where-do-people-fit-into-a-global-hazard-model&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;Where Do People Fit into a Global Hazard Model?&amp;rdquo;&lt;/a&gt; by Richard J. Sima for EOS&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

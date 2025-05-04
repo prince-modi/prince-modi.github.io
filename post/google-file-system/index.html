@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<!-- This site was created with Hugo Blox. https://hugoblox.com -->
+<!-- Last Published: May 4, 2025 --><html lang="en-us" >
+
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Hugo Blox Builder 5.9.6" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;600&family=DM+Sans:wght@300;400;600&family=Noto+Sans+Mono:wght@300&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;600&family=DM+Sans:wght@300;400;600&family=Noto+Sans+Mono:wght@300&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.css" integrity="" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.css" />
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="Prince Modi" />
+
+
+
+
+
+  
+
+<meta name="description" content="*An overview of the Google File System (GFS), its architecture, design decisions, and the assumptions behind it, based on the paper by Ghemawat et al.*" />
+
+
+
+<link rel="alternate" hreflang="en-us" href="http://localhost:1313/post/google-file-system/" />
+<link rel="canonical" href="http://localhost:1313/post/google-file-system/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hua5d2116872382d6405c4fb215e02fa8e_2300_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hua5d2116872382d6405c4fb215e02fa8e_2300_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#5a464c" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:image" content="http://localhost:1313/media/icon_hua5d2116872382d6405c4fb215e02fa8e_2300_512x512_fill_lanczos_center_3.png" />
+
+
+
+  
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Prince Modi" />
+<meta property="og:url" content="http://localhost:1313/post/google-file-system/" />
+<meta property="og:title" content="Exploring the Power of Google File System: The Distributed Storage System That Revolutionized Big Data | Prince Modi" />
+<meta property="og:description" content="*An overview of the Google File System (GFS), its architecture, design decisions, and the assumptions behind it, based on the paper by Ghemawat et al.*" /><meta property="og:image" content="http://localhost:1313/media/icon_hua5d2116872382d6405c4fb215e02fa8e_2300_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2024-05-04T00:00:00&#43;00:00"
+    />
+  
+  
+    <meta property="article:modified_time" content="2024-05-04T00:00:00&#43;00:00">
+  
+
+
+
+
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/post/google-file-system/"
+  },
+  "headline": "Exploring the Power of Google File System: The Distributed Storage System That Revolutionized Big Data",
+  
+  "datePublished": "2024-05-04T00:00:00Z",
+  "dateModified": "2024-05-04T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Prince Modi"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Prince Modi",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/media/icon_hua5d2116872382d6405c4fb215e02fa8e_2300_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "*An overview of the Google File System (GFS), its architecture, design decisions, and the assumptions behind it, based on the paper by Ghemawat et al.*"
+}
+</script>
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+  
+
+  
+
+
+  
+  <title>Exploring the Power of Google File System: The Distributed Storage System That Revolutionized Big Data | Prince Modi</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+  
+    
+      
+      <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+      
+    
+  
+
+
+
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="f8a658c60ba5f55bf66bf9a1cd49604f" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
+
+      
+      <div class="d-none d-lg-inline-flex">
+        <a class="navbar-brand" href="/">Prince Modi</a>
+      </div>
+      
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+      <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+        <a class="navbar-brand" href="/">Prince Modi</a>
+      </div>
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+        
+        <ul class="navbar-nav d-md-inline-flex">
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#skills"><span>Skills</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#featured-publications"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
+            
+            
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#posts"><span>Posts</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
+          
+        
+
+        
+        
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
+
+        
+        
+
+      </ul>
+
+    </div>
+  </nav>
+</header>
+
+
+  </div>
+
+  <div class="page-body">
+    
+    
+    
+      
+      
+      <div class="article-container py-1" style="background: initial">
+        
+  <nav class="d-none d-md-flex" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      
+  
+    
+  
+    
+  
+
+    <li class="breadcrumb-item">
+      <a href="/">
+        
+          Home
+        
+      </a>
+    </li>
+  
+
+    <li class="breadcrumb-item">
+      <a href="/post/">
+        
+          All posts
+        
+      </a>
+    </li>
+  
+
+      <li class="breadcrumb-item active" aria-current="page">
+        Exploring the Power of Google File System: The Distributed Storage System That Revolutionized Big Data
+      </li>
+    </ol>
+  </nav>
+
+
+
+
+      </div>
+    
+
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Exploring the Power of Google File System: The Distributed Storage System That Revolutionized Big Data</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    May 4, 2024
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    11 min read
+  </span>
+  
+
+  
+  
+  
+  
+
+  
+  
+
+</div>
+    
+
+
+
+
+
+  
+</div>
+
+
+  <div class="wrapper">
+
+
+  
+  <nav style="position: sticky; position: -webkit-sticky; top: 1rem;">
+  <aside style="float: right; padding: 1rem; margin-left: 1.5rem;" id="sidebar-nav">
+    <p style="text-transform: uppercase; font-size: 0.75em; margin-left: 1rem; margin-bottom: 0.75rem; line-height: 2;">On this page</p>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#assumptions">Assumptions</a></li>
+    <li><a href="#interface">Interface</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#metadata">Metadata</a></li>
+    <li><a href="#consistency-guarantees-by-gfs">Consistency Guarantees by GFS</a></li>
+    <li><a href="#system-interactions">System Interactions</a></li>
+    <li><a href="#stale-replica-detection">Stale Replica Detection</a></li>
+    <li><a href="#key-takeaways">Key Takeaways</a></li>
+  </ul>
+</nav>
+  </aside>
+  </nav>
+  
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <!-- # Exploring the Power of Google File System: The Distributed Storage System That Revolutionized Big Data -->
+<p>The paper <em>The Google File System</em> by Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung (Google) presents details of a distributed file system designed to support distributed applications and the various assumptions and design decisions that were made.</p>
+<p><strong>Credit:</strong> <a href="https://www.google.com" target="_blank" rel="noopener">google.com</a></p>
+<h2 id="introduction">Introduction</h2>
+<p>From the introduction of the paper, we have the following:</p>
+<blockquote>
+<p>We have designed and implemented the Google File System (GFS) to meet the rapidly growing demands of Google&rsquo;s data processing needs. GFS shares many of the same goals as previous distributed file systems such as performance, scalability, reliability, and availability. However, its design has been driven by key observations of our application workloads and technological environment, both current and anticipated, that reflect a marked departure from some earlier file system design assumptions.</p>
+</blockquote>
+<p>The decisions made while designing and implementing GFS mainly focused on the fact that there was a need for a scalable distributed file system that would be used in conjunction with large distributed data-intensive applications, for example, MapReduce.</p>
+<p>The designers understood that on a file system distributed across hundreds or even thousands of machines, the chances of some computers failing would be significantly higher, so they designed the GFS with monitoring, error detection, fault tolerance, and recovery in mind.</p>
+<p>Since the file system is also designed for large data-intensive applications, the files that they would have to store would be larger than the traditional standards.</p>
+<p>It was found that the majority of the writes that the applications performed were appending the new data at the end of the file. Random writes on files were practically non-existent. Once the data was written, it was only read and that too was often only sequential reads.</p>
+<h2 id="assumptions">Assumptions</h2>
+<p>There are several core assumptions that constrain the design of GFS, and they are centered around the typical workload of GFS clients. The in-detail assumptions are as follows:</p>
+<ul>
+<li>
+<p><strong>The system is built from many inexpensive commodity components that often fail.</strong><br>
+The assumption is that on a distributed file system operating at such a large scale, the chances that at any given time some components might not be functional is really high, so they have incorporated constant monitoring, fault detection, tolerance, and recovery into the design.</p>
+</li>
+<li>
+<p><strong>The system stores a modest number of large files.</strong><br>
+We expect a few million files, each typically 100 MB or larger in size. Multi-GB files are the common case and should be managed efficiently. Small files must be supported, but we need not optimize for them.<br>
+GFS is designed to store a large number of large files (&gt;100 MB) consisting of 64 MB chunks.</p>
+</li>
+<li>
+<p><strong>The workloads primarily consist of two kinds of reads:</strong></p>
+<ul>
+<li><strong>Large streaming reads</strong> (hundreds of KBs to MBs). Successive operations from the same client often read through a contiguous region of a file.</li>
+<li><strong>Small random reads</strong>, typically reading a few KBs at some arbitrary offset. Performance-conscious applications often batch and sort their small reads to advance steadily through the file rather than go back and forth.</li>
+</ul>
+</li>
+<li>
+<p><strong>The workloads also have many large, sequential writes that append data to files.</strong><br>
+Typical operation sizes are similar to those for reads. Once written, files are seldom modified again. Small writes at arbitrary positions in a file are supported but do not have to be efficient.</p>
+</li>
+<li>
+<p><strong>The system must efficiently implement well-defined semantics for multiple clients that concurrently append to the same file.</strong><br>
+GFS files will typically experience highly concurrent append-heavy workloads, and it&rsquo;s crucial these operations are implemented by the system efficiently.</p>
+</li>
+<li>
+<p><strong>High sustained bandwidth is more important than low latency.</strong><br>
+Clients tend to engage in large data processing jobs, which rely on maintaining sustained high bandwidth, more so than optimizing for individual operation latency.</p>
+</li>
+</ul>
+<h2 id="interface">Interface</h2>
+<p>GFS provides an interface that supports all the usual operations that are expected from a file system such as creating, deleting, opening, closing, reading, and writing files.</p>
+<p>Apart from this, GFS also provides snapshot and record append operations. Snapshot creates a copy of a file or a directory tree at a low cost. Record append allows multiple clients to append data in the same file concurrently while ensuring the atomicity of the append operation.</p>
+<h2 id="architecture">Architecture</h2>
+<p>As mentioned earlier, GFS runs on a typical commodity Linux machine. A typical GFS consists of a single master and multiple chunkservers and is accessed by multiple clients. Chunkservers and clients can run on the same machines as long as the resources available on the machine permit that.</p>
+<p>Files are divided into fixed-size chunks (typically 64 MB). Each of the chunks has a 64-bit chunk handle, assigned to it by the master, which is used for identifying the chunk. For reliability, each of the chunks is replicated on 3 chunkservers by default.</p>
+<p>The metadata for the whole file system is maintained by the master in its memory. This metadata includes the namespace, access control information, the mapping from files to chunks, and the current locations of chunks.</p>
+<p><strong>Figure 1: GFS Architecture</strong></p>
+<p>It might have come to your attention that GFS only has a single master, this decision significantly reduces the complexity of the whole system since only the single master is in charge of all the chunk placement and replication decisions, instead of the case where there are multiple masters and there has to be some sort of communication between the masters to come to some agreement, which both increase the complexity and decrease the responsiveness of the whole system.</p>
+<p>But since GFS only has a single master, the designers had to make sure that the master does not become a bottleneck for the system.</p>
+<p>Clients never read and write file data through the master. Instead, a client asks the master which chunkservers it should contact. It caches this information for a limited time and interacts with the chunkservers directly for many subsequent operations.</p>
+<p>One benefit of the client caching the information of the chunk is that the master includes the information immediately following that chunk, which saves the client having to contact the master again and again for a certain period of time.</p>
+<h2 id="metadata">Metadata</h2>
+<p>The master stores three types of metadata:</p>
+<ol>
+<li>The file and chunk namespaces.</li>
+<li>The mapping from files to chunks.</li>
+<li>The location of each chunk&rsquo;s replicas.</li>
+</ol>
+<p>All of this is stored in the master&rsquo;s memory. The first two types, along with certain critical metadata changes, are also kept persistent on an operation log stored in the master&rsquo;s local disk and replicated on remote machines.</p>
+<p>The main benefit of keeping the metadata in memory is to decrease the time to perform these operations at the master. Certain other activities also become easier to perform in the background because of this. The master periodically scans its whole state to implement chunk garbage collection, re-replicate certain chunks in case of failure of the chunkservers storing them, and chunk migration for load and disk space balancing across the chunkservers.</p>
+<p>The master doesn&rsquo;t keep a record of which chunkservers contain which chunks in persistent storage; it simply polls the chunkservers for that information at the startup and thereafter keeps itself up-to-date since the master will be the one making decisions about chunk placement. The master monitors the health of the chunkservers with regular HeartBeat messages.</p>
+<h2 id="consistency-guarantees-by-gfs">Consistency Guarantees by GFS</h2>
+<p>File namespace mutations are atomic since the master exclusively handles these mutations. The operation log present at the master defines a global total order for all of these operations.</p>
+<p>GFS supports a relaxed consistency model that works well with highly distributed applications and is also relatively simple and efficient. It is important to keep in mind that the reason GFS can work with such relaxed consistency guarantees is because of the intimate understanding of the workloads of its clients.</p>
+<p>Data mutations may be writes or record appends. A write causes data to be written at an application-specified file offset. A record append causes data (the &ldquo;record&rdquo;) to be appended atomically at least once even in the presence of concurrent mutations, but at an offset of GFS&rsquo;s choosing… The offset is returned to the client and marks the beginning of a defined region that contains the record.</p>
+<p>As we saw earlier, clients cache the locations of certain chunks that they are currently reading from. It is possible that they may read from a stale replica before the information on that chunk replica is updated. But since most of the files are append-only, a stale replica will only return a premature end of chunk rather than outdated data. When the client retries and contacts the master, it will immediately be pointed to chunks with up-to-date data.</p>
+<h2 id="system-interactions">System Interactions</h2>
+<p>As we saw earlier, the system is designed in a way that minimizes the involvement of the master in all operations as much as possible.</p>
+<p>To handle the mutation operations, GFS uses leases. Mutation operations consist of a write or a record append operation. Each mutation operation is performed on all of the chunk&rsquo;s replicas.</p>
+<p>The master grants a chunk lease to one of the chunkservers that hold a certain chunk; this chunkserver is now known as the primary.</p>
+<p>Whenever a client wants to perform a mutation operation, the client asks the master which chunkserver holds the current lease for the chunk and the locations of the other replicas.</p>
+<p>The master replies with the identity of the primary and the location of other replicas. The client caches this data. The client needs now only to contact the master in case the primary server stops responding or replies that it no longer holds the lease.</p>
+<p>The client pushes the data that it needs to write/append to all of the replicas.</p>
+<p>Once all the replicas have acknowledged receiving the data, the client sends a write request to the primary. The primary assigns an order to all the mutations that it has received from the client (possibly multiple). It applies the mutation to its local state.</p>
+<p>The primary forwards the write request to all the replicas, and each replica applies the mutations in the same order provided by the primary.</p>
+<p>Once all the replicas reply to the primary indicating that they have completed the operation, the primary replies to the client that the mutation has succeeded.</p>
+<p>Any errors encountered at any of the replicas are reported to the client. In case of errors, the write may have succeeded at the primary and an arbitrary subset of the secondary replicas. (If it had failed at the primary, it would not have been assigned a serial number and forwarded.) The client request is considered to have failed, and the modified region is left in an inconsistent state. Our client code handles such errors by retrying the failed mutation.</p>
+<p>Here one can observe the design decision to decouple the flow of data from the flow of control. Once the primary chunkserver has a lease from the master, the client or the chunkserver doesn&rsquo;t need to communicate with the master, and the data can flow directly from the client to the chunkserver or vice-versa.</p>
+<p>Another aspect of this is when the control flows from the client to the primary and then to the secondaries, the data can be pushed linearly across a chain of chunkservers in a pipelined fashion, ensuring that the network capacity of all the machines is utilized properly.</p>
+<p>Thus, decoupling the flow of data from the flow of control adds an element of network optimization.</p>
+<h2 id="stale-replica-detection">Stale Replica Detection</h2>
+<p>Chunk replicas on a chunkserver might become stale if that chunkserver is down during some mutation on the chunks it contains. For each chunk, the master maintains a chunk version number to distinguish between up-to-date and stale replicas.</p>
+<p>Whenever the master grants a new lease on a chunk, it increases the chunk version number and informs the up-to-date replicas. The master and these replicas all record the new version number in their persistent state.</p>
+<p>This ensures that any replica that was not updated while the mutation happened would contain an older version number. So, when it comes back up and reports its chunks and their associated version numbers, the master can detect that the chunks it contains are stale.</p>
+<p>The master removes these stale replicas during its regular garbage collection. Before that, the master considers them to not exist at all, and when any client requests chunk information, these stale replicas are not reported. As a safeguard, the master also provides the client with the latest chunk version number so that the client can verify that it is always accessing up-to-date data.</p>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<p>There are many remarkable elements of the Google File System, some of the important ones I would like to highlight are:</p>
+<ul>
+<li>Demonstrating that large-scale highly-distributed operations such as this distributed file system can be supported by the means of regular commodity hardware.</li>
+<li>Separation of data flow from control flow, allowing better utilization of the network and also making the single master architecture feasible.</li>
+<li>Aggressively designing all elements of the system for specific client workloads, which makes it possible to have different or simpler consistency guarantees.</li>
+</ul>
+<hr>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/distributed-systems/">Distributed Systems</a>
+  
+  <a class="badge badge-light" href="/tag/storage/">Storage</a>
+  
+  <a class="badge badge-light" href="/tag/google-file-system/">Google File System</a>
+  
+  <a class="badge badge-light" href="/tag/research/">Research</a>
+  
+</div>
+
+
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Flocalhost%3A1313%2Fpost%2Fgoogle-file-system%2F&amp;text=Exploring&#43;the&#43;Power&#43;of&#43;Google&#43;File&#43;System%3A&#43;The&#43;Distributed&#43;Storage&#43;System&#43;That&#43;Revolutionized&#43;Big&#43;Data" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Flocalhost%3A1313%2Fpost%2Fgoogle-file-system%2F&amp;t=Exploring&#43;the&#43;Power&#43;of&#43;Google&#43;File&#43;System%3A&#43;The&#43;Distributed&#43;Storage&#43;System&#43;That&#43;Revolutionized&#43;Big&#43;Data" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=Exploring%20the%20Power%20of%20Google%20File%20System%3A%20The%20Distributed%20Storage%20System%20That%20Revolutionized%20Big%20Data&amp;body=http%3A%2F%2Flocalhost%3A1313%2Fpost%2Fgoogle-file-system%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=http%3A%2F%2Flocalhost%3A1313%2Fpost%2Fgoogle-file-system%2F&amp;title=Exploring&#43;the&#43;Power&#43;of&#43;Google&#43;File&#43;System%3A&#43;The&#43;Distributed&#43;Storage&#43;System&#43;That&#43;Revolutionized&#43;Big&#43;Data" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Exploring&#43;the&#43;Power&#43;of&#43;Google&#43;File&#43;System%3A&#43;The&#43;Distributed&#43;Storage&#43;System&#43;That&#43;Revolutionized&#43;Big&#43;Data%20http%3A%2F%2Flocalhost%3A1313%2Fpost%2Fgoogle-file-system%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="http://localhost:1313/"><img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_hu17024398b0f5431c5adf0ce181c190b5_734819_270x270_fill_q75_lanczos_center.jpg" alt="Prince Modi"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="http://localhost:1313/">Prince Modi</a></h5>
+      <h6 class="card-subtitle">Master&rsquo;s Student</h6>
+      <p class="card-text">Distributed Systems@UCSD</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:princbemodi@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/modi-prince/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/prince-modi" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/uploads/resume.pdf" >
+        <i class="ai ai-cv"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="article-widget">
+  
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/post/google-spanner/" rel="prev">Exploring the Power of Google Spanner for Distributed Transaction Processing</a>
+  </div>
+  
+</div>
+
+</div>
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/google-spanner/">Exploring the Power of Google Spanner for Distributed Transaction Processing</a></li>
+      
+      <li><a href="/publication/conference-poster/hipc-srs-2023/">Towards a Modular Federated Learning Framework on Edge Devices</a></li>
+      
+      <li><a href="/publication/conference-poster/iros-lb-2023/">Towards Collision Avoidance for UAVs to Guide the Visually Impaired</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+  </div>
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  
+    
+  
+  
+    
+  
+
+  
+
+  
+  <p class="powered-by copyright-license-text">
+    © 2025 Prince Modi. This work is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank">CC BY NC ND 4.0</a>
+  </p>
+  
+
+  <p class="powered-by footer-license-icons">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      
+      
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      
+    </a>
+  </p>
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://hugoblox.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Hugo Blox Builder</a> — the free, <a href="https://github.com/HugoBlox/hugo-blox-builder" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.min.js" integrity="" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+  <script src="/js/wowchemy-headroom.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.js"></script>
+
+
+
+  <script src="/js/wowchemy-map.js" type="module"></script>
+
+
+
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <pre><code></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/js/wowchemy-publication.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
