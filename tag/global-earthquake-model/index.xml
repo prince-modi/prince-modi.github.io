@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Global Earthquake Model | Prince Modi</title>
+    <link>http://localhost:1313/tag/global-earthquake-model/</link>
+      <atom:link href="http://localhost:1313/tag/global-earthquake-model/index.xml" rel="self" type="application/rss+xml" />
+    <description>Global Earthquake Model</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 01 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/media/icon_hua5d2116872382d6405c4fb215e02fa8e_2300_512x512_fill_lanczos_center_3.png</url>
+      <title>Global Earthquake Model</title>
+      <link>http://localhost:1313/tag/global-earthquake-model/</link>
+    </image>
+    
+    <item>
+      <title>Probabilistic seismic risk assessment of Africa</title>
+      <link>http://localhost:1313/publication/journal-article/2025-africa-risk/</link>
+      <pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2025-africa-risk/</guid>
+      <description>&lt;h3 id=&#34;example-figure&#34;&gt;Example figure&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-seismic-hazard-map-for-the-top-475-year-return-period-and-the-bottom-2475-year-return-period-in-terms-of-peak-ground-acceleration-pga-on-rock-vs30--760-ms&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;A map of the African content where the seismic hazard is visualized at two different return periods&#34; srcset=&#34;
+               /media/publication/journal-article/2025_africa_risk_hude06070d638ca37cefd012ebae345987_1947884_c936981348951811715732f062a0228e.webp 400w,
+               /media/publication/journal-article/2025_africa_risk_hude06070d638ca37cefd012ebae345987_1947884_d119ef5e6928ecebbfcb15e6eb54a77b.webp 760w,
+               /media/publication/journal-article/2025_africa_risk_hude06070d638ca37cefd012ebae345987_1947884_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/publication/journal-article/2025_africa_risk_hude06070d638ca37cefd012ebae345987_1947884_c936981348951811715732f062a0228e.webp&#34;
+               width=&#34;403&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Seismic hazard map for the (top) 475-year return period and the (bottom) 2475-year return period in terms of peak ground acceleration (PGA) on rock (VS,30 = 760 m/s).
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Calibrating collapse and fatality rates for the assessment of fatalities due to earthquakes</title>
+      <link>http://localhost:1313/publication/journal-article/2025-calibrating-fatality-collapse/</link>
+      <pubDate>Thu, 27 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2025-calibrating-fatality-collapse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Global building exposure model for earthquake risk assessment</title>
+      <link>http://localhost:1313/publication/journal-article/2023-global-exposure-model-earthquakes/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2023-global-exposure-model-earthquakes/</guid>
+      <description>&lt;h3 id=&#34;policy-documents&#34;&gt;Policy documents&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://op.europa.eu/en/publication-detail/-/publication/e7ccf960-1ef7-11ef-a251-01aa75ed71a1/language-en&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Cross-border and emerging risks in Europe&lt;/a&gt; by the European Commission Joint Research Centre (JRC), 2024&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Development of a uniform exposure model for the African continent for use in disaster risk assessment</title>
+      <link>http://localhost:1313/publication/journal-article/2022-africa-exposure-model/</link>
+      <pubDate>Tue, 01 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2022-africa-exposure-model/</guid>
+      <description>&lt;h3 id=&#34;example-figure&#34;&gt;Example figure&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-estimated-number-of-residential-buildings-in-africa-aggregated-on-a-uniform-hexagonal-grid-of-05-decimal-degrees&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;A map of the African content where the number of estimated residential buildings is visualized using a uniform hexagonal grid of 0.5 decimal degrees&#34; srcset=&#34;
+               /media/publication/journal-article/2022_africa_exposure_hufcbd29a971daea277433c235a1a02c23_1456035_2d9ca47e8a204766cea6e6e97f782551.webp 400w,
+               /media/publication/journal-article/2022_africa_exposure_hufcbd29a971daea277433c235a1a02c23_1456035_da16718429411f2be70922a43ddb4995.webp 760w,
+               /media/publication/journal-article/2022_africa_exposure_hufcbd29a971daea277433c235a1a02c23_1456035_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/publication/journal-article/2022_africa_exposure_hufcbd29a971daea277433c235a1a02c23_1456035_2d9ca47e8a204766cea6e6e97f782551.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;725&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Estimated number of residential buildings in Africa, aggregated on a uniform hexagonal grid of 0.5 decimal degrees.
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;press&#34;&gt;Press&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://eos.org/articles/new-hazard-exposure-model-for-africa&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;New Hazard Exposure Model for Africa&amp;rdquo;&lt;/a&gt; by Munyaradzi Makoni for EOS&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://africapolis.org/en/research/mapping-exposure-of-urban-and-rural-communities-to-natural-hazards&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;Mapping exposure of urban and rural communities to natural hazards&amp;rdquo;&lt;/a&gt; by Nicole Paul for Africapolis&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;policy-documents&#34;&gt;Policy documents&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://openknowledge.worldbank.org/entities/publication/6a0da039-a2d4-4117-bf30-04c58ccd0847&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Building Regulations in Sub-Saharan Africa: A Status Review of the Building Regulatory Environment&lt;/a&gt; by the World Bank Global Facility for Disaster Reduction and Recovery (GFDRR), 2023&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Impact of exposure spatial resolution on seismic loss estimates in regional portfolios</title>
+      <link>http://localhost:1313/publication/journal-article/2021-exposure-spatial-resolution/</link>
+      <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2021-exposure-spatial-resolution/</guid>
+      <description>&lt;h3 id=&#34;policy-documents&#34;&gt;Policy documents&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://op.europa.eu/en/publication-detail/-/publication/b35b92a4-5c08-11ed-92ed-01aa75ed71a1/language-en&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Prioritising EU regions for building renovation&lt;/a&gt; by the European Commission Joint Research Centre (JRC), 2022&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Potential impact of earthquakes during the 2020 COVID-19 pandemic</title>
+      <link>http://localhost:1313/publication/journal-article/2021-covid-earthquake/</link>
+      <pubDate>Tue, 18 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/journal-article/2021-covid-earthquake/</guid>
+      <description>&lt;h3 id=&#34;example-figure&#34;&gt;Example figure&lt;/h3&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-forecasting-of-the-aggregated-number-of-cumulative-covid-19-cases-for-the-three-regions-lisbon-and-the-tagus-valley-alentejo-and-algarve-considering-the-displaced-population-from-the-m57-onshore-left-and-m87-offshore-right-earthquake-scenarios-the-darker-line-represents-the-mean-results-while-the-lighter-lines-represent-individual-simulations&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;A plot showing the increase in Covid cases over time due to two different earthquake scenarios affecting Portugal&#34; srcset=&#34;
+               /media/publication/journal-article/2021_covid_earthquake_hu4e822dde8f1944f28c8e9a6c559443d7_893631_40d7bec7ea832cebd91a17fbb0ec0d52.webp 400w,
+               /media/publication/journal-article/2021_covid_earthquake_hu4e822dde8f1944f28c8e9a6c559443d7_893631_a5624ce5aab938daca595215100b2555.webp 760w,
+               /media/publication/journal-article/2021_covid_earthquake_hu4e822dde8f1944f28c8e9a6c559443d7_893631_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/publication/journal-article/2021_covid_earthquake_hu4e822dde8f1944f28c8e9a6c559443d7_893631_40d7bec7ea832cebd91a17fbb0ec0d52.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;345&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Forecasting of the (aggregated) number of cumulative COVID-19 cases for the three regions (Lisbon and the Tagus Valley, Alentejo, and Algarve) considering the displaced population from the M5.7 onshore (left) and M8.7 offshore (right) earthquake scenarios. The darker line represents the mean results, while the lighter lines represent individual simulations.
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;press&#34;&gt;Press&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://eos.org/features/where-do-people-fit-into-a-global-hazard-model&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;Where Do People Fit into a Global Hazard Model?&amp;rdquo;&lt;/a&gt; by Richard J. Sima for EOS&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Modeling global earthquake risk</title>
+      <link>http://localhost:1313/project/global-earthquake-model/</link>
+      <pubDate>Fri, 01 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/project/global-earthquake-model/</guid>
+      <description>&lt;p&gt;For more information on the Global Earthquake Model (GEM) Foundation&amp;rsquo;s Global Seismic Risk model, please refer to their &lt;a href=&#34;https://www.globalquakemodel.org/products&#34; target=&#34;_blank&#34;&gt;Products&lt;/a&gt; page.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

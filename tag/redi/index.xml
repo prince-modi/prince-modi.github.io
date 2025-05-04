@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>REDi | Prince Modi</title>
+    <link>http://localhost:1313/tag/redi/</link>
+      <atom:link href="http://localhost:1313/tag/redi/index.xml" rel="self" type="application/rss+xml" />
+    <description>REDi</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 01 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/media/icon_hua5d2116872382d6405c4fb215e02fa8e_2300_512x512_fill_lanczos_center_3.png</url>
+      <title>REDi</title>
+      <link>http://localhost:1313/tag/redi/</link>
+    </image>
+    
+    <item>
+      <title>Case Studies of Tall-Building Structural Analyses and Downtime and Loss Assessment for the HayWired Scenario Mainshock</title>
+      <link>http://localhost:1313/publication/report/2018-haywired-downtime/</link>
+      <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/report/2018-haywired-downtime/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Functional recovery and resilience</title>
+      <link>http://localhost:1313/project/functional-recovery-redi/</link>
+      <pubDate>Sat, 01 Jun 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/project/functional-recovery-redi/</guid>
+      <description>&lt;p&gt;For more information about Arup&amp;rsquo;s work on functional recovery and resilience, please refer to their &lt;a href=&#34;https://www.redi.arup.com/&#34; target=&#34;_blank&#34;&gt;REDi Rating System&lt;/a&gt; website.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

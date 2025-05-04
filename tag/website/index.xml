@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Website | Nicole Paul</title>
+    <link>http://localhost:1313/tag/website/</link>
+      <atom:link href="http://localhost:1313/tag/website/index.xml" rel="self" type="application/rss+xml" />
+    <description>Website</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Tue, 05 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/media/icon_hu209de9eb93bbf92fdbefdbfdebe32890_3589_512x512_fill_lanczos_center_3.png</url>
+      <title>Website</title>
+      <link>http://localhost:1313/tag/website/</link>
+    </image>
+    
+    <item>
+      <title>How did I make my personal academic website?</title>
+      <link>http://localhost:1313/post/academia-website/</link>
+      <pubDate>Tue, 05 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/post/academia-website/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.jackwbaker.com/advice/Online_presence.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Establishing an online presence as an academic&lt;/a&gt; can help others learn more about your research and serve as an online CV for future career opportunities.&lt;/p&gt;
+&lt;p&gt;This guide shares the steps to create a website similar to mine. It is meant for those that have some comfort with coding and Git. There are a variety of alternative options that do &lt;em&gt;not&lt;/em&gt; require coding or the use of Git, such as &lt;a href=&#34;https://sites.google.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Google Sites&lt;/a&gt;, &lt;a href=&#34;https://www.squarespace.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Squarespace&lt;/a&gt;, or &lt;a href=&#34;https://www.wix.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Wix&lt;/a&gt;. Additionally, your university may support creation of a personal page on their website.&lt;/p&gt;
+&lt;p&gt;Personally, I chose &lt;a href=&#34;https://gohugo.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo&lt;/a&gt; because I wanted to maintain my website in a text editor rather than by clicking around on a browser. I felt this would maximize my degree of control, while still allowing me to take advantage of pre-built web components and themes. Ultimately, you should choose whichever option makes sense for you, both in terms of the initial setup and longer-term maintenance. To deploy my static website, I&amp;rsquo;m using &lt;a href=&#34;https://www.netlify.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Netlify&lt;/a&gt;, which is free for my use case. Lastly, I manage my domain name using &lt;a href=&#34;https://www.cloudflare.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Cloudflare&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In terms of costs for this website, I only pay for the domain name: 45USD annually (3.75USD monthly). However, several cheaper alternative domain names were available (e.g., 10USD annually) and free domain names are possible with Netlify or GitHub Pages.&lt;/p&gt;
+&lt;h2 id=&#34;building-your-website&#34;&gt;Building your website&lt;/h2&gt;
+&lt;h3 id=&#34;hugo-static-site-generator&#34;&gt;Hugo: Static site generator&lt;/h3&gt;
+&lt;p&gt;Before I made my website, I sifted through other academics&amp;rsquo; websites to get a feel for what I liked and which options had my desired functionality or look/feel. I saw that many academics used &lt;a href=&#34;https://gohugo.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo&lt;/a&gt;, an open source static site generator. You can learn more about Hugo &lt;a href=&#34;https://gohugo.io/about/what-is-hugo/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;After some initial orientation, Hugo is relatively simple to use and customize without having to get into the weeds of dependencies, databases, and so on. The result is a website that is fast and customizable.&lt;/p&gt;
+&lt;h3 id=&#34;choosing-a-theme&#34;&gt;Choosing a theme&lt;/h3&gt;
+&lt;p&gt;Hugo has a variety of themes for different purposes, from personal academic CVs to research lab pages and portfolios to books. You can see the full list of themes &lt;a href=&#34;https://themes.gohugo.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;. The right theme for you may depend on what type of content you want to showcase.&lt;/p&gt;
+&lt;p&gt;For this website, I&amp;rsquo;m using the &lt;a href=&#34;https://hugoblox.com/templates/details/academic-cv/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Academic CV&lt;/a&gt; theme, which is free. However, I&amp;rsquo;ve customized the styling quite a bit to make the website feel a bit more personalized.&lt;/p&gt;
+&lt;h3 id=&#34;configuring-settings&#34;&gt;Configuring settings&lt;/h3&gt;
+&lt;p&gt;Go through the files in the &lt;code&gt;config/&lt;/code&gt; folder to set your website settings. In general, you can use the defaults. However, some important settings to configure include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Website title (&lt;code&gt;title&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Base URL (&lt;code&gt;baseURL&lt;/code&gt;) &amp;ndash; &lt;em&gt;do this once you&amp;rsquo;ve chosen a domain name&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Menu order&lt;/li&gt;
+&lt;li&gt;Appearance (e.g., &lt;code&gt;mode&lt;/code&gt;, &lt;code&gt;theme&lt;/code&gt;, &lt;code&gt;font&lt;/code&gt;, &lt;code&gt;font_size&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Search engine optimization (SEO) and marketing (&lt;code&gt;seo&lt;/code&gt;, &lt;code&gt;marketing&lt;/code&gt;) &amp;ndash; &lt;em&gt;note that it can take a day or two for your website to appear on search engines&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;adding-content&#34;&gt;Adding content&lt;/h3&gt;
+&lt;p&gt;Once you&amp;rsquo;ve identified the theme you&amp;rsquo;d like to work with, follow the edit/download link. This should take you to the Github repository for the code, which you can fork (copy) and edit in your preferred text editor (e.g., &lt;a href=&#34;https://code.visualstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;VSCode&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;In general, all of the content is within markdown files inside the &lt;code&gt;content/&lt;/code&gt; folder.&lt;/p&gt;
+&lt;h4 id=&#34;landing-page&#34;&gt;Landing page&lt;/h4&gt;
+&lt;p&gt;The main landing page is at the path: &lt;code&gt;content/_index.md&lt;/code&gt;. Here, you can choose the order of your content, remove sections, and choose between different &lt;a href=&#34;https://docs.hugoblox.com/getting-started/page-builder/#personalizing-blocks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;views&lt;/a&gt; for the content.&lt;/p&gt;
+&lt;h4 id=&#34;content-types&#34;&gt;Content types&lt;/h4&gt;
+&lt;p&gt;There should already be dummy examples of the different content types (e.g., projects, blog posts, biography) that you can adapt as needed. Refer to the &lt;a href=&#34;https://docs.hugoblox.com/reference/markdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo Blox Docs&lt;/a&gt; for more infortmation on how to customize your content.&lt;/p&gt;
+&lt;p&gt;Different content types support different parameters, which are specfiied at the top of each markdown file between lines of &lt;code&gt;---&lt;/code&gt;. The main body is specified after the parameters, using general Markdown syntax. For reference, a simple example is shown for a project below.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nn&#34;&gt;---&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# Parameters: General information&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;An example project&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;summary&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Here is a brief summary of the example project&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;tags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;academia&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;website&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;2019-11-01T00:00:00Z&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;show_date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;False&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# Parameters: Optional links that will appear as badges&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;links&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;url_code&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;https://github.com/nicolepaul&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;url_pdf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;url_slides&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;url_video&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;https://youtube.com/&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;---&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;l&#34;&gt;&amp;lt;!--- The content below will go into the main body of the page --&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;## Overview&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Some text here.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;## Acknowledgments&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Some text here.&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;custom-styling&#34;&gt;Custom styling&lt;/h3&gt;
+&lt;p&gt;Some ways you can customize the styling of your selected theme include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Adding an icon (favicon)&lt;/li&gt;
+&lt;li&gt;Setting a color theme&lt;/li&gt;
+&lt;li&gt;Choosing fonts&lt;/li&gt;
+&lt;li&gt;Adjusting the navigation bar&lt;/li&gt;
+&lt;li&gt;Changing the order of content in the menus&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Refer to the &lt;a href=&#34;https://docs.hugoblox.com/getting-started/customize/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo Blox Docs&lt;/a&gt; for the supported customization options.&lt;/p&gt;
+&lt;p&gt;For more advanced styling, you can always add your own custom css at the following path: &lt;code&gt;assets/scss/custom.scss&lt;/code&gt;. This will override the default styling.&lt;/p&gt;
+&lt;h2 id=&#34;deploying-your-website&#34;&gt;Deploying your website&lt;/h2&gt;
+&lt;h3 id=&#34;deploying-locally&#34;&gt;Deploying locally&lt;/h3&gt;
+&lt;p&gt;In order to deploy locally, you will first need to follow the &lt;a href=&#34;https://gohugo.io/installation/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo installation guidelines for your machine type&lt;/a&gt;. I recommend doing this so that you can preview your changes and check for any errors before updating your repository&amp;rsquo;s &lt;code&gt;main&lt;/code&gt; branch and affecting the production version deployed online.&lt;/p&gt;
+&lt;p&gt;After you&amp;rsquo;ve installed Hugo and its dependencies, you can deploy locally from a terminal window. First, navigate to your repository&amp;rsquo;s root directory. From there, you can call &lt;code&gt;hugo server&lt;/code&gt; to deploy locally. A message should appear with an address you can navigate to on your browser (e.g., &lt;code&gt;http://localhost:1313/&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;You can also view live changes when you deploy locally. That means, you can edit the files and the instantly see changes in your browser.&lt;/p&gt;
+&lt;h3 id=&#34;deploying-online&#34;&gt;Deploying online&lt;/h3&gt;
+&lt;p&gt;Hugo websites can be deployed by a &lt;a href=&#34;https://docs.hugoblox.com/reference/deployment/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;variety of services&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;netlify&#34;&gt;Netlify&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.netlify.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Netlify&lt;/a&gt; is free and easy to use, and will automatically update when you commit changes to your repository&amp;rsquo;s &lt;code&gt;main&lt;/code&gt; branch.&lt;/p&gt;
+&lt;p&gt;To do this, link your Netlify account to your Github account and find the repository hosting the code for your personal website. Once an update to the &lt;code&gt;main&lt;/code&gt; branch of your repository is detected, it should only take a minute or two for Netlify to build and deploy the latest changes.&lt;/p&gt;
+&lt;h4 id=&#34;github-pages&#34;&gt;GitHub Pages&lt;/h4&gt;
+&lt;p&gt;GitHub also lets you host a static site for free. To do so, you need the code repository to be named &lt;code&gt;&amp;lt;USERNAME&amp;gt;.github.io&lt;/code&gt;. Detailed guidance on how to set up a Hugo website using GitHub Pages is available &lt;a href=&#34;https://www.o11ycloud.com/posts/gh_hugo/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;domain-names&#34;&gt;Domain names&lt;/h2&gt;
+&lt;p&gt;There are free and paid options for your domain name. Once you decide, don&amp;rsquo;t forget to update the &lt;code&gt;baseURL&lt;/code&gt; parameter in the relevant file in the &lt;code&gt;_config/&lt;/code&gt; folder!&lt;/p&gt;
+&lt;h3 id=&#34;finding-a-domain-name&#34;&gt;Finding a domain name&lt;/h3&gt;
+&lt;p&gt;If you want, you can use a free doamin name from Netlify (&lt;code&gt;&amp;lt;NAME_HERE&amp;gt;.netlify.app&lt;/code&gt;) or GitHub Pages (&lt;code&gt;&amp;lt;USERNAME&amp;gt;.github.io&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;However, you can also purchase your own domain name from a variety of providers. You can search for available domain names and prices on services such as &lt;a href=&#34;https://www.hover.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hover&lt;/a&gt; or &lt;a href=&#34;https://www.namecheap.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Namecheap&lt;/a&gt;. Pay attention to any listed renewal costs, which are sometimes higher than the initially listed price.&lt;/p&gt;
+&lt;h3 id=&#34;setting-up-a-dns-record&#34;&gt;Setting up a DNS record&lt;/h3&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    The &lt;strong&gt;Domain Name System (DNS)&lt;/strong&gt; acts as a phonebook of the internet. The DNS maps human-friendly domain names or hostnames (e.g, example.com) to computer-friendly Internet Protocol (IP) addresses (e.g., 192.0.2.1).
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Once you have a domain, you need to add a DNS record in whichever service you use to manage your domain (e.g., Cloudflare). Netlify provides &lt;a href=&#34;https://answers.netlify.com/t/support-guide-compiled-resources-for-production-domains-on-netlify-and-dns-settings-start-here/48222&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;several guides to help you configure your DNS settings&lt;/a&gt;, as does &lt;a href=&#34;https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Pages&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Note that it can take between a few minutes to three days for your DNS record to be propagated (i.e., to correctly direct to your website).&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects | Prince Modi</title>
+    <link>http://localhost:1313/project/</link>
+      <atom:link href="http://localhost:1313/project/index.xml" rel="self" type="application/rss+xml" />
+    <description>Projects</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Mon, 26 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/media/icon_hua5d2116872382d6405c4fb215e02fa8e_2300_512x512_fill_lanczos_center_3.png</url>
+      <title>Projects</title>
+      <link>http://localhost:1313/project/</link>
+    </image>
+    
+    <item>
+      <title>Household displacement after disasters</title>
+      <link>http://localhost:1313/project/household-displacement/</link>
+      <pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/project/household-displacement/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    For a review on household displacement and return after disasters, please refer to my &lt;a href=&#34;https://doi.org/10.1061/NHREFO.NHENG-1930&#34; target=&#34;_blank&#34;&gt;open access paper&lt;i class=&#34;ai ai-open-access ml-1&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Over 265 million people were displaced due to disasters between 2008 and 2018&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In the forthcoming years, the annual number displaced is expected to increase, driven by poorly-managed urban growth in hazard-prone areas&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; and potentially exacerbated by climate change&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;. Despite this scale of human impact, most disaster risk assessments focus on direct economic losses, a metric that often highlights the wealthiest as the most at-risk. However, the reality of disasters is that the poor are disproportionately affected&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;, and mitigations informed primarily by economic loss may deepen existing inequalities. This research proposes to quantify disaster-induced displacement; a more equitable risk metric to depict the human toll of disasters.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-key-definitions-and-the-scope-the-highlighted-labels-indicate-the-areas-considered-in-this-review-labels-below-the-highlighted-labels-are-subsets-of-that-category&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Key definitions and the scope. The highlighted labels indicate the areas considered in this review. Labels below the highlighted labels are subsets of that category.&#34; srcset=&#34;
+               /media/project/household-displacement/scope_hu332817846e9d4d46b7e17363e9587556_317229_736c12568f34581840da92df20a16ace.webp 400w,
+               /media/project/household-displacement/scope_hu332817846e9d4d46b7e17363e9587556_317229_3ebba009d33d25089bc53c9c7457a6dc.webp 760w,
+               /media/project/household-displacement/scope_hu332817846e9d4d46b7e17363e9587556_317229_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/project/household-displacement/scope_hu332817846e9d4d46b7e17363e9587556_317229_736c12568f34581840da92df20a16ace.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;310&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Key definitions and the scope. The highlighted labels indicate the areas considered in this review. Labels below the highlighted labels are subsets of that category.
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;research-themes&#34;&gt;Research themes&lt;/h2&gt;
+&lt;h3 id=&#34;the-importance-of-duration&#34;&gt;The importance of duration&lt;/h3&gt;
+&lt;p&gt;Most statistics regarding population displacement following a disaster event provide single snapshot values, often representing a peak estimate during the emergency phase. However, the duration of displacement is essential for understanding the human impact. For example, large- scale displacement in the form of evacuations before a storm can save lives and be followed by mass return shortly afterward. In contrast, a devastating event such as an earthquake could damage or destroy a significant proportion of the residential building stock, causing occupants to seek alternative accommodations for months to years. Not only does this type of protracted displacement pose a significant disruption to the livelihoods of affected households (e.g., lost income, interrupted education), but the consequences can ripple out into the larger community (e.g., outmigration and urban blight, lost economic production). Therefore, a key objective of this research is to refine our understanding of household displacement duration in disasters.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-timeline-representing-displacement-duration-alongside-key-phases-of-disaster-management-and-recovery&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Timeline representing displacement duration alongside key phases of disaster management and recovery.&#34; srcset=&#34;
+               /media/project/household-displacement/timeline_hude3715038a14aa4369aff6e2dfdcd6b6_71258_9c38a7602fc1a35f918311943044c5d3.webp 400w,
+               /media/project/household-displacement/timeline_hude3715038a14aa4369aff6e2dfdcd6b6_71258_3f82c432c71a43ed466146a2749b8f2e.webp 760w,
+               /media/project/household-displacement/timeline_hude3715038a14aa4369aff6e2dfdcd6b6_71258_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/project/household-displacement/timeline_hude3715038a14aa4369aff6e2dfdcd6b6_71258_9c38a7602fc1a35f918311943044c5d3.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;453&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Timeline representing displacement duration alongside key phases of disaster management and recovery.
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;determinants-of-household-return&#34;&gt;Determinants of household return&lt;/h3&gt;
+&lt;p&gt;Disasters are life events that can subject households to key decision points, such as: whether to evacuate, where to seek shelter, whether to return/wait/relocate, and whether to stay or resettle. From a &lt;a href=&#34;http://localhost:1313/publication/journal-article/2024-household-displacement-in-disasters-review/&#34;&gt;literature review&lt;/a&gt; of household return after disasters, the following categories of determinants have been identified.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Category&lt;/th&gt;
+&lt;th&gt;Determinants of return&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&#34;fa-solid fa-house-chimney-crack&#34;&gt;&lt;/i&gt;&lt;/td&gt;
+&lt;td&gt;Physical damage to the built environment&lt;/td&gt;
+&lt;td&gt;&lt;ul&gt;&lt;li&gt;Habitability of housing (damage, weather, utilities)&lt;/li&gt;&lt;li&gt;Housing type&lt;/li&gt;&lt;li&gt;Community damage&lt;/li&gt;&lt;li&gt;Reconstruction progress&lt;/li&gt;&lt;/ul&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&#34;fa-solid fa-users&#34;&gt;&lt;/i&gt;&lt;/td&gt;
+&lt;td&gt;Psychological &amp;amp; social phenomena&lt;/td&gt;
+&lt;td&gt;&lt;ul&gt;&lt;li&gt;Acceleration of ongoing trends&lt;/li&gt;&lt;li&gt;Attachment to place&lt;/li&gt;&lt;li&gt;Social capital (networks, family and friends)&lt;/li&gt;&lt;li&gt;Perceived risk&lt;/li&gt;&lt;/ul&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&#34;fa-solid fa-id-card&#34;&gt;&lt;/i&gt;&lt;/td&gt;
+&lt;td&gt;Household demographics&lt;/td&gt;
+&lt;td&gt;&lt;ul&gt;&lt;li&gt;Socioeconomic status (e.g., income level)&lt;/li&gt;&lt;li&gt;Housing and land tenure&lt;/li&gt;&lt;li&gt;Race/ethnicity/caste&lt;/li&gt;&lt;li&gt;Age&lt;/li&gt;&lt;/ul&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&#34;fa-solid fa-building-columns&#34;&gt;&lt;/i&gt;&lt;/td&gt;
+&lt;td&gt;Pre- and post-disaster policies&lt;/td&gt;
+&lt;td&gt;&lt;ul&gt;&lt;li&gt;Pre-existing housing conditions (e.g., vacancies)&lt;/li&gt;&lt;li&gt;Housing reconstruction approach&lt;/li&gt;&lt;li&gt;Other disaster assistance policies&lt;/li&gt;&lt;/ul&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;the-role-of-housing-damage&#34;&gt;The role of housing damage&lt;/h3&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    For more on the role of housing damage in population displacement predictions, please refer to my &lt;a href=&#34;https://doi.org/10.26443/seismica.v3i2.1374&#34; target=&#34;_blank&#34;&gt;open access paper&lt;i class=&#34;ai ai-open-access ml-1&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Disaster literature offers a clear consensus that housing damage is a primary driver of household displacement of disasters, both for initial displacement and longer-term displacement. However, additional factors (e.g., place attachment and housing tenure) have more recently been proposed as highly influential for household return in the recovery phase. Despite the range of factors beyond damage that have been proposed to influence household return, standard practice in disaster risk analysis is to solely consider housing damage. That is, the number of destroyed homes is multiplied by the average household size to yield an estimate of the displaced population.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-an-illustration-of-the-conventional-practice-for-estimating-population-displacement-after-disaster-events&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;A graphical representation of the conventional practice for estimating population displacement after disasters: Displacement population = Destroyed houses × Average household size.&#34; srcset=&#34;
+               /media/project/household-displacement/conventional_practice_hua069f087403fc03ba0c4936d09b6f5e4_16643_83d35e337f73782930b37ac27f616c62.webp 400w,
+               /media/project/household-displacement/conventional_practice_hua069f087403fc03ba0c4936d09b6f5e4_16643_74789596287a14679d467d5076776688.webp 760w,
+               /media/project/household-displacement/conventional_practice_hua069f087403fc03ba0c4936d09b6f5e4_16643_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/project/household-displacement/conventional_practice_hua069f087403fc03ba0c4936d09b6f5e4_16643_83d35e337f73782930b37ac27f616c62.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;210&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      An illustration of the conventional practice for estimating population displacement after disaster events.
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;I benchmarked predictions of household displacement based solely on housing damage to understand the extent to which such simplified models can explain the phenomenon. The scenario model estimates showed some promise to predict potential long-term housing needs. However, quantifying displacement duration remained a clear challenge as official reports lacked this information and model estimates similarly lacked a time component. Mobile location data could theoretically fill the data gap on duration, but the benchmarking results indicate that further investigation is required on such data-driven methods.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-benchmarking-results-for-displacement-estimates-using-a-scenario-risk-analysis-that-only-considers-housing-damage-green-versus-official-reports-and-mobile-location-data-based-estimates&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Benchmarking results for displacement estimates using a scenario risk analysis that only considers housing damage (green) versus official reports and mobile location data-based estimates.&#34; srcset=&#34;
+               /media/project/household-displacement/benchmarking_hu74a510f6a8af36a594948cdfa000b107_382683_9ff26e2430b0d66aeb9303c70b82f189.webp 400w,
+               /media/project/household-displacement/benchmarking_hu74a510f6a8af36a594948cdfa000b107_382683_8e6a1ce1e366894659ced414bd4fc15f.webp 760w,
+               /media/project/household-displacement/benchmarking_hu74a510f6a8af36a594948cdfa000b107_382683_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/project/household-displacement/benchmarking_hu74a510f6a8af36a594948cdfa000b107_382683_9ff26e2430b0d66aeb9303c70b82f189.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;244&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Benchmarking results for displacement estimates using a scenario risk analysis that only considers housing damage (green) versus official reports and mobile location data-based estimates.
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;The full results of the benchmarking study are available in a &lt;a href=&#34;http://localhost:1313/publication/journal-article/2024-benchmarking-displacement-earthquakes/&#34;&gt;journal paper&lt;/a&gt; and a &lt;a href=&#34;http://localhost:1313/publication/conference-paper/2023-benchmarking-displacement-earthquakes/&#34;&gt;conference paper&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;predicting-displacement-durations&#34;&gt;Predicting displacement durations&lt;/h3&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    For more on displacement duration and return predictions, please refer to my &lt;a href=&#34;https://onlinelibrary.wiley.com/doi/full/10.1111/risa.17710&#34; target=&#34;_blank&#34;&gt;open access paper&lt;i class=&#34;ai ai-open-access ml-1&#34;&gt;&lt;/i&gt;&lt;/a&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;According to new data from the United States Household Pulse Survey (HPS), approximtely 1.1% of households have reported being displaced in recent disasters. However, the rates of disaster displacement vary widely state-by-state.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-percentage-of-households-displaced-by-state-according-to-the-united-states-household-pulse-survey-based-on-all-available-survey-datawhere-displacement-is-included-through-july-2024&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;A map of the United States where the percent of households displacement due to disasters is visualized state-by-state.&#34; srcset=&#34;
+               /media/publication/journal-article/2025_hps_displacement_hu989370b19b479fcb2dda298a899a024f_5829075_c6a0766297f417bc15bb68dcac597aa3.webp 400w,
+               /media/publication/journal-article/2025_hps_displacement_hu989370b19b479fcb2dda298a899a024f_5829075_84194397b54980cbb704b2f437572fd9.webp 760w,
+               /media/publication/journal-article/2025_hps_displacement_hu989370b19b479fcb2dda298a899a024f_5829075_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/publication/journal-article/2025_hps_displacement_hu989370b19b479fcb2dda298a899a024f_5829075_c6a0766297f417bc15bb68dcac597aa3.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;484&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Percentage of households displaced by state according to the United States Household Pulse Survey (based on all available survey datawhere displacement is included through July 2024).
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;The vast majority of displaced households returned quickly: 43% within a week and an additional 23% within a month. However, others faced more protracted displacement: 20% took longer than one month to return and 14% had not returned by the time of the survey.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-percentage-of-displaced-households-households-that-took-longer-than-one-month-to-return-according-to-the-united-states-household-pulse-survey-based-on-all-available-survey-datawhere-displacement-is-included-through-july-2024&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;A map of the United States where the proportion of households that took beyond one month to return is visualized state-by-state.&#34; srcset=&#34;
+               /media/project/household-displacement/hps_protracted_hu989370b19b479fcb2dda298a899a024f_5859032_dd51c771b3eed4881207cb038d67d172.webp 400w,
+               /media/project/household-displacement/hps_protracted_hu989370b19b479fcb2dda298a899a024f_5859032_4cae7d90cd82691175a7518f0d6f8904.webp 760w,
+               /media/project/household-displacement/hps_protracted_hu989370b19b479fcb2dda298a899a024f_5859032_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/project/household-displacement/hps_protracted_hu989370b19b479fcb2dda298a899a024f_5859032_dd51c771b3eed4881207cb038d67d172.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;484&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Percentage of displaced households households that took longer than one month to return according to the United States Household Pulse Survey (based on all available survey datawhere displacement is included through July 2024).
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;The availability of microdata from the HPS allows us to explore trends between displacement duration and return outcomes with potentially relevant factors such as: property damage, lifeline disruption, household demographics, and area-based attributes. To explore these trends, please refer to my &lt;a href=&#34;https://hps.nicolepaul.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;interactive dashboard&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-preview-of-the-interactive-dashboard-httpshpsnicolepaulio&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;A screenshot of the interactive dashboard.&#34; srcset=&#34;
+               /media/project/household-displacement/dashboard_huf9b2e51c14c457660436f3c4acfa36e3_602180_093aa8ffd73b84da868277cf13e9ec8f.webp 400w,
+               /media/project/household-displacement/dashboard_huf9b2e51c14c457660436f3c4acfa36e3_602180_45fabcb56557809b2095b5dbfcf12253.webp 760w,
+               /media/project/household-displacement/dashboard_huf9b2e51c14c457660436f3c4acfa36e3_602180_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;http://localhost:1313/media/project/household-displacement/dashboard_huf9b2e51c14c457660436f3c4acfa36e3_602180_093aa8ffd73b84da868277cf13e9ec8f.webp&#34;
+               width=&#34;760&#34;
+               height=&#34;560&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Preview of the interactive dashboard: &lt;a href=&#34;https://hps.nicolepaul.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://hps.nicolepaul.io/&lt;/a&gt;
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;With the microdata, we can additionally fit predictive models and evaluate their performance. In our study, we propose three alternate models, which range in complexity and predictive power:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;TreeP:&lt;/strong&gt; A classification tree model that predicts return outcomes with a minimum number of predictors related to physical factors.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;TreeP&amp;amp;S:&lt;/strong&gt; A classification tree model that predicts return outcomes with a minimum number of predictors related to physical &lt;em&gt;and&lt;/em&gt; socioeconomic factors.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ForestP&amp;amp;S:&lt;/strong&gt; A random forest model that predicts return outcomes considering all predictions related to physical and socioeconomic factors.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;strong&gt;ForestP&amp;amp;S&lt;/strong&gt; model additionally allows us to highlight the importance of different physical and socioeconomic factors to predictions of displacement duration and return. These model explanations confirm that property damage is a primary driver of displacement outcomes. However, they also indicate that some socioeconomic factors are critical to consider, such as a household&amp;rsquo;s tenure status and income level. Additionally, some factors (e.g., physical immobility, household sizes of 8+, educational attainment levels of less than high school) were associated with more negative outcomes.&lt;/p&gt;
+&lt;h2 id=&#34;acknowledgments&#34;&gt;Acknowledgments&lt;/h2&gt;
+&lt;p&gt;This research is partly funded by the University College London Overseas Research Scholarship (ORS) and the Willis Towers Watson Research Network.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;IDMC. 2019. “Disaster Displacement - A Global Review, 2008-2018.” &lt;a href=&#34;https://www.internal-displacement.org/publications/disaster-displacement-a-global-review&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.internal-displacement.org/publications/disaster-displacement-a-global-review&lt;/a&gt;.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;IDMC. 2017. “Global Disaster Displacement Risk - A Baseline for Future Work.” &lt;a href=&#34;https://www.internal-displacement.org/publications/global-disaster-displacement-risk-a-baseline-for-future-work&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.internal-displacement.org/publications/global-disaster-displacement-risk-a-baseline-for-future-work&lt;/a&gt;.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;IPCC, ed. 2012. “Summary for Policymakers.” In Managing the Risks of Extreme Events and Disasters to Advance Climate Change Adaptation, 1st ed. Cambridge University Press. &lt;a href=&#34;https://doi.org/10.1017/CBO9781139177245&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://doi.org/10.1017/CBO9781139177245&lt;/a&gt;.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
+&lt;p&gt;Hallegatte, Stéphane, Adrien Vogt-Schilb, Julie Rozenberg, Mook Bangalore, and Chloé Beaudet. 2020. “From Poverty to Disaster and Back: A Review of the Literature.” Economics of Disasters and Climate Change 4 (1): 223–47. &lt;a href=&#34;https://doi.org/10.1007/s41885-020-00060-5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://doi.org/10.1007/s41885-020-00060-5&lt;/a&gt;.&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Modeling global earthquake risk</title>
+      <link>http://localhost:1313/project/global-earthquake-model/</link>
+      <pubDate>Fri, 01 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/project/global-earthquake-model/</guid>
+      <description>&lt;p&gt;For more information on the Global Earthquake Model (GEM) Foundation&amp;rsquo;s Global Seismic Risk model, please refer to their &lt;a href=&#34;https://www.globalquakemodel.org/products&#34; target=&#34;_blank&#34;&gt;Products&lt;/a&gt; page.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Functional recovery and resilience</title>
+      <link>http://localhost:1313/project/functional-recovery-redi/</link>
+      <pubDate>Sat, 01 Jun 2013 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/project/functional-recovery-redi/</guid>
+      <description>&lt;p&gt;For more information about Arup&amp;rsquo;s work on functional recovery and resilience, please refer to their &lt;a href=&#34;https://www.redi.arup.com/&#34; target=&#34;_blank&#34;&gt;REDi Rating System&lt;/a&gt; website.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

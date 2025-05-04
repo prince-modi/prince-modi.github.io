@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Finite Element Analysis | Nicole Paul</title>
+    <link>http://localhost:1313/tag/finite-element-analysis/</link>
+      <atom:link href="http://localhost:1313/tag/finite-element-analysis/index.xml" rel="self" type="application/rss+xml" />
+    <description>Finite Element Analysis</description>
+    <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Fri, 29 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>http://localhost:1313/media/icon_hu209de9eb93bbf92fdbefdbfdebe32890_3589_512x512_fill_lanczos_center_3.png</url>
+      <title>Finite Element Analysis</title>
+      <link>http://localhost:1313/tag/finite-element-analysis/</link>
+    </image>
+    
+    <item>
+      <title>Implications of the Vertical Component of Ground Motion on Building Response</title>
+      <link>http://localhost:1313/publication/conference-paper/2018-vertical-ground-motion/</link>
+      <pubDate>Fri, 29 Jun 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2018-vertical-ground-motion/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Is there a basin effect in Mexico city? Validation of three urban lakebed sites using nonlinear site response analysis provides the clue</title>
+      <link>http://localhost:1313/publication/conference-paper/2017-mexico-city-sra/</link>
+      <pubDate>Wed, 19 Jul 2017 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2017-mexico-city-sra/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rapid Automation of Performance-Based Geo-Seismic Analysis in the Digital Age</title>
+      <link>http://localhost:1313/publication/conference-paper/2017-geoseismic-automation/</link>
+      <pubDate>Wed, 19 Jul 2017 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/publication/conference-paper/2017-geoseismic-automation/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
