@@ -60,7 +60,7 @@ bio: Distributed Systems@UCSD
 # Skills
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
 skills:
-  - name: Technical
+  - name: ''
     items:
       - name: Python
         description: 'Proficient; used extensively in systems development and research projects'
