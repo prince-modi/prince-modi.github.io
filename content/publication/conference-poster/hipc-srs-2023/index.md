@@ -53,7 +53,7 @@ show_related: true
 ---
 
 ### Framework Architecture
-![Figure 1.](\cacheDir\images\publication\conference-poster\hipcsrs_2023_fedml.png)
+![Figure 1.](hipcsrs_2023_fedml.png)
 
 *Flotilla* is designed to be modular and model-agnostic, enabling researchers to plug in different client selection and aggregation strategies for Federated Learning (FL). It supports edge-based client clusters like Raspberry Pis and integrates telemetry for advanced experimentation and systems-level insight. The framework is implemented in Python and provides abstraction layers for server orchestration, model deployment, and synchronous FL rounds.
 
@@ -65,7 +65,7 @@ We evaluated different client selection strategies in a lab testbed comprising h
 
 The model converged in **100 FL rounds**, reaching **98.4% accuracy**, with an **average round time of 375 seconds**.
 
-![Figure 2.](publication\conference-poster\hipcsrs_2023_fedml_training_graph.png)
+![Figure 2.](hipcsrs_2023_fedml_training_graph.png)
 
 ### Press
 * ["Towards a Modular Federated Learning Framework on Edge Devices"](https://2023.hipc.org/srs-2023/#:~:text=Towards%20a%20Modular%20Federated%20Learning%20Framework%20on%20Edge%20Devices) at HiPC 2023 Student Research Symposium
