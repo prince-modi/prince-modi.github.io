@@ -35,18 +35,19 @@
           
           <!-- Wrap hobby group in its own column -->
           <div class="{{ $columns_class }} mb-4">
-            <div class="hobby-group-title font-weight-bold mb-2">
-              {{ .title | markdownify | emojify }}
-              {{ with .description }}
-                <p class="small text-muted mb-2">{{ . | markdownify | emojify }}</p>
+            <div class="hobby-group-title font-weight-bold mb-2 d-flex align-items-center">
+              <!-- Display hobby icon next to the title -->
+              {{ with .icon_choice }}
+                <span class="hobby-icon mr-2">
+                  <i class="fas fa-{{ . }}"></i> <!-- Use FontAwesome icon -->
+                </span>
               {{ end }}
+              {{ .title | markdownify | emojify }}
             </div>
 
-            <!-- Display hobby icon -->
-            {{ with .icon_choice }}
-              <span class="hobby-icon">
-                <i class="fas fa-{{ . }}"></i> <!-- Use FontAwesome icon -->
-              </span>
+            <!-- Optional description -->
+            {{ with .description }}
+              <p class="small text-muted mb-2">{{ . | markdownify | emojify }}</p>
             {{ end }}
           </div>
           
