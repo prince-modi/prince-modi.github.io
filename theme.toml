@@ -47,3 +47,7 @@ features = ["page builder", "widgets", "themes", "search", "research publication
   name = ""
   homepage = ""
   repo = ""
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
