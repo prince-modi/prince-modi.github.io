@@ -29,11 +29,10 @@ sections:
           icon_choice: "university"
           institution: University of California San Diego
           date_start: 2025-09-22
-          date_end: ''
-          description: |
-            GPA: *.\*/4.0<br/>
-            Courses included:
-            - CSE 221: Graduate Operating Systems
+          date_end: 2027-06-21
+          # description: |
+          #   Courses included:
+          #   - CSE 221: Graduate Operating Systems
         - title: B.Tech, Computer Engineering
           icon_choice: "university"
           institution: Ganpat University - UVPCE

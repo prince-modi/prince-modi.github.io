@@ -169,35 +169,39 @@ I'm an incoming Master's student in Computer Science and Engineering at UC San D
   <div class="row">
     <!-- Experience Column -->
     <div class="col-12 col-md-4 mb-4">
-      <h3>Experience</h3>
+      <a href=#experience><h3>Experience</h3></a>
       <ul class="fa-ul">
         <li>
           <span class="fa-li"><i class="fas fa-briefcase"></i></span>
-          Research Associate, DREAM:Lab, IISc Bengaluru (2023–2024)
+          Research Associate<br/>
+          <span style="font-size: 0.85em; color: #666;">IISc (2023–2024)</span>
         </li>
         <li>
           <span class="fa-li"><i class="fas fa-briefcase"></i></span>
-          Software Engineering Intern, Sterlite Technologies Ltd., Ahmedabad (2022)
+          Software Eng. Intern<br/>
+          <span style="font-size: 0.85em; color: #666;">Sterlite Tech Ltd. (2022)</span> 
         </li>
       </ul>
     </div>
     <!-- Education Column -->
     <div class="col-12 col-md-4 mb-4">
-      <h3>Education</h3>
+      <a href=#education><h3>Education</h3></a>
       <ul class="fa-ul">
         <li>
           <span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
-          MS-CSE Distributed Systems, UC San Diego (2025–2027)
+          MS-CSE, UCSD <br/>
+          <span style="font-size: 0.85em; color: #666;">(2025–2027)</span>
         </li>
         <li>
           <span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
-          B.Tech Computer Engineering, Ganpat University - UVPCE (2018–2022)
+          B.Tech CE, UVPCE <br/>
+          <span style="font-size: 0.85em; color: #666;">(2018–2022)</span>
         </li>
       </ul>
-    </div>
+</div>
     <!-- Interest Column -->
     <div class="col-12 col-md-4 mb-4">
-      <h3>Interests</h3>
+      <a href=#hobbies><h3>Interests</h3></a>
       <ul class="fa-ul">
         <li class="mb-3">
           <span class="fa-li"><i class="fas fa-server"></i></span>
@@ -206,7 +210,7 @@ I'm an incoming Master's student in Computer Science and Engineering at UC San D
         <li class="mb-3">
           <span class="fa-li"><i class="fas fa-cloud"></i></span>
           Cloud Computing
-        </li>        
+        </li>
         <li class="mb-3">
           <span class="fa-li"><i class="fas fa-brain"></i></span>
           Federated Learning
