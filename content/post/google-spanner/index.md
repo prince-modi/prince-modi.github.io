@@ -1,7 +1,7 @@
 ---
 title: Exploring the Power of Google Spanner for Distributed Transaction Processing
 summary: '*An overview of Google Spanner’s architecture, distributed transactions, and the TrueTime API, based on the paper by Corbett et al.*'
-date: 2024-03-05
+date: 2022-11-22
 math: true
 toc: true
 image:
