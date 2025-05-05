@@ -1,6 +1,6 @@
 # General Information
 
-This repository has code for my personal website at [this](https://prince-modi.github.io). Credit to the Hugo and the template owner (see below).
+This repository has code for my personal website at [prince-modi.github.io](https://prince-modi.github.io). Credit to the Hugo and the template owner (see below).
 
 ---
 
