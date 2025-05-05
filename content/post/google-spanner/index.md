@@ -37,8 +37,10 @@ Large databases often contain millions of records and are **sharded** across mac
 Spanner addresses this by using **Two-Phase Locking (2PL)** and **Two-Phase Commit (2PC)**.
 
 ---
-
 ## Spanner Architecture
+
+![Figure 1.](spanner_arch.webp)
+<!-- Figure 1: Spanner Organization -->
 
 A **Spanner deployment** is called a **universe**. It is composed of multiple **zones**, each with:
 
@@ -74,6 +76,9 @@ TrueTime uses **GPS** and **atomic clocks**, each with different failure modes. 
 ## Transactions in Spanner
 
 ### Read-Write Transactions
+
+![Figure 2.](2PC.webp)
+
 
 Spanner uses **Two-Phase Locking (2PL)** and **Two-Phase Commit (2PC)** for distributed read-write transactions.
 

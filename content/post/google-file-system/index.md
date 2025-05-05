@@ -18,7 +18,8 @@ tags:
 
 The paper *The Google File System* by Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung (Google) presents details of a distributed file system designed to support distributed applications and the various assumptions and design decisions that were made.
 
-**Credit:** [google.com](https://www.google.com)
+![Credit: google.com](main.gif)
+Credit: [google.com](https://www.google.com)
 
 ## Introduction
 
@@ -72,6 +73,7 @@ Files are divided into fixed-size chunks (typically 64 MB). Each of the chunks h
 
 The metadata for the whole file system is maintained by the master in its memory. This metadata includes the namespace, access control information, the mapping from files to chunks, and the current locations of chunks.
 
+![Figure 1.](gsf_arch.webp)
 **Figure 1: GFS Architecture**
 
 It might have come to your attention that GFS only has a single master, this decision significantly reduces the complexity of the whole system since only the single master is in charge of all the chunk placement and replication decisions, instead of the case where there are multiple masters and there has to be some sort of communication between the masters to come to some agreement, which both increase the complexity and decrease the responsiveness of the whole system.
