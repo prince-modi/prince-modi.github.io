@@ -1,0 +1,57 @@
+{{/* Hugo Blox: Hobbies - Styled to Match Experience/Publications */}}
+
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $columns := $block.design.columns | default 3 }} <!-- Default to 3 columns if not specified -->
+
+{{ $hobbies := $block.content.items }} <!-- Get Hobbies from the YAML block content -->
+
+<div class="container">
+  <div class="row">
+    
+    <!-- Left Column for Title -->
+    <div class="section-heading col-12 col-lg-4 mb-3 mb-lg-0 d-flex flex-column align-items-center align-items-lg-start">
+      {{ with $block.title }}
+        <h1 class="mb-0">{{ . | markdownify | emojify }}</h1>
+      {{ end }}
+    </div>
+
+    <!-- Right Column for Hobbies -->
+    <div class="col-12 col-lg-8">
+      <div class="row">
+        
+        <!-- Optional top text -->
+        {{ with $block.content.text }}
+        <div class="col-md-12 text-center mb-3">
+          {{ . | emojify | $page.RenderString }}
+        </div>
+        {{ end }}
+
+        <!-- Hobbies Groups - Dynamic Columns -->
+        {{ range $hobbies }}
+        
+          <!-- Calculate column size for hobbies based on $columns -->
+          {{ $columns_class := printf "col-12 col-md-%d" (div 12 $columns) }}
+          
+          <!-- Wrap hobby group in its own column -->
+          <div class="{{ $columns_class }} mb-4">
+            <div class="hobby-group-title font-weight-bold mb-2">
+              {{ .title | markdownify | emojify }}
+              {{ with .description }}
+                <p class="small text-muted mb-2">{{ . | markdownify | emojify }}</p>
+              {{ end }}
+            </div>
+
+            <!-- Display hobby icon -->
+            {{ with .icon_choice }}
+              <span class="hobby-icon">
+                <i class="fas fa-{{ . }}"></i> <!-- Use FontAwesome icon -->
+              </span>
+            {{ end }}
+          </div>
+          
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>

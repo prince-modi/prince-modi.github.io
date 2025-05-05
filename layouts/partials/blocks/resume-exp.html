@@ -1,0 +1,121 @@
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $columns := $block.design.columns | default "1" }}
+
+<!-- Experience widget -->
+<div class="container">
+  <div class="row">
+    <!-- Left Column for "EXPERIENCE" Title (25%) -->
+    <div class="section-heading col-12 col-lg-4 mb-1 mb-lg-0 d-flex flex-column align-items-center align-items-lg-start">
+      {{ with $block.title }}
+      <h1 class="mb-0">{{ . | markdownify | emojify }}</h1>
+      {{ end }}
+    </div>
+
+    <!-- Right Column for Experience Content (75%) -->
+    <div class="col-12 col-lg-8">
+      {{ with $block.content.text }}{{ . | emojify | $page.RenderString }}{{ end }}
+
+      {{ if $block.content.items }}
+      {{ $exp_len := len $block.content.items }}
+      {{ range $idx, $key := $block.content.items }}
+      <div class="row experience mb-3">
+        <!-- Timeline (Left Side) -->
+        <div class="col-auto text-center flex-column d-none d-sm-flex">
+          <div class="row h-50">
+            <div class="col {{if gt $idx 0}}border-right{{end}}" style="border-color: var(--line-color, #ccc);">&nbsp;</div>
+            <div class="col">&nbsp;</div>
+          </div>
+          <div class="m-2">
+            <span class="badge badge-pill" 
+                  style="background-color: var(--dot-color, #333); border: 2px solid var(--line-color, #ccc);">
+              &nbsp;
+            </span>
+          </div>
+          <div class="row h-50">
+            <div class="col {{if lt $idx (sub $exp_len 1)}}border-right{{end}}" style="border-color: var(--line-color, #ccc);">&nbsp;</div>
+            <div class="col">&nbsp;</div>
+          </div>
+        </div>
+
+        <!-- Content (Right Side) -->
+        <div class="col py-3">
+          <div class="card-simple view-card p-3" style="margin-bottom: 0;"> <!-- Reduce bottom margin here -->
+            <div class="section-subheading article-title mb-1 mt-1">
+              <!-- Job Title with Icon Selection -->
+              {{/* Check if the icon choice is set for this experience */}}
+              {{ if eq .icon_choice "university" }}
+                <i class="fa fa-university mr-2"></i> <!-- University icon -->
+              {{ else }}
+                <i class="fa fa-building mr-2"></i> <!-- Default to Briefcase icon -->
+              {{ end }}
+              {{ .title | markdownify | emojify }}
+            </div>
+            <div class="article-metadata" style="margin-bottom: 0;"> <!-- Reduce bottom margin here -->
+              {{ with .institution }}
+              <div>
+                <!-- <i class="fa fa-building mr-2"></i> Icon for institution -->
+                <span style="font-size: 1rem; font-weight: bold; margin-top: 0;">{{ . | markdownify | emojify }}</span>
+              </div>
+              {{ else }}
+              {{ with .company }}
+              <div>
+                <!-- <i class="fa fa-briefcase mr-2"></i> Icon for company -->
+                <span style="font-size: 1rem; font-weight: bold; margin-top: 0;">{{ . | markdownify | emojify }}</span>
+              </div>
+              {{ else }}
+              {{ with .author }}
+              <div><span>{{ . | markdownify | emojify }}</span></div>
+              {{ end }}
+              {{ end }}
+              {{ end }}
+
+              <span class="article-date" style="font-size: 0.65rem; margin-bottom: 0.25rem;"> <!-- Reduced margin-bottom here -->
+                {{ (time .date_start) | time.Format ($block.Params.date_format | default "January 2006") }} –
+                {{ if .date_end }}
+                {{ (time .date_end) | time.Format ($block.Params.date_format | default "January 2006") }}
+                {{ else }}
+                {{ i18n "present" | default "Present" }}
+                {{ end }}
+              </span>
+              <span class="middot-divider"></span>
+              <span class="pub-publication">{{ .publication | markdownify | emojify }}</span>
+            </div>
+
+            <a href="{{ .url }}" class="summary-link">
+              <div class="article-style">
+                <p>{{ .description | markdownify | emojify }}</p>
+              </div>
+            </a>
+
+            <div class="btn-links mt-2">
+              {{ if .pdf }}
+              <a class="btn btn-outline-primary btn-sm" href="{{ .pdf }}" target="_blank" rel="noopener">
+                <i class="fa fa-file-invoice mr-1"></i> PDF
+              </a>
+              {{ end }}
+              {{ if .code }}
+              <a class="btn btn-outline-primary btn-sm" href="{{ .code }}" target="_blank" rel="noopener">
+                <i class="fa fa-code mr-1"></i> Code
+              </a>
+              {{ end }}
+              {{ if .poster }}
+              <a class="btn btn-outline-primary btn-sm" href="{{ .poster }}" target="_blank" rel="noopener">
+                <i class="fa fa-image mr-1"></i> Poster
+              </a>
+              {{ end }}
+              {{ if .slides }}
+              <a class="btn btn-outline-primary btn-sm" href="{{ .slides }}" target="_blank" rel="noopener">
+                <i class="fa fa-slideshare mr-1"></i> Slides
+              </a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</div>
