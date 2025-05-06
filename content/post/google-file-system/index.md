@@ -12,6 +12,7 @@ tags:
 - storage
 - Google File System
 - research
+- cloud computing
 ---
 
 <!-- # Exploring the Power of Google File System: The Distributed Storage System That Revolutionized Big Data -->

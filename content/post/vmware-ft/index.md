@@ -13,6 +13,7 @@ tags:
 - VMware FT
 - deterministic replay
 - distributed systems
+- cloud computing
 ---
 
 ## Introduction

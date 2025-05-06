@@ -172,12 +172,12 @@ I'm an incoming Master's student in Computer Science and Engineering at UC San D
       <a href=#experience><h3>Experience</h3></a>
       <ul class="fa-ul">
         <li>
-          <span class="fa-li"><i class="fas fa-briefcase"></i></span>
+          <a href="#iisc"><span class="fa-li"><i class="fas fa-briefcase"></i></span></a>
           Research Associate<br/>
           <span style="font-size: 0.85em; color: #666;">IISc (2023–2024)</span>
         </li>
         <li>
-          <span class="fa-li"><i class="fas fa-briefcase"></i></span>
+          <a href="#intern"><span class="fa-li"><i class="fas fa-briefcase"></i></span></a>
           Software Eng. Intern<br/>
           <span style="font-size: 0.85em; color: #666;">Sterlite Tech Ltd. (2022)</span> 
         </li>
@@ -188,12 +188,12 @@ I'm an incoming Master's student in Computer Science and Engineering at UC San D
       <a href=#education><h3>Education</h3></a>
       <ul class="fa-ul">
         <li>
-          <span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
+          <a href="#ucsd"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span></a>
           MS-CSE, UCSD <br/>
           <span style="font-size: 0.85em; color: #666;">(2025–2027)</span>
         </li>
         <li>
-          <span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
+          <a href="#guni"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span></a>
           B.Tech CE, UVPCE <br/>
           <span style="font-size: 0.85em; color: #666;">(2018–2022)</span>
         </li>
@@ -204,16 +204,16 @@ I'm an incoming Master's student in Computer Science and Engineering at UC San D
       <a href=#hobbies><h3>Interests</h3></a>
       <ul class="fa-ul">
         <li class="mb-3">
-          <span class="fa-li"><i class="fas fa-server"></i></span>
+          <a href="/tag/distributed-systems"><span class="fa-li"><i class="fas fa-server"></i></span></a>
           Distributed Systems
         </li>
         <li class="mb-3">
-          <span class="fa-li"><i class="fas fa-cloud"></i></span>
+          <a href="/tag/cloud-computing"><span class="fa-li"><i class="fas fa-cloud"></i></span></a>
           Cloud Computing
         </li>
         <li class="mb-3">
-          <span class="fa-li"><i class="fas fa-brain"></i></span>
-          Federated Learning
+          <a href="/tag/applied-machine-learning"><span class="fa-li"><i class="fas fa-brain"></i></span></a>
+          Applied ML
         </li>        
       </ul>
     </div>

@@ -12,6 +12,7 @@ tags:
 - databases
 - Google Spanner
 - research
+- cloud computing
 ---
 
 

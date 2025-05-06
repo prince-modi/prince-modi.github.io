@@ -40,9 +40,9 @@
         </div>
 
         <!-- Content (Right Side) -->
-        <div class="col py-3">
-          <div class="card-simple view-card p-3" style="margin-bottom: 0;"> <!-- Reduce bottom margin here -->
-            <div class="section-subheading article-title mb-1 mt-1">
+        <div class="col py-3" id="{{ .id }}">
+          <div class="card-simple view-card p-3" style="margin-bottom: 0;" > <!-- Reduce bottom margin here -->
+            <div class="section-subheading article-title mb-1 mt-1" >
               <!-- Job Title with Icon Selection -->
               {{/* Check if the icon choice is set for this experience */}}
               {{ if eq .icon_choice "university" }}

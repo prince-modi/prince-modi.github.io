@@ -27,6 +27,7 @@ sections:
       items:
         - title: MS-CSE, Distributed Systems
           icon_choice: "university"
+          id: ucsd
           institution: University of California San Diego
           date_start: 2025-09-22
           date_end: 2027-06-21
@@ -35,6 +36,7 @@ sections:
           #   - CSE 221: Graduate Operating Systems
         - title: B.Tech, Computer Engineering
           icon_choice: "university"
+          id: guni
           institution: Ganpat University - UVPCE
           date_start: 2018-07-01
           date_end: 2022-06-01
@@ -53,6 +55,7 @@ sections:
       items:
         - title: 'Research Associate (DREAM: Lab)'
           icon_choice: "university"
+          id: iisc
           company: Indian Institute of Science (IISc), Bengaluru
           company_url: ''
           company_logo: ''
@@ -80,6 +83,7 @@ sections:
             - Taught a graduate-level course to a class of 40+ students, comprising topics such as HDFS, Map-Reduce, Apache Spark
             - Facilitated and led a 2-hour lab session per week, prepared and graded assignments, conducted one-on-one office hours, and conducted doubt-clearing sessions
         - title: Software Engineering Intern (Intellza)
+          id: intern
           company: Sterlite Technologies Limited, Ahmedabad
           company_url: ''
           company_logo: ''
