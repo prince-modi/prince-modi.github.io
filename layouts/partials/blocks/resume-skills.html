@@ -60,7 +60,8 @@
                         {{ $svg_icon := resources.Get (printf "media/icons/%s.svg" .) }}
                         {{ if $svg_icon }}<img src="{{ $svg_icon.RelPermalink }}" alt="{{ . }}" class="svg-icon svg-baseline" loading="lazy">{{ end }}
                       {{ else }}
-                        <i class="fas fa-{{ . }}"></i> <!-- Default to FontAwesome icon -->
+                        <!-- <i class="fas fa-{{ . }}"></i> Default to FontAwesome icon -->
+                        <i class="{{ . }}"></i> <!-- Default to FontAwesome icon -->
                       {{ end }}
                     </span>
                   {{ end }}

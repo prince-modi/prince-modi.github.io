@@ -156,22 +156,23 @@ sections:
       items:
         - title: Reading
           icon_choice: "book-open"
-          description: "Currently reading: The Memory of Light, Wheel of Time Book 14, Dune Book 1"
+          description: "Currently reading: *A Wise Man's Fear* and *Thinking, Fast and Slow*"
         - title: Tennis & Pickleball
           icon_choice: "trophy"
-          description: "Enjoy playing casually and staying active"
+          description: "Just enjoy hitting the ball around and having a good time with friends"
         - title: Formula 1
           icon_choice: "flag-checkered"
-          description: "Following F1 races and keeping up with team strategies and tech"
+          description: "Following F1 races, team strategies, and technological advancements"
         - title: Home Lab
           icon_choice: "computer"
-          description: "Running PiHole, PFSense, and experimenting with network setups"
+          description: "Running PiHole and PFSense, experimenting with network setups"
         - title: 3D Printing
           icon_choice: "print"
           description: "Designing and printing 3D models for personal projects or prototyping"
         - title: Astronomy
-          icon_choice: "star"
-          description: "Stargazing and exploring celestial bodies through telescopes, learning about the universe"
+          icon_choice: "meteor"
+          description: "Stargazing and exploring celestial bodies, learning about the universe"
+        
 
 
 

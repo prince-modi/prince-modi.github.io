@@ -60,60 +60,52 @@ bio: Distributed Systems@UCSD
 # Skills
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
 skills:
-  - name: ''
+  - name: 'Proficient'
     items:
       - name: Python
-        description: 'Proficient; used extensively in systems development and research projects'
-        icon: code
-      # - name: Java
-      #   description: 'Familiar; used for backend development and distributed systems'
-      #   icon: code
-      - name: Go
-        description: 'Familiar; used for building scalable systems and microservices'
-        icon: code        
+        description: 'Used extensively in development of Flotilla and various personal projects'
+        icon: 'fa-brands fa-python'
       - name: Docker
-        description: 'Built and optimized containers for scalable deployments and CI/CD pipelines'
-        icon: cube
+        description: 'Used heavily across jobs and personal projects'
+        icon: 'fa-brands fa-docker'
       - name: Linux
-        description: 'Daily development environment; used in configuring edge clusters'
-        icon: computer
-
-  - name: ''
-    items:
-      # - name: Distributed Systems
-      #   description: 'Experience with fault tolerance, resiliency, and federated learning frameworks'
-      #   icon: server
-      - name: Git
-        description: 'Version control for managing codebase changes and collaboration'
-        icon: code
-      - name: gRPC
-        description: 'Used for high-performance, cross-platform APIs in microservices architecture'
-        icon: server
-      - name: PyTorch
-        description: 'Deep learning framework used in research and machine learning projects'
-        icon: brain
-      - name: MQTT
-        description: 'Message broker for lightweight communication in IoT systems'
-        icon: cloud
-
-
-  - name: ''
-    items:
-      - name: MongoDB
-        description: 'NoSQL database used for handling unstructured data in web applications'
-        icon: database
-      # - name: PostgreSQL
-      #   description: 'Relational database management system used for structured data storage'
-      #   icon: database
-      - name: Redis
-        description: 'In-memory data store used for caching and fast data retrieval'
-        icon: database      
+        description: 'Daily use across work and personal setups (Arch BTW😝)'
+        icon: 'fa-brands fa-linux'
       - name: NeoVim
-        description: 'Advanced text editor for development, used extensively for coding and scripts'
-        icon: file-alt
+        description: 'Daily driver, with custom plugins developed for specific workflows'
+        icon: 'fa-solid fa-file-code'
+
+  - name: 'Intermediate'
+    items:
+      - name: gRPC
+        description: 'Integrated into a custom distributed framework using ProtoBuf definitions'
+        icon: 'fa-solid fa-diagram-project'
+      - name: MQTT
+        description: 'Used while building a custom distributed framework and homelab projects'
+        icon: 'fa-solid fa-diagram-project'
+      - name: Redis
+        description: 'Built a simplified version in Python to understand the internals'
+        icon: 'fa-solid fa-database'
+      - name: Git
+        description: 'Implemented a basic version in Python to understand internal mechanisms'
+        icon: 'fa-brands fa-git'
+
+  - name: 'Familiar'
+    items:
+      - name: Go
+        description: 'Explored through personal projects focused on distributed systems'
+        icon: 'fa-brands fa-golang'
+      - name: PyTorch
+        description: 'Built CNNs, LSTMs, and custom dataloaders for a custom federated learning framework'
+        icon: 'fa-solid fa-brain'
       - name: Lua
-        description: 'Familiar; used in scripting and game development environments'
-        icon: code
+        description: 'Used to write custom NeoVim plugins and enhance editor behavior'
+        icon: 'fa-solid fa-code'
+      - name: MongoDB
+        description: 'Used during an internship while working with NoSQL data models'
+        icon: 'fa-solid fa-database'
+
+
 
   # - name: Hobbies
   #   color: '#eeac02'
