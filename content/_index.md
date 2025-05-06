@@ -155,7 +155,7 @@ sections:
     content:
       items:
         - title: Reading
-          icon_choice: "book-open"
+          icon_choice: "book-open-reader"
           description: "Currently reading: *A Wise Man's Fear* and *Thinking, Fast and Slow*"
         - title: Tennis & Pickleball
           icon_choice: "trophy"
