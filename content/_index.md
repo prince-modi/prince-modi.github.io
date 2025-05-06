@@ -31,7 +31,7 @@ sections:
           institution: University of California San Diego
           date_start: 2025-09-22
           date_end: 2027-06-21
-          # description: |
+          description: Incoming graduate student at UCSD, specializing in Distributed Systems
           #   Courses included:
           #   - CSE 221: Graduate Operating Systems
         - title: B.Tech, Computer Engineering
