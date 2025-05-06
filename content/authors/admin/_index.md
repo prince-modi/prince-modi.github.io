@@ -34,29 +34,6 @@ bio: Distributed Systems@UCSD
 #   - Computer Networks
 #   - Applied Machine Learning
 
-# education:
-#   - area: MS-CSE Distributed Systems
-#     institution: University of California San Diego
-#     date_start: 2025-09-22
-#     date_end: 2027-06-01
-#     summary: |
-#       GPA: *.\*/4.0
-
-#       Courses included:
-#       - CSE 221: Graduate Operating Systems
-#   - area: B.Tech Computer Engineering
-#     institution: Ganpat University - UVPCE
-#     date_start: 2018-07-01
-#     date_end: 2022-06-01
-#     summary: |
-#       GPA: 3.96/4.0
-      
-#       Courses included:
-#       - 2CEIT401: Operating Systems
-#       - 2CEIT503: Computer Networks
-#       - 2CEIT603: Cloud Computing
-#       - 2CEIT702: Big Data Analytics
-
 # Skills
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
 skills:
@@ -105,31 +82,6 @@ skills:
         description: 'Used during an internship while working with NoSQL data models'
         icon: 'fa-solid fa-database'
 
-
-
-  # - name: Hobbies
-  #   color: '#eeac02'
-  #   color_border: '#f0bf23'
-  #   items:
-  #     - name: Reading
-  #       description: 'Currently reading: The Memory of Light, Wheel of Time Book 14, Dune Book 1'
-  #       icon: book-open
-  #     - name: Tennis & Pickleball
-  #       description: 'Enjoy playing casually and staying active'
-  #       icon: trophy
-  #     - name: Formula 1
-  #       description: 'Following F1 races and keeping up with team strategies and tech'
-  #       icon: flag-checkered
-  #     - name: Home Lab
-  #       description: 'Running PiHole, PFSense, and experimenting with network setups'
-  #       icon: computer
-
-  
-
-# Social/Academic Networking
-# For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
-#   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
-#   form "mailto:your-email@example.com" or "/#contact" for contact widget.
 social:
   - icon: envelope
     icon_pack: fas
@@ -143,10 +95,6 @@ social:
   - icon: github
     icon_pack: fab
     link: https://github.com/prince-modi
-    
-  # Link to a PDF of your resume/CV.
-  # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
-  # and uncomment the lines below.
   - icon: cv
     icon_pack: ai
     link: uploads/resume.pdf
@@ -164,13 +112,13 @@ I'm an incoming Master's student in Computer Science and Engineering at UC San D
       <a href=#experience><h3>Experience</h3></a>
       <ul class="fa-ul">
         <li>
-          <a href="#iisc"><span class="fa-li"><i class="fas fa-briefcase"></i></span></a>
-          Research Associate<br/>
+          <a href="#iisc"><span class="fa-li"><i class="fas fa-briefcase"></i></span>
+          Research Associate</a><br/>
           <span style="font-size: 0.85em; color: #666;">IISc (2023–2024)</span>
         </li>
         <li>
-          <a href="#intern"><span class="fa-li"><i class="fas fa-briefcase"></i></span></a>
-          Software Eng. Intern<br/>
+          <a href="#intern"><span class="fa-li"><i class="fas fa-briefcase"></i></span>
+          Software Eng. Intern</a><br/>
           <span style="font-size: 0.85em; color: #666;">Sterlite Tech Ltd. (2022)</span> 
         </li>
       </ul>
@@ -180,13 +128,13 @@ I'm an incoming Master's student in Computer Science and Engineering at UC San D
       <a href=#education><h3>Education</h3></a>
       <ul class="fa-ul">
         <li>
-          <a href="#ucsd"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span></a>
-          MS-CSE, UCSD <br/>
+          <a href="#ucsd"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
+          MS-CSE, UCSD</a><br/>
           <span style="font-size: 0.85em; color: #666;">(2025–2027)</span>
         </li>
         <li>
-          <a href="#guni"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span></a>
-          B.Tech CE, UVPCE <br/>
+          <a href="#guni"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
+          B.Tech CE, UVPCE</a><br/>
           <span style="font-size: 0.85em; color: #666;">(2018–2022)</span>
         </li>
       </ul>
@@ -196,16 +144,16 @@ I'm an incoming Master's student in Computer Science and Engineering at UC San D
       <a href=#hobbies><h3>Interests</h3></a>
       <ul class="fa-ul">
         <li class="mb-3">
-          <a href="/tag/distributed-systems"><span class="fa-li"><i class="fas fa-server"></i></span></a>
-          Distributed Systems
+          <a href="/tag/distributed-systems"><span class="fa-li"><i class="fas fa-server"></i></span>
+          Distributed Systems</a>
         </li>
         <li class="mb-3">
-          <a href="/tag/cloud-computing"><span class="fa-li"><i class="fas fa-cloud"></i></span></a>
-          Cloud Computing
+          <a href="/tag/cloud-computing"><span class="fa-li"><i class="fas fa-cloud"></i></span>
+          Cloud Computing</a>
         </li>
         <li class="mb-3">
-          <a href="/tag/applied-machine-learning"><span class="fa-li"><i class="fas fa-brain"></i></span></a>
-          Applied ML
+          <a href="/tag/applied-machine-learning"><span class="fa-li"><i class="fas fa-brain"></i></span>
+          Applied ML</a>
         </li>        
       </ul>
     </div>
