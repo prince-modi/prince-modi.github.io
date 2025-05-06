@@ -129,7 +129,7 @@ I'm an incoming Master's student in Computer Science and Engineering at UC San D
       <ul class="fa-ul">
         <li>
           <a href="#ucsd"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
-          MS-CSE, UCSD</a><br/>
+          MSCSE, UCSD</a><br/>
           <span style="font-size: 0.85em; color: #666;">(2025–2027)</span>
         </li>
         <li>

@@ -25,16 +25,16 @@ sections:
     id: education
     content:
       items:
-        - title: MS-CSE, Distributed Systems
+        - title: Master of Science in Computer Science and Engineering
           icon_choice: "university"
           id: ucsd
           institution: University of California San Diego
           date_start: 2025-09-22
           date_end: 2027-06-01
-          description: Incoming graduate student at UCSD, specializing in Distributed Systems
+          description: Incoming graduate student at UCSD, specializing in **Distributed Systems**
           #   Courses included:
           #   - CSE 221: Graduate Operating Systems
-        - title: B.Tech, Computer Engineering
+        - title: Bachelor of Technology in Computer Engineering
           icon_choice: "university"
           id: guni
           institution: Ganpat University - UVPCE
