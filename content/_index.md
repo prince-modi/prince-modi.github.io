@@ -79,8 +79,8 @@ sections:
             - Configured and managed an 80+ node edge cluster (Nvidia Jetsons, Raspberry Pis), supporting lab infrastructure and projects including Flotilla
 
             **Volunteering:**  
-            - *Senior Student Volunteer*, Indian Institute of Science – IEEE/ACM CCGrid 2023 (May): Co-organized a 300+ participant conference; coordinated 3 poster sessions and assisted keynote speakers and faculty  
-            - *Student Volunteer*, IISc Open Day 2023 (Mar): Coordinated presentation sessions for DREAM:Lab projects
+            - *Senior Student Volunteer*, Indian Institute of Science – IEEE/ACM CCGrid 2023: Co-organized a 300+ participant conference; coordinated 3 poster sessions and assisted keynote speakers and faculty  
+            - *Student Volunteer*, IISc Open Day 2023: Coordinated presentation sessions for DREAM:Lab projects
 
         - title: Teaching Assistant, Data Engineering at Scale
           icon_choice: "university"
