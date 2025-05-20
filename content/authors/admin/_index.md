@@ -89,9 +89,9 @@ social:
   - icon: linkedin
     icon_pack: fab
     link: https://www.linkedin.com/in/modi-prince/
-  # - icon: graduation-cap 
-  #   icon_pack: fas
-  #   link: https://scholar.google.com/citations?user=YThjGVkAAAAJ&hl=en
+  - icon: graduation-cap 
+    icon_pack: fas
+    link: https://scholar.google.com/citations?user=nZAmHBcAAAAJ&hl=en
   - icon: github
     icon_pack: fab
     link: https://github.com/prince-modi
