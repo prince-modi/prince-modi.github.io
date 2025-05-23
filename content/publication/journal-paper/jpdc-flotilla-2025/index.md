@@ -46,7 +46,6 @@ url_code: "https://github.com/dream-lab/flotilla"
 show_related: true
 ---
 
-extra_content: |
   ### 🧩 My Contribution
 
   I was closely involved in the design and development of Flotilla, contributing to the overall architecture, implementation
