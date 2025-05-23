@@ -10,7 +10,7 @@ authors:
 - Manik Gupta
 - Yogesh Simmhan
 date: "2025-05-14"
-doi: "https://doi.org/10.1016/j.jpdc.2025.105103"
+doi: "10.1016/j.jpdc.2025.105103"
 
 publication_types: ["article-journal"]
 
