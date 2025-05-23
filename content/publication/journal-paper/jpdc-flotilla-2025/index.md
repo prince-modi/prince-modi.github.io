@@ -8,7 +8,7 @@ authors:
 - Tejus Chandrashekar
 - Harsha Varun Marisetty
 - Manik Gupta
-- [Yogesh Simmhan](http://cds.iisc.ac.in/faculty/simmhan/)
+- Yogesh Simmhan
 date: "2025-05-14"
 doi: "https://doi.org/10.1016/j.jpdc.2025.105103"
 
