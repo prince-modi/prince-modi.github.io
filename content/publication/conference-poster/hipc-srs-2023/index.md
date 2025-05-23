@@ -14,10 +14,10 @@ date: "2023-12-18"
 # Publication type.
 # Accepts a single type but formatted as a YAML list (for Hugo requirements).
 # Enter a publication type from the CSL standard.
-# publication_types: ["poster-conference"]
+publication_types: ["poster-conference"]
 
 # Conference name and optional abbreviated conference name.
-publication: "30th IEEE INTERNATIONAL CONFERENCE ON HIGH PERFORMANCE COMPUTING, DATA, & ANALYTICS (2023)"
+publication: "30th IEEE International Conference on High Performance Computing, Data, and Analytics (2023)"
 publication_short: "HiPC"
 
 abstract: 'In this poster, we introduce *Flotilla*, a modular, model-agnostic Federated Learning (FL) framework that supports synchronous client-selection and aggregation strategies, and FL model deployment and training on edge client clusters, with telemetry for advanced systems research.'
