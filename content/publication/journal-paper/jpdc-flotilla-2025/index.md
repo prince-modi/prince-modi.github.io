@@ -14,7 +14,7 @@ doi: "https://doi.org/10.1016/j.jpdc.2025.105103"
 
 publication_types: ["article-journal"]
 
-publication: "*Journal of Parallel and Distributed Computing, Volume 203*"
+publication: "*Journal of Parallel and Distributed Computing, Volume 203* [CORE A*]"
 publication_short: "JPDC"
 
 abstract: >
