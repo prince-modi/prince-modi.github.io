@@ -12,11 +12,11 @@ date: "2023-08-10"
 # publishDate: "2025-05-04T23:24:00Z"
 
 # Publication type.
-# publication_types: ["poster-conference"]
+publication_types: ["poster-conference"]
 
 # Conference name and optional abbreviated conference name.
-conference: "IEEE/RSJ International Conference on Intelligent Robots and Systems (2023)"
-conference_short: "IROS"
+publication: "IEEE/RSJ International Conference on Intelligent Robots and Systems (2023)"
+publication_short: "IROS"
 
 abstract: "In this poster, we explore a mechanism to detect obstacles within a distance 'd' ahead of a visually impaired person (VIP) and offer them a path with a minimum width 'w' to navigate between the obstacles."
 
