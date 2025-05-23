@@ -1,8 +1,8 @@
 ---
-title: "Flotilla: A scalable, modular and resilient federated learning framework for heterogeneous resources"
+title: "*Flotilla*: A scalable, modular and resilient federated learning framework for heterogeneous resources"
 authors:
 - Roopkatha Banerjee
-- Prince Modi
+- admin
 - Jinal Vyas
 - Chunduru Sri Abhijit
 - Tejus Chandrashekar
@@ -18,7 +18,7 @@ publication: "*Journal of Parallel and Distributed Computing, Volume 203*"
 publication_short: "JPDC"
 
 abstract: >
-  Federated Learning (FL) has emerged as a critical privacy-preserving technique for distributed model training, yet many existing frameworks are simulation-focused and lack deployment realism. We introduce Flotilla, a flexible and lightweight FL platform designed for real-world edge environments, offering modular strategy support, asynchronous updates, and high fault tolerance. It runs efficiently on edge hardware like Raspberry Pi and Jetson, outperforming or matching top frameworks like Flower, OpenFL, and FedML, while scaling seamlessly to 1000+ clients.
+  We introduce *Flotilla*, a flexible and lightweight FL platform designed for real-world edge environments, offering modular strategy support, asynchronous updates, and high fault tolerance. It runs efficiently on edge hardware like Raspberry Pi and Jetson, outperforming or matching top frameworks like Flower, OpenFL, and FedML, while scaling seamlessly to 1000+ clients.
 
 tags:
 - Federated Learning
