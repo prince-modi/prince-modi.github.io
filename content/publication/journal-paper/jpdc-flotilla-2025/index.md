@@ -27,7 +27,8 @@ tags:
 
 featured: true
 
-url_pdf: "https://authors.elsevier.com/c/1l8Ip_GwHPLUbc"
+# url_pdf: "https://authors.elsevier.com/c/1l8Ip_GwHPLUbc"
+url_pdf: "https://arxiv.org/pdf/2507.02295"
 url_code: "https://github.com/dream-lab/flotilla"
 
 # Optional assets (uncomment if available)
@@ -51,7 +52,7 @@ show_related: true
   I was closely involved in the design and development of Flotilla, contributing to the overall architecture, implementation
   of core components, and evaluation of system behavior under both standard and failure conditions.
 
-  I co-authored the initial drafts of the paper, focusing on articulating the systems perspective — including modular design,
+  I co-authored the initial drafts of the paper, focusing on articulating the systems perspective, including modular design,
   fault tolerance, and large-scale deployment challenges.
 
   My work spanned design discussions, implementation sprints, and benchmarking, helping shape Flotilla from concept to
