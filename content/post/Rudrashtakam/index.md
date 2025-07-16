@@ -18,11 +18,11 @@ summary: "The Rudrashtakam is a Sanskrit hymn composed by Tulsidas in praise of 
 
 The **Rudrashtakam** is a revered Sanskrit hymn composed by the 16th-century poet-saint *Goswami Tulsidas*, most widely known for the *Ramcharitmanas*. Unlike most of his works centered around Lord Rama, here Tulsidas offers deep, heartfelt praise to **Lord Shiva**, addressing Him as the supreme formless consciousness (*Nirguna Brahman*), yet also as a compassionate and tangible protector.
 
-The hymn is composed in 8 verses (*ashtakam*) and is often recited by devotees seeking inner peace, surrender, and Shiva’s grace.
+The [hymn](https://youtu.be/8ej0guIbXxk) is composed in 8 verses (*ashtakam*) and is often recited by devotees seeking inner peace, surrender, and Shiva’s grace.
 
 ---
 
-### ॥ 1 ॥॥
+### ॥ 1 ॥
 **नमामीशमीशान निर्वाणरूपं**  
 *namami sha-mi-shaan nirvaan roopam*  
 I bow to Lord Ishaana, the form of liberation,  
@@ -56,11 +56,11 @@ Fierce, greater than Time, yet deeply compassionate,
 
 **गुणागार संसारपारं नतोऽहम्॥**  
 *gu-naa-gaar sam-saa­ra pa­aram na­to’ham*  
-Who lifts us beyond worldly cycles—I bow to Him.  
+Who lifts us beyond worldly cycles, I bow to Him.  
 
 ---
 
-### ॥ 3 ॥॥
+### ॥ 3 ॥
 **तुषाराद्रिसंकाशगौरं गभीरं**  
 *tu-shaa­raa­dri san-kaash gauram ga­bheeram*  
 White as Himalayan snow, calm and profound,  
@@ -79,7 +79,7 @@ With crescent moon on His brow and serpent on His neck.
 
 ---
 
-### ॥ 4 ॥॥
+### ॥ 4 ॥
 **चलत्कुण्डलं भ्रूसुनेत्रं विशालं**  
 *cha­lat kund­a­lam bhru-su net­ram vi­shaa­lam*  
 Earrings swinging, brows and eyes wide and graceful,  
@@ -98,7 +98,7 @@ I worship Shankara, beloved Lord of all.
 
 ---
 
-### ॥ 5 ॥॥
+### ॥ 5 ॥
 **प्रचण्डं प्रकृष्टं प्रगल्भं परेशं**  
 *pra chan­dam pra krish­tam pra­galbham pa­resham*  
 Fierce, supreme, fearless, highest of gods,  
@@ -117,7 +117,7 @@ I worship Bhavani’s Lord, attained through devotion.
 
 ---
 
-### ॥ 6 ॥॥
+### ॥ 6 ॥
 **कलातीतकल्याण कल्पान्तकारी**  
 *ka­laa­teet ka­lya­an kal paa­nta kaa­ree*  
 Beyond time, ever-auspicious, ender of creation,  
@@ -136,7 +136,7 @@ Be gracious, O Lord, destroyer of desire, be gracious.
 
 ---
 
-### ॥ 7 ॥॥
+### ॥ 7 ॥
 **न यावदुमानाथपादारविन्दं**  
 *na yaa vad u maa­naath paa daa ra vin­dam*  
 Until one worships Uma’s Lord’s lotus feet,  
@@ -155,7 +155,7 @@ Be kind, O Lord who dwells in all beings.
 
 ---
 
-### ॥ 8 ॥॥
+### ॥ 8 ॥
 **न जानामि योगं जपं नैव पूजां**  
 *na jaa naa mi yo­gam ja­pam na­ev poo­jaam*  
 I know not yoga, nor chant, nor ritual worship,  
@@ -174,10 +174,10 @@ O Lord, protect me, Shambhu, I surrender to You.
 
 ---
 
-### ॥ 
+
 **रुद्राष्टकमिदं प्रोक्तं विप्रेण हरेतोषये।**  
 *rud­raa­shta­kam i­dam prokt­am vip­reṇ ha­re to­shaye*  
-This Rudrashtakam, spoken by sages to please Lord Hara,  
+This Rudrashtakam, spoken by sages to please Lord Hare,  
 
 **ये पठन्ति नरा भक्त्या तेषां शम्भुः प्रसीदति॥**  
 *ye pa­than­ti na­raa bhak­tyaa te­shaaṁ sham­bhuḥ pra­se­e­dati*  
