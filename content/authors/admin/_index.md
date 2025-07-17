@@ -85,7 +85,7 @@ skills:
 social:
   - icon: envelope
     icon_pack: fas
-    link: 'mailto:princbemodi@gmail.com'
+    link: 'mailto:princbemodi@outlook.com'
   - icon: linkedin
     icon_pack: fab
     link: https://www.linkedin.com/in/modi-prince/
