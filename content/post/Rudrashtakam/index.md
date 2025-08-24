@@ -9,7 +9,7 @@ tags:
 - Hymn
 - Sanskrit
 - Stotra
-summary: "The Rudrashtakam is a Sanskrit hymn composed by Tulsidas in praise of Bhagavan Shiva—invoking His formless, compassionate, and all-pervading nature."
+summary: "The Rudrashtakam is a Sanskrit hymn composed by Tulsidas in praise of Bhagavan Shiva, invoking His formless, compassionate, and all-pervading nature."
 ---
 
 ## Rudrashtakam  
