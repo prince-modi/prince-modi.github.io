@@ -97,7 +97,7 @@ social:
     link: https://github.com/prince-modi
   - icon: cv
     icon_pack: ai
-    link: uploads/resume.pdf
+    link: uploads/CV.pdf
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
