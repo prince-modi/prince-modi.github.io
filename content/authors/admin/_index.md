@@ -95,9 +95,6 @@ social:
   - icon: github
     icon_pack: fab
     link: https://github.com/prince-modi
-  - icon: file
-    icon_pack: ai
-    link: uploads/resume.pdf
   - icon: cv
     icon_pack: ai
     link: uploads/CV.pdf
