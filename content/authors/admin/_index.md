@@ -95,9 +95,13 @@ social:
   - icon: github
     icon_pack: fab
     link: https://github.com/prince-modi
+  - icon: invoice
+    icon_pack: ai
+    link: uploads/resume.pdf
   - icon: cv
     icon_pack: ai
     link: uploads/CV.pdf
+
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
