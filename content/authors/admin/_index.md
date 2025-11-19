@@ -103,7 +103,7 @@ social:
 highlight_name: true
 ---
 
-I'm an incoming Master's student in Computer Science and Engineering at UC San Diego, specializing in Distributed Systems. I have hands-on experience working on scalable and resilient systems, including development of [*Flotilla*](https://github.com/dream-lab/flotilla/), a modular federated learning framework, during my time at the Indian Institute of Science. While working on Flotilla, I became especially interested in the challenges of fault tolerance, consistency, and recovery in distributed systems, areas I'm excited to explore further. My broader interests span distributed computing, systems programming, and computer networks. 
+I'm a first year Master's student in Computer Science and Engineering department at UC San Diego, specializing in Distributed Systems. I have hands-on experience working on scalable and resilient systems, including development of [*Flotilla*](https://github.com/dream-lab/flotilla/), a modular federated learning framework, during my time at the Indian Institute of Science. While working of Flotilla, I became especially interested in the challenges of fault tolerance, consistency, and recovery in distributed systems. My broader interests span distributed computing, datacenter systems, and operating systems.
 
 <div class="container">
   <div class="row">
@@ -149,11 +149,11 @@ I'm an incoming Master's student in Computer Science and Engineering at UC San D
         </li>
         <li class="mb-3">
           <a href="/tag/cloud-computing"><span class="fa-li"><i class="fas fa-cloud"></i></span>
-          Cloud Computing</a>
+          Datacenter Systems</a>
         </li>
         <li class="mb-3">
-          <a href="/tag/applied-machine-learning"><span class="fa-li"><i class="fas fa-brain"></i></span>
-          Applied ML</a>
+          <a href="/tag/operating-systems"><span class="fa-li"><i class="fas fa-computer"></i></span>
+          Operating Systems</a>
         </li>        
       </ul>
     </div>
