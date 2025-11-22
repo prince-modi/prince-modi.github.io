@@ -130,7 +130,7 @@ I'm a first year Master's student in Computer Science and Engineering department
       <ul class="fa-ul">
         <li>
           <a href="#ucsd"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
-          MSCSE, UCSD</a><br/>
+          MSCS, UCSD</a><br/>
           <span style="font-size: 0.85em; color: #666;">(2025–2027)</span>
         </li>
         <li>
