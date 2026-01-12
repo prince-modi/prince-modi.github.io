@@ -56,7 +56,7 @@ show_related: true
   Out of various components of this framework, one that I am most proud of is the Server Failure and Recovery using state checkpointing.
   We designed an external state store using Redis, that stores all the important state of the server during a machine learning training task.
   We also implemented a periodic disk-based checkpointing, as a back-up for our Redis state-store. Designing and testing this component was 
-  the most fun I have had while working on this project. See Sections [3.5](https://arxiv.org/pdf/2507.02295#page=19) and [4.4](https://arxiv.org/pdf/2507.02295#page=31) in the paper for more details!
+  the most fun I have had while working on this project. See Sections [3.5](https://arxiv.org/pdf/2507.02295#page=19&zoom=100,0,500) and [4.4](https://arxiv.org/pdf/2507.02295#page=31&zoom=100,0,400) in the paper for more details!
 
   I coauthored the initial drafts of the paper, focusing on articulating the systems perspective, including modular design,
   fault tolerance, and large-scale deployment challenges.
