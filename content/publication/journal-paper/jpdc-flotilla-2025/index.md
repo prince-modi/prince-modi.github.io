@@ -47,13 +47,16 @@ url_code: "https://github.com/dream-lab/flotilla"
 show_related: true
 ---
 
-  ### 🧩 My Contribution
+  ### My Contribution
 
-  I was closely involved in the design and development of Flotilla, contributing to the overall architecture, implementation
-  of core components, and evaluation of system behavior under both standard and failure conditions.
+  I was involved in the design and development of Flotilla from the ground-up. I implemented or was part of the group implementing 
+  all the core components, and was also involved in the initial design and setup of the evaluation framework to study the system's
+  behavior under expected, high-load, and failure conditions.
 
-  I co-authored the initial drafts of the paper, focusing on articulating the systems perspective, including modular design,
+  Out of various components of this framework, one that I am most proud of is the Server Failure and Recovery using state checkpointing.
+  We designed an external state store using Redis, that stores all the important state of the server during a machine learning training task.
+  We also implemented a periodic disk-based checkpointing, as a back-up for our Redis state-store. Designing and testing this component was 
+  the most fun I have had while working on this project. See Sections [3.5](https://arxiv.org/pdf/2507.02295#page=19) and [4.4](https://arxiv.org/pdf/2507.02295#page=31) in the paper for more details!
+
+  I coauthored the initial drafts of the paper, focusing on articulating the systems perspective, including modular design,
   fault tolerance, and large-scale deployment challenges.
-
-  My work spanned design discussions, implementation sprints, and benchmarking, helping shape Flotilla from concept to
-  a functioning, scalable framework.
