@@ -47,6 +47,8 @@ url_code: "https://github.com/dream-lab/flotilla"
 show_related: true
 ---
 
+  This builds further upon our initial model agnostic federated learning framework, discussed [here](https://princemodi.me/publication/conference-poster/hipc-srs-2023/). The framework described there was completely synchronous and did not support any checkpointing mechanism (yet). The framework we describe in this paper is almost a total rewrite. We moved away from a synchronous framework, deciding to add support for asynchronous federated learning strategies. We further implemented the newer version with a clearer separation of states in mind, which later helped us integrate checkpointing and reliability into this framework.
+
   ### My Contribution
 
   I was involved in the design and development of Flotilla from the ground-up. I implemented or was part of the group implementing 
