@@ -29,7 +29,7 @@ tags:
 featured: true
 
 # Links (Optional)
-# url_pdf: '/uploads/iros_2023_uav_vip.pdf'
+url_pdf: 'https://arxiv.org/abs/2506.14857'
 # url_code: 'https://github.com/dream-lab/uav-vip-collision-avoidance'
 # url_poster: '/uploads/iros-poster.pdf'
 # url_slides: '/uploads/iros-presentation.pdf'
