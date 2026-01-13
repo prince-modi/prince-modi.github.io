@@ -70,7 +70,10 @@ We evaluated different client selection strategies in a lab testbed comprising h
 The model converged in **100 FL rounds**, reaching **98.4% accuracy**, with an **average round time of 375 seconds**.
 
 ![Figure 2.](hipcsrs_2023_fedml_training_graph.png)
-**Figure 2.** Results. *Source: FedML framework, HIPC-SRS 2023.*
+<p style="text-align: center;">
+  <strong>Figure 2.</strong> Results.
+  <em>Source: FedML framework, HIPC-SRS 2023.</em>
+</p>
 
 ### Press
 * ["Towards a Modular Federated Learning Framework on Edge Devices"](https://2023.hipc.org/srs-2023/#:~:text=Towards%20a%20Modular%20Federated%20Learning%20Framework%20on%20Edge%20Devices) at HiPC 2023 Student Research Symposium
