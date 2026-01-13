@@ -63,7 +63,8 @@ show_related: true
   ![Figure 1.](graphs_checkpointing.png)
   <p style="text-align:center;">
     <strong>Figure 1.</strong> Some graphs about the checkpointing mechanism.  
-    <em>Source: *Flotilla: A scalable, modular and resilient federated learning framework for heterogeneous resources*, Journal of Parallel and Distributed Computing, 2025.</em>
+    <em>Source: Flotilla: A scalable, modular and resilient federated learning framework for heterogeneous resources, Journal of Parallel and Distributed Computing, 2025.</em>
   </p>
+  
   I coauthored the initial drafts of the paper, focusing on articulating the systems perspective, including modular design,
   fault tolerance, and large-scale deployment challenges.
