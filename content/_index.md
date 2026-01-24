@@ -15,7 +15,6 @@ sections:
     id: skills
     title: Skills
     content:
-      # Note: `username` refers to the user's folder name in `content/authors/`
       username: admin
     design:
       show_skill_percentage: false
@@ -31,12 +30,14 @@ sections:
           institution: University of California San Diego
           date_start: 2025-09-22
           date_end: 2027-06-01
-          description: Graduate student at UCSD, focusing on **Distributed Systems**
-             Courses included:
-            **Relevant Courses:** </br>
-            • *Graduate Operating Systems*</br> 
-            • *Computer Architecture*</br>
-            • *LLM Systems Optimization*</br>
+          description: |
+            Graduate student at UCSD, focusing on **Distributed Systems**
+            
+            **Relevant Courses:**
+            - *Graduate Operating Systems*
+            - *Computer Architecture*
+            - *LLM Systems Optimization*
+            
         - title: Bachelor of Technology in Computer Engineering
           icon_choice: "university"
           id: guni
@@ -44,28 +45,29 @@ sections:
           date_start: 2018-07-01
           date_end: 2022-06-01
           description: |
-            **GPA:** *3.96/4.00*  </br>
+            **GPA:** *3.96/4.00*
+            
             **Achievements:**
-            Academic scholarship for securing 2nd rank out of 60+ students  
-            **Relevant Courses:** </br>
-            • *Operating Systems*</br> 
-            • *Computer Networks*</br>
-            • *Cloud Computing*</br>
-            • *Big Data Analytics*</br>
-            **Projects:**  
-            • *BitTorrent Client*: Built a peer-to-peer file-sharing client using Python’s AsyncIO and BitTorrent protocol with a custom Bencode parser  
-            • *GIST*: Developed a YouTube video summarizer using NLTK, BART model, SQLite, and Tkinter
-
-
+            - Academic scholarship for securing 2nd rank out of 60+ students
+            
+            **Relevant Courses:**
+            - *Operating Systems*
+            - *Computer Networks*
+            - *Cloud Computing*
+            - *Big Data Analytics*
+            
+            **Projects:**
+            - *BitTorrent Client*: Built a peer-to-peer file-sharing client using Python's AsyncIO and BitTorrent protocol with a custom Bencode parser
+            - *GIST*: Developed a YouTube video summarizer using NLTK, BART model, SQLite, and Tkinter
 
   - block: resume-exp
     title: Experience
     id: experience
     content:
       items:
-        - title: 'Research Colaborator (Remote)'
+        - title: 'Research Collaborator (Remote)'
           icon_choice: "university"
-          id: iisc
+          id: iisc2
           company: Indian Institute of Science (IISc), Bangalore
           company_url: ''
           company_logo: ''
@@ -73,10 +75,11 @@ sections:
           date_end: 2024-11-01
           location: Bangalore
           description: |
-            - Continued voluntary collaboration with the DREAM:Lab to finalize research validation for the JPDC 2025 publication.
-            - Authored the in-depth system architecture and scalability analysis for Flotilla, leading to its acceptance in the Journal of Parallel and Distributed Computing (JPDC).
-            - Orchestrated containerized deployments using custom Docker images across distributed clusters to validate system performance on 1000+ concurrent clients.
-        - title: 'Research Associate (DREAM: Lab)'
+            - Continued voluntary collaboration with the DREAM:Lab to finalize research validation for the JPDC 2025 publication
+            - Authored the in-depth system architecture and scalability analysis for Flotilla, leading to its acceptance in the Journal of Parallel and Distributed Computing (JPDC)
+            - Orchestrated containerized deployments using custom Docker images across distributed clusters to validate system performance on 1000+ concurrent clients
+            
+        - title: 'Research Associate (DREAM:Lab)'
           icon_choice: "university"
           id: iisc
           company: Indian Institute of Science (IISc), Bangalore
@@ -91,13 +94,13 @@ sections:
             - Implemented server and client sides using MQTT and gRPC for efficient message passing and coordination in federated learning
             - Designed a custom Redis-based state store with checkpointing to enable recovery from full server failures without data loss or disruption
             - Integrated client selection and aggregation strategies from current research for performance, accuracy, and turnaround optimization
-            - Collaborated with PhD students under Prof. Manik Gupta (BITS Pilani) and Prof. Yogesh Simmhan (IISc) to ensure Flotilla’s scalability and reliability
+            - Collaborated with PhD students under Prof. Manik Gupta (BITS Pilani) and Prof. Yogesh Simmhan (IISc) to ensure Flotilla's scalability and reliability
             - Configured and managed an 80+ node edge cluster (Nvidia Jetsons, Raspberry Pis), supporting lab infrastructure and projects including Flotilla
-
-            **Volunteering:**  
-            - *Senior Student Volunteer*, Indian Institute of Science – IEEE/ACM CCGrid 2023: Co-organized a 300+ participant conference; coordinated 3 poster sessions and assisted keynote speakers and faculty  
+            
+            **Volunteering:**
+            - *Senior Student Volunteer*, Indian Institute of Science – IEEE/ACM CCGrid 2023: Co-organized a 300+ participant conference; coordinated 3 poster sessions and assisted keynote speakers and faculty
             - *Student Volunteer*, IISc Open Day 2023: Coordinated presentation sessions for DREAM:Lab projects
-
+            
         - title: Teaching Assistant, Data Engineering at Scale
           icon_choice: "university"
           company: Indian Institute of Science (IISc), Bangalore
@@ -110,6 +113,7 @@ sections:
             **Responsibilities include:**
             - Taught a graduate-level course to a class of 40+ students, comprising topics such as HDFS, Map-Reduce, Apache Spark
             - Facilitated and led a 2-hour lab session per week, prepared and graded assignments, conducted one-on-one office hours, and conducted doubt-clearing sessions
+            
         - title: Software Engineering Intern (Intellza)
           id: intern
           company: Sterlite Technologies Limited, Ahmedabad
@@ -122,20 +126,7 @@ sections:
             **Responsibilities include:**
             - Developed Intellza, a unified data storage and analytics platform, alongside a cross-functional team
             - Developed and integrated a module to maintain and track schema changes for MongoDB on Intellza using LiquiBase
-            - Created Docker images and optimized the existing images as per Docker’s recommendations, reducing the image size to 35% and improving the build times of the project’s CI/CD pipeline by 50%
-  # - block: collection
-  #   id: projects
-  #   content:
-  #     title: Research Interests
-  #     filters:
-  #       folders:
-  #         - project
-  #   design:
-  #     # Choose how many columns the section has. Valid values: '1' or '2'.
-  #     columns: '2'
-  #     view: card
-  #     # For Showcase view, flip alternate rows?
-  #     flip_alt_rows: false
+            - Created Docker images and optimized the existing images as per Docker's recommendations, reducing the image size to 35% and improving the build times of the project's CI/CD pipeline by 50%
 
   - block: collection
     id: featured-publications
@@ -155,9 +146,7 @@ sections:
       title: Recent posts
       subtitle: ''
       text: ''
-      # Choose how many pages you would like to display (0 = all pages)
       count: 3
-      # Filter on criteria
       filters:
         folders:
           - post
@@ -168,12 +157,9 @@ sections:
         exclude_future: false
         exclude_past: false
         publication_type: ""
-      # Choose how many pages you would like to offset by
       offset: 0
-      # Page order: descending (desc) or ascending (asc) date.
       order: desc
     design:
-      # Choose a layout view
       view: card
       columns: '2'
 
@@ -200,5 +186,4 @@ sections:
         - title: Astronomy
           icon_choice: "meteor"
           description: "Stargazing and exploring celestial bodies, learning about the universe"
-        
 ---
