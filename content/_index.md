@@ -31,9 +31,11 @@ sections:
           institution: University of California San Diego
           date_start: 2025-09-22
           date_end: 2027-06-01
-          description: Incoming graduate student at UCSD, specializing in **Distributed Systems**
-          #   Courses included:
-          #   - CSE 221: Graduate Operating Systems
+          description: Graduate student at UCSD, focusing on **Distributed Systems**
+             Courses included:
+             - CSE 221: Graduate Operating Systems
+             - CSE 240A: Computer Architecture
+             - CSE 291: LLM System Optimizations
         - title: Bachelor of Technology in Computer Engineering
           icon_choice: "university"
           id: guni
@@ -60,6 +62,19 @@ sections:
     id: experience
     content:
       items:
+        - title: 'Research Colaborator (Remote)'
+          icon_choice: "university"
+          id: iisc
+          company: Indian Institute of Science (IISc), Bangalore
+          company_url: ''
+          company_logo: ''
+          date_start: 2024-04-30
+          date_end: 2024-11-01
+          location: Bangalore
+          description: |
+            - Continued voluntary collaboration with the DREAM:Lab to finalize research validation for the JPDC 2025 publication.
+            - Authored the in-depth system architecture and scalability analysis for Flotilla, leading to its acceptance in the Journal of Parallel and Distributed Computing (JPDC).
+            - Orchestrated containerized deployments using custom Docker images across distributed clusters to validate system performance on 1000+ concurrent clients.
         - title: 'Research Associate (DREAM: Lab)'
           icon_choice: "university"
           id: iisc
@@ -67,7 +82,7 @@ sections:
           company_url: ''
           company_logo: ''
           date_start: 2023-01-01
-          date_end: 2024-11-30
+          date_end: 2024-04-30
           location: Bangalore
           description: |
             **Responsibilities include:**
