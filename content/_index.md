@@ -24,7 +24,7 @@ sections:
     id: education
     content:
       items:
-        - title: Master of Science in Computer Science and Engineering
+        - title: Master of Science in Computer Science
           icon_choice: "university"
           id: ucsd
           institution: University of California San Diego
@@ -37,7 +37,10 @@ sections:
             - *Graduate Operating Systems*
             - *Computer Architecture*
             - *LLM Systems Optimization*
-            
+
+            **Projects:**
+            - *System Measurement*: Developed a suite of micro-benchmarks to evaluate the Rockchip RK3588S SoC, utilizing ARMv8 cycle counters to measure CPU scheduling and OS primitive latencies with nanosecond precision.([Link](https://princemodi.me/post/system-measurement/))
+ 
         - title: Bachelor of Technology in Computer Engineering
           icon_choice: "university"
           id: guni
