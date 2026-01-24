@@ -33,9 +33,10 @@ sections:
           date_end: 2027-06-01
           description: Graduate student at UCSD, focusing on **Distributed Systems**
              Courses included:
-             - CSE 221: Graduate Operating Systems
-             - CSE 240A: Computer Architecture
-             - CSE 291: LLM System Optimizations
+            **Relevant Courses:** </br>
+            • *Graduate Operating Systems*</br> 
+            • *Computer Architecture*</br>
+            • *LLM Systems Optimization*</br>
         - title: Bachelor of Technology in Computer Engineering
           icon_choice: "university"
           id: guni
