@@ -1,6 +1,6 @@
 ---
 title: "Exploring the Power of Google File System: The Distributed Storage System That Revolutionized Big Data"
-summary: '*An overview of the Google File System (GFS), its architecture, design decisions, and the assumptions behind it, based on the paper by Ghemawat et al.*'
+summary: 'An overview of the Google File System (GFS), its architecture, design decisions, and the assumptions behind it, based on the paper by Ghemawat et al.'
 date: 2022-11-19
 math: true
 toc: true
