@@ -1,6 +1,6 @@
 ---
 title: "Understanding VMware FT: Deterministic Replay and Continuous Availability in Virtualized Environments"
-summary: '*An in-depth look at VMware Fault Tolerance (FT) and how it achieves transparent failover for virtual machines using deterministic replay, based on the paper by Scales, Nelson, and Venkitachalam.*'
+summary: 'An in-depth look at VMware Fault Tolerance (FT) and how it achieves transparent failover for virtual machines using deterministic replay, based on the paper by Scales, Nelson, and Venkitachalam.'
 date: 2022-09-01
 math: false
 toc: true
