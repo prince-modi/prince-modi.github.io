@@ -18,7 +18,7 @@ marketing:
   seo:
     site_type: Person
     local_business_type: ''
-    org_name: ''
+    org_name: 'University of California San Diego'
   analytics:
     google_analytics: ''
     baidu_tongji: ''
@@ -68,7 +68,7 @@ features:
   privacy_pack:
     enable: false
   repository:
-    url: 'https://github.com/<username>/<repository>'
+    url: 'https://github.com/prince-modi/prince-modi.github.io'
     content_dir: content
     branch: main
   avatar:
@@ -118,4 +118,4 @@ extensions:
 
 security:
   # Allow frame for embedding speaker notes in slides
-  allow_frame: true
+  allow_frame: false
