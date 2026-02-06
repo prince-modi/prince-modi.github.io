@@ -98,6 +98,9 @@ social:
   - icon: cv
     icon_pack: ai
     link: uploads/CV.pdf
+  - icon: file-lines
+    icon_pack: fas
+    link: uploads/resume.pdf
 
 
 # Highlight the author in author lists? (true/false)
