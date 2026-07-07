@@ -8,7 +8,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
-output_file = os.getenv("RESUME_OUTPUT_NAME", "Prince_Modi_Resume.pdf")
+output_file = os.getenv("RESUME_OUTPUT_NAME", "../resume.pdf")
 
 CONFIG_FILE = "resume_config.json"
 
@@ -230,13 +230,13 @@ def create_resume():
     )
     story.append(
         Paragraph(
-            "• Refactored Docker images on Linux CI/CD pipelines, reducing image size by <b>35%</b> and accelerating build times by <b>50%</b>.",
+            "• Refactored Docker images on Linux CI/CD pipelines, reducing image size by <b>35%</b> and accelerating build times by <b>50%</b>",
             style_bullet,
         )
     )
     story.append(
         Paragraph(
-            "• Integrated a Liquibase module to track MongoDB schema changes, improving version control reliability across environments.",
+            "• Integrated a Liquibase module to track MongoDB schema changes, improving version control reliability across environments",
             style_bullet,
         )
     )
