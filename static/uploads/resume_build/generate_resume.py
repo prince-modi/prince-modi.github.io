@@ -26,8 +26,8 @@ def create_resume():
     doc = SimpleDocTemplate(
         output_file,
         pagesize=letter,
-        topMargin=0.2 * inch,
-        bottomMargin=0.2 * inch,
+        topMargin=0.3 * inch,
+        bottomMargin=0.3 * inch,
         leftMargin=0.5 * inch,
         rightMargin=0.5 * inch,
         title="Resume_Prince_Modi",
@@ -60,7 +60,7 @@ def create_resume():
         parent=styles["Normal"],
         fontName="Helvetica-Bold",
         fontSize=10.5,
-        spaceBefore=2,
+        spaceBefore=5,
         spaceAfter=3,
         uppercase=True,
     )
@@ -100,8 +100,8 @@ def create_resume():
         parent=styles["Normal"],
         fontName="Helvetica",
         fontSize=9.5,
-        leading=11.5,
-        spaceAfter=1,
+        leading=12,
+        spaceAfter=2,
         alignment=TA_JUSTIFY,
     )
     style_pub = ParagraphStyle(
@@ -128,7 +128,7 @@ def create_resume():
             )
         )
         story.append(t)
-        story.append(Spacer(1, 0.05 * inch))
+        story.append(Spacer(1, 0.07 * inch))
 
     def add_entry(institution, location, date, role="", project_title=""):
         header_text = f"{institution}, {location}" if location else institution
@@ -190,7 +190,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.05 * inch))
+    story.append(Spacer(1, 0.07 * inch))
 
     add_entry(
         "Ganpat University",
@@ -205,7 +205,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.08 * inch))
+    story.append(Spacer(1, 0.07 * inch))
 
     # --- WORK EXPERIENCE ---
     add_section("WORK EXPERIENCE")
@@ -240,7 +240,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.08 * inch))
+    story.append(Spacer(1, 0.07 * inch))
 
     # --- PUBLICATION ---
     add_section("PUBLICATION")
@@ -257,7 +257,7 @@ def create_resume():
     # --- PROJECTS ---
     add_section("PROJECTS")
     add_entry(
-        "Distributed Container Snapshotting",
+        'Distributed Container Snapshotting | <font name="Helvetica-Oblique">Podman, CRIU</font>',
         "",
         "June 2026",
     )
@@ -273,7 +273,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.08 * inch))
+    story.append(Spacer(1, 0.07 * inch))
 
     add_entry(
         'FlashAttention Kernel | <font name="Helvetica-Oblique">Triton, Python</font>',
@@ -286,7 +286,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.08 * inch))
+    story.append(Spacer(1, 0.07 * inch))
 
     add_entry(
         'System Performance Characterization | <font name="Helvetica-Oblique">C, Linux</font>',
@@ -299,7 +299,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.05 * inch))
+    story.append(Spacer(1, 0.07 * inch))
 
     """
     dynamic_header = (
@@ -309,7 +309,7 @@ def create_resume():
     add_entry(dynamic_header, "", dynamic_project["date"])
     for b in dynamic_project["bullets"]:
         story.append(Paragraph(f"• {b}", style_bullet))
-    story.append(Spacer(1, 0.08 * inch))
+    story.append(Spacer(1, 0.07 * inch))
     """
 
     # --- TECHNICAL SKILLS ---

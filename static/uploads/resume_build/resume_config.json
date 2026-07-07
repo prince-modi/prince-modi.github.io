@@ -9,9 +9,9 @@
   },
   "technical_skills": [
     "Languages: Python (proficient), C, Java, Bash/Shell",
-    "LLM & Distributed Training Infra: SGLang, NCCL, PyTorch, HuggingFace, Async/Sync Aggregation, Checkpoint/Restore, Fault-Tolerant Orchestration",
-    "Systems & Networking: Linux, Docker/Podman, CRIU, gRPC, MQTT, Reliable UDP, TCP/IP, REST APIs",
-    "Data & Tools: Redis, PostgreSQL, Git"
+    "ML/LLM Frameworks: PyTorch, HuggingFace, SGLang, NCCL, Triton",
+    "Distributed Systems: gRPC, MQTT, Redis, Fault-Tolerant Orchestration, Checkpoint/Restore",
+    "Infrastructure: Linux, Docker/Podman, CRIU, PostgreSQL, Git"
   ],
   "metadata": {
     "name": "Prince Modi",
@@ -23,7 +23,7 @@
       "Designed a distributed <b>snapshotting system</b> for stateful containerized applications, implementing the <b>Chandy-Lamport algorithm</b> to capture globally consistent cuts across nodes communicating over UDP",
       "Built a <b>reliable-UDP sidecar proxy</b> using sequence numbering, buffering, and acknowledgment retransmission to guarantee in-order, exactly-once delivery without modifying application code"
     ],
-    "stack": "Python, Go/C, Podman, CRIU",
+    "stack": "Python, Podman, CRIU",
     "date": "June 2026"
   }
 }
