@@ -8,12 +8,19 @@ authors:
 - Yogesh Simmhan
 date: "2023-12-18"
 
+# Schedule page publish date (NOT publication's date).
+# publishDate: "2025-05-04T23:24:00Z"
+
+# Publication type.
+# Accepts a single type but formatted as a YAML list (for Hugo requirements).
+# Enter a publication type from the CSL standard.
 publication_types: ["poster-conference"]
 
+# Conference name and optional abbreviated conference name.
 publication: "30th IEEE International Conference on High Performance Computing, Data, and Analytics (2023)"
 publication_short: "HiPC"
 
-abstract: 'Problem: Lack of modular federated learning platforms tailored for edge-device systems research. Methodology: Developed Flotilla, a model-agnostic framework enabling synchronous client-selection and aggregation strategies with integrated telemetry. Result: Validated on a Raspberry Pi cluster, achieving 98.4% accuracy in 100 rounds (375s/round).'
+abstract: 'In this poster, we introduce *Flotilla*, a modular, model-agnostic Federated Learning (FL) framework that supports synchronous client-selection and aggregation strategies, and FL model deployment and training on edge client clusters, with telemetry for advanced systems research.'
 
 tags:
 - Federated Learning
@@ -22,12 +29,27 @@ tags:
 
 featured: true
 
+# Links (Optional)
 url_pdf: '/uploads/hipcsrs_2023_fedml.pdf'
 url_code: 'https://github.com/dream-lab/flotilla'
 url_poster: '/uploads/hipcsrs-flotilla-poster.pdf'
 url_slides: '/uploads/hipcsrs_flotilla_presentation.pdf'
 
+# Featured image
+# image:
+#   caption: 'FL Framework Architecture'
+#   focal_point: "center"
+#   preview_only: false
+
+# Associated Projects (optional).
+# projects: ['project-name']
+
+# Slides (optional).
+# slides: "slides_filename"
+
+# Other options
 show_related: true
+
 ---
 
 ### Framework Architecture
