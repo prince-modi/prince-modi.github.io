@@ -27,15 +27,7 @@ organizations:
 # Short bio (displayed in user profile at end of posts)
 bio: Distributed Systems@UCSD
 
-# # Interests to show in About widget
-# interests:
-#   - Distributed Systems
-#   - Federated Learning
-#   - Computer Networks
-#   - Applied Machine Learning
-
 # Skills
-# For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
 skills:
   - name: 'Proficient'
     items:
@@ -102,8 +94,6 @@ social:
     icon_pack: fas
     link: uploads/resume.pdf
 
-
-# Highlight the author in author lists? (true/false)
 highlight_name: true
 ---
 
@@ -113,57 +103,74 @@ I'm a first-year Master's student in the Department of Computer Science and Engi
   <div class="row">
     <!-- Experience Column -->
     <div class="col-12 col-md-4 mb-4">
-      <a href=#experience><h3>Experience</h3></a>
+      <h3>Experience</h3>
       <ul class="fa-ul">
         <li>
-          <a href="#iisc"><span class="fa-li"><i class="fas fa-briefcase"></i></span>
-          Research Associate</a><br/>
-          <span style="font-size: 0.85em; color: #666;">IISc (2023–2024)</span>
+          <span class="fa-li"><i class="fas fa-briefcase"></i></span>
+          <strong>Research Collaborator</strong><br/>
+          <span style="font-size: 0.85em; color: #666;">IISc (2024)</span><br/>
+          <span style="font-size: 0.9em;">
+            - Authored system architecture and scalability analysis for Flotilla, securing acceptance into the <em>Journal of Parallel and Distributed Computing (JPDC)</em>.<br/>
+            - Validated system performance by orchestrating containerized deployments across distributed clusters, successfully scaling to 1,000+ concurrent clients.
+          </span>
         </li>
-        <li>
-          <a href="#intern"><span class="fa-li"><i class="fas fa-briefcase"></i></span>
-          Software Eng. Intern</a><br/>
-          <span style="font-size: 0.85em; color: #666;">Sterlite Tech Ltd. (2022)</span> 
+        <li style="margin-top: 15px;">
+          <span class="fa-li"><i class="fas fa-briefcase"></i></span>
+          <strong>Research Associate</strong><br/>
+          <span style="font-size: 0.85em; color: #666;">IISc (2023–2024)</span><br/>
+          <span style="font-size: 0.9em;">
+            - Engineered Flotilla, an asynchronous federated learning framework, optimizing distributed training across edge hardware topologies.<br/>
+            - Architected a custom Redis-based state store with disk checkpointing, achieving 100% state recovery and zero data loss during full server failures.<br/>
+            - Administered an 80-node heterogeneous edge cluster (Nvidia Jetson, Raspberry Pi), maintaining high availability for continuous systems research.
+          </span>
+        </li>
+        <li style="margin-top: 15px;">
+          <span class="fa-li"><i class="fas fa-briefcase"></i></span>
+          <strong>Software Eng. Intern</strong><br/>
+          <span style="font-size: 0.85em; color: #666;">Sterlite Tech Ltd. (2022)</span><br/>
+          <span style="font-size: 0.9em;">
+            - Engineered core modules for Intellza, a unified data storage and analytics platform, utilizing NoSQL architectures.<br/>
+            - Eliminated deployment version conflicts by integrating LiquiBase for continuous MongoDB schema tracking.<br/>
+            - Refactored CI/CD Docker image configurations, reducing image footprint by 65% and decreasing automated build times by 50%.
+          </span>
         </li>
       </ul>
     </div>
+
     <!-- Education Column -->
     <div class="col-12 col-md-4 mb-4">
-      <a href=#education><h3>Education</h3></a>
+      <h3>Education</h3>
       <ul class="fa-ul">
         <li>
-          <a href="#ucsd"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
-          MSCS, UCSD</a><br/>
+          <span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
+          <strong>MSCS, UCSD</strong><br/>
           <span style="font-size: 0.85em; color: #666;">(2025–2027)</span>
         </li>
-        <li>
-          <a href="#guni"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
-          B.Tech CE, UVPCE</a><br/>
+        <li style="margin-top: 10px;">
+          <span class="fa-li"><i class="fas fa-graduation-cap"></i></span>
+          <strong>B.Tech CE, UVPCE</strong><br/>
           <span style="font-size: 0.85em; color: #666;">(2018–2022)</span>
         </li>
       </ul>
-</div>
+    </div>
+
     <!-- Interest Column -->
     <div class="col-12 col-md-4 mb-4">
-      <a href=#hobbies><h3>Interests</h3></a>
+      <h3>Interests</h3>
       <ul class="fa-ul">
         <li class="mb-3">
-          <a href="/tag/distributed-systems"><span class="fa-li"><i class="fas fa-server"></i></span>
-          Distributed Systems</a>
+          <span class="fa-li"><i class="fas fa-server"></i></span>
+          Distributed Systems
         </li>
         <li class="mb-3">
-          <a href="/tag/cloud-computing"><span class="fa-li"><i class="fas fa-cloud"></i></span>
-          Datacenter Systems</a>
+          <span class="fa-li"><i class="fas fa-cloud"></i></span>
+          Datacenter Systems
         </li>
         <li class="mb-3">
-          <a href="/tag/operating-systems"><span class="fa-li"><i class="fas fa-computer"></i></span>
-          Operating Systems</a>
-        </li>        
+          <span class="fa-li"><i class="fas fa-computer"></i></span>
+          Operating Systems
+        </li>
       </ul>
     </div>
   </div>
 </div>
-
-
-
-{style="text-align: justify;"}
