@@ -12,6 +12,7 @@ tags:
 summary: "A question-driven, ground-up walkthrough of transformer internals, DP/TP/CP/PP parallelism, MoE dispatch and combine, and the collective operations underneath it all, written while reading the NanoCP and UltraEP papers."
 ---
 
+*Note: Significant portions of this article, including diagrams and code, were generated with the assistance of Claude (Anthropic). I wanted to be upfront about that, since I'd want to know before spending my time on something, and I imagine you might feel the same. If you find any inaccuracies feel free to point them out to me.*
 
 ## Part 1: Inside one attention block
 
