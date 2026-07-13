@@ -692,7 +692,59 @@ That flat curve is why ring all-reduce became the default in every serious distr
 The rest, briefly: **broadcast / scatter / gather** move `~n` bytes per rank, roughly `P`-independent. **All-gather genuinely does scale with `P`**: the combined result is `P·n`, so each rank must receive `(P-1)·n` new bytes; no algorithm avoids this, since the information itself grows. **Reduce-scatter** is exactly half of ring all-reduce (the first phase). **All-to-all** is bandwidth-comparable to reduce-scatter, but its real cost is *latency*: it needs `P-1` distinct messages, and if each one carries only a handful of tokens (the common MoE case), the fixed per-message overhead `α` dominates over the actual bytes. That's the precise reason NanoCP builds a routing-based backend instead of calling a generic all-to-all: it attacks the message-count term directly, skipping pairs that have nothing real to send, rather than paying for a dense `P×P` mesh every single request.
 
 ---
+ 
+## References
+ 
+The two papers this whole post is built around:
+ 
+- Chen, J. et al. "NanoCP: Request-Level Dynamic Context Parallelism for Data-Expert Parallel Decoding." [arXiv:2605.21100](https://arxiv.org/abs/2605.21100)
+- Wei, X. et al. "UltraEP: Unleash MoE Training and Inference on Rack-Scale Nodes with Near-Optimal Load Balancing." [arXiv:2606.04101](https://arxiv.org/abs/2606.04101)
 
-## Closing thread
+Attention, tensor parallelism, and MLA:
+ 
+- ROCm, "The vLLM MoE Playbook." [rocm.blogs.amd.com](https://rocm.blogs.amd.com/software-tools-optimization/vllm-moe-guide/README.html)
+- Jarvislabs, "Scaling LLM Inference: DP, PP, TP." [docs.jarvislabs.ai](https://docs.jarvislabs.ai/blog/scaling-llm-inference-dp-pp-tp)
+- vLLM Docs, "Data Parallel Deployment." [docs.vllm.ai](https://docs.vllm.ai/en/latest/serving/data_parallel_deployment/)
+- Brenndoerfer, M. "Tensor Parallelism: Column, Row, and Megatron Patterns." [mbrenndoerfer.com](https://mbrenndoerfer.com/writing/tensor-parallelism-column-row-megatron-communication-patterns)
+- Shoeybi, M. et al. "Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism." [arXiv:2104.04473](https://arxiv.org/pdf/2104.04473)
+- Jang, I. "Analyzing Parallelization of Attention." [insujang.github.io](https://insujang.github.io/2022-08-03/analyzing-parallelization-of-attention/)
+- Bhatia, N. et al. "Helix Parallelism: Rethinking Sharding Strategies for Interactive Multi-Million-Token LLM Decoding." [arXiv:2507.07120](https://arxiv.org/html/2507.07120v1)
+- NVIDIA Developer Blog, "Multi-Million Token Real-Time Inference." [developer.nvidia.com](https://developer.nvidia.com/blog/asking-an-encyclopedia-sized-question-how-to-make-the-world-smarter-with-multi-million-token-real-time-inference/)
+- vLLM GitHub, RFC for Helix Parallelism implementation. [github.com/vllm-project/vllm/issues/34018](https://github.com/vllm-project/vllm/issues/34018)
+- DeepSeek-AI, "DeepSeek-V2 Technical Report." [arXiv:2405.04434](https://arxiv.org/pdf/2405.04434)
+- Vizuara, "Decoding Multi-Head Latent Attention," Part 1 and Part 2. [vizuara.substack.com](https://vizuara.substack.com/p/decoding-multi-head-latent-attention)
+- Towards Data Science, "DeepSeek-V3 Explained 1: Multi-head Latent Attention." [towardsdatascience.com](https://towardsdatascience.com/deepseek-v3-explained-1-multi-head-latent-attention-ed6bee2a67c4/)
+- NVIDIA/TensorRT-LLM GitHub, feature request discussing MLA weight replication under tensor parallelism.
 
-Zooming out: NanoCP decouples *where attention runs* from *where MoE dispatch runs* (dynamic CP degree instead of a fixed uniform group), and UltraEP reacts to *exact*, current-iteration expert load rather than periodic historical statistics, replicating a hot expert's weights and splitting its tokens across replicas before dispatch even starts. Both papers are, underneath everything, just careful choices about which of these collective primitives to use, when, and how sparsely. Once you can see that layer, the rest of the systems literature in this space reads a lot faster.
+Context parallelism, FlashAttention, and the online-softmax merge:
+ 
+- Dao, T. et al. "Flash-Decoding for long-context inference." [pytorch.org/blog](https://pytorch.org/blog/flash-decoding/) (mirrored at [princeton-nlp.github.io](https://princeton-nlp.github.io/flash-decoding/))
+- Meta AI, "Context Parallelism for Scalable Million-Token Inference." [arXiv:2411.01783](https://arxiv.org/pdf/2411.01783)
+- HuggingFace Blog, "FlashAttention: Online Softmax." [huggingface.co/blog](https://huggingface.co/blog/atharv6f/flash-attention-online-softmax)
+Serving architecture, memory, and scheduling:
+ 
+- Kwon, W. et al. "Efficient Memory Management for Large Language Model Serving with PagedAttention," explained by Brenndoerfer, M. [mbrenndoerfer.com](https://mbrenndoerfer.com/writing/paged-attention-vllm-kv-cache-memory-management)
+- Zhong, Y. et al. "DistServe: Disaggregating Prefill and Decoding for Goodput-Optimized Large Language Model Serving." [arXiv:2401.09670](https://arxiv.org/abs/2401.09670)
+- NVIDIA, "GB200 NVL72." [nvidia.com](https://www.nvidia.com/en-us/data-center/gb200-nvl72/)
+- Introl, "NVLink and Scale-Up Networking." [introl.com](https://introl.com/blog/nvlink-scale-up-networking-gpu-interconnect-infrastructure-2025)
+
+Straggler dynamics and MoE communication:
+ 
+- Ho, Q. et al. "Solving the Straggler Problem for Iterative Convergent Parallel ML." CMU-PDL Technical Report. [pdl.cmu.edu](https://www.pdl.cmu.edu/PDL-FTP/BigLearning/CMU-PDL-15-102.pdf)
+- Zuo, P. et al. "Serving Large Language Models on Huawei CloudMatrix384." [arXiv:2508.02520](https://arxiv.org/pdf/2508.02520)
+- DeepSeek-AI, "DeepEP: an efficient expert-parallel communication library." [github.com/deepseek-ai/DeepEP](https://github.com/deepseek-ai/DeepEP/blob/main/README.md)
+- DeepSeek-AI, "EPLB: Expert Parallelism Load Balancer." [github.com/deepseek-ai/EPLB](https://github.com/deepseek-ai/EPLB/blob/main/README.md)
+- ROCm, "Dropless MoE Training with Primus-Turbo." [rocm.blogs.amd.com](https://rocm.blogs.amd.com/software-tools-optimization/maxtext-dropless-moe/README.html)
+
+FFN interpretability and the residual stream:
+ 
+- Geva, M., Schuster, R., Berant, J., Levy, O. "Transformer Feed-Forward Layers Are Key-Value Memories." EMNLP 2021. [aclanthology.org](https://aclanthology.org/2021.emnlp-main.446/)
+- Geva, M., Caciularu, A., Wang, K., Goldberg, Y. "Transformer Feed-Forward Layers Build Predictions by Promoting Concepts in the Vocabulary Space." EMNLP 2022. [aclanthology.org](https://aclanthology.org/2022.emnlp-main.3/)
+- "MLPs in Transformers." Learn Mechanistic Interpretability. [learnmechinterp.com](https://learnmechinterp.com/topics/mlps-in-transformers/)
+- Elhage, N. et al. "A Mathematical Framework for Transformer Circuits." Transformer Circuits Thread, 2021. [transformer-circuits.pub](https://transformer-circuits.pub/2021/framework/index.html)
+
+Pipeline parallelism in serving:
+ 
+- Agrawal, A. et al. "Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve." OSDI 2024.
+- "RServe" (pipeline-parallel serving latency comparison against tensor-parallel vLLM).
+
