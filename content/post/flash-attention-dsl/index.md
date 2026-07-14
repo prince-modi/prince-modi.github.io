@@ -4,6 +4,8 @@ summary: 'Benchmarking RMSNorm and Flash Attention across Helion, Triton, Gluon,
 date: 2026-03-17
 math: true
 toc: false
+url_pdf: '/uploads/cse291p_final_project.pdf'
+url_code: 'https://github.com/prince-modi/gpu-kernel-dev'
 tags:
 - GPU kernels
 - LLM systems
