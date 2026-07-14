@@ -1,5 +1,5 @@
 ---
-title: "Attention, Parallelism, and MoE Communication: A Ground-Up Walkthrough"
+title: "Attention, Parallelism, and Collective Communication in MoE Serving"
 date: 2026-07-13
 tags:
 - Machine Learning
@@ -9,16 +9,91 @@ tags:
 - Mixture of Experts
 - Attention
 - Parallelism
-summary: "A question-driven, ground-up walkthrough of transformer internals, DP/TP/CP/PP parallelism, MoE dispatch and combine, and the collective operations underneath it all, written while reading the NanoCP and UltraEP papers."
+summary: "A technical walkthrough of the transformer attention block, the parallelism strategies used to distribute it (DP, TP, CP, PP), mixture-of-experts dispatch and combine, and the collective communication primitives and cost models underneath all of it."
 ---
 
 *Note: Significant portions of this article, including diagrams and code, were generated with the assistance of Claude (Anthropic). I wanted to be upfront about that, since I'd want to know before spending my time on something, and I imagine you might feel the same. If you find any inaccuracies feel free to point them out to me.*
 
-## Part 1: Inside one attention block
+## 1. Introduction
 
-### What is `W_K`, really? Where does it sit in the pipeline?
+This article develops, from first principles, the machinery that modern mixture-of-experts (MoE) serving systems are built on: the attention block, the parallelism strategies used to distribute it across devices, the routing and communication that MoE layers require, and the collective communication primitives underneath all of it. It was written while reading two recent systems papers, NanoCP and UltraEP, both of which assume this material as background.
 
-A token's "hidden state" going into an attention block is a vector of length `d_model`. A batch of `B` sequences, each `T` tokens long, gives a tensor of shape `(B, T, d_model)`. `W_K` is just a plain, non-head-aware `(d_model, d_model)` matrix. Multiplying `x @ W_K` gives back a flat `(B, T, d_model)` tensor with no visible head structure yet. Q and V are produced the same way, each with their own separate weight matrix.
+A single structural observation organizes everything that follows. Almost every operation in a transformer acts on each token independently. Exactly two do not:
+
+1. The attention score computation, which mixes information across token positions.
+2. MoE dispatch, which sends tokens to experts that may reside on other devices.
+
+Every communication cost discussed below traces back to one of these two exceptions. Which tensor axis a parallelism strategy partitions determines whether it collides with one of them, and therefore whether that strategy is communication-free or communication-bound. Section 2 establishes the exception in attention, Section 3 works out its consequences for parallelism, Section 5 establishes the exception in MoE, and Section 6 gives the cost model that prices both.
+
+**Table 1: Notation used throughout.**
+
+| Symbol | Meaning |
+|---|---|
+| `B` | Batch size (number of sequences processed together) |
+| `T` | Sequence length (tokens per sequence) |
+| `d_model` | Width of the residual stream, that is, the size of one token's vector |
+| `n_heads` | Number of attention heads |
+| `d_head` | Per-head width, equal to `d_model / n_heads` |
+| `d_ff` | Inner width of the feed-forward network |
+| `E` | Number of experts in an MoE layer |
+| `k` | Number of experts activated per token (top-k routing) |
+| `P` | Number of ranks participating in a collective operation |
+| `n` | Message size in a collective operation, in bytes |
+
+## 2. The attention block
+
+The input to an attention block is a tensor `x` of shape `(B, T, d_model)`. Each of the `B × T` token positions holds a vector of length `d_model`, which is that token's current representation at this depth in the network.
+
+### 2.1 Projections
+
+Three learned matrices, `W_Q`, `W_K`, and `W_V`, each of shape `(d_model, d_model)`, produce the query, key, and value tensors:
+
+```
+Q = x @ W_Q,    K = x @ W_K,    V = x @ W_V
+```
+
+Each result has the same shape as the input, `(B, T, d_model)`. None of these matrices is head-aware. The head structure does not exist yet at this point in the computation.
+
+The important property of this step is that it is *per-token*. Writing the matrix product out elementwise,
+
+```
+(x @ W)[i, j] = Σ_c x[i, c] · W[c, j]
+```
+
+the row index `i` appears on both sides and is never summed over. Output row `i` depends on input row `i` and on `W`, and on nothing else. Row `i'` of `x`, belonging to any other token, is never referenced. This holds because `W` is a fixed weight matrix, shared identically across all rows. Any operation of the form `x @ W` inherits this independence, which is why it recurs throughout this article.
+
+### 2.2 Head partitioning
+
+Since `d_model = n_heads × d_head` by construction, the last axis of `Q`, `K`, and `V` can be reinterpreted as two axes, `(n_heads, d_head)`. Concretely, if `d_model = 8` and `n_heads = 2`, a token's eight-element key vector
+
+```
+[1.2, -0.4, 0.7, 2.1, 0.3, -1.5, 0.9, 1.8]
+```
+
+is reinterpreted as two four-element vectors, one per head:
+
+```
+head 0:  [1.2, -0.4, 0.7, 2.1]
+head 1:  [0.3, -1.5, 0.9, 1.8]
+```
+
+No arithmetic occurs. The reshape is a reindexing of the same numbers, and in practice it does not even move memory. The location of the boundary is a convention rather than a constraint; what matters is that the same convention is applied to `Q`, `K`, and `V`, so that head 0's query, key, and value slices correspond to one another.
+
+### 2.3 The score computation
+
+Within a single head, attention computes a matrix of scores between every query position and every key position:
+
+```
+S = Q Kᵀ / √d_head        shape (T, T)
+```
+
+A causal mask sets `S[i, j] = -∞` for `j > i`, so that a query cannot attend to future positions. A softmax over the last axis converts each row into a distribution, and the output for each query is the corresponding weighted average of value vectors:
+
+```
+head_output = softmax(mask(S)) @ V        shape (T, d_head)
+```
+
+The head outputs are concatenated back to width `d_model`, multiplied by an output projection `W_O`, and added into the residual stream.
 
 <svg width="100%" viewBox="0 0 680 420" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>Entry point of an attention block</title>
@@ -32,7 +107,7 @@ A token's "hidden state" going into an attention block is a vector of length `d_
 <line x1="340" y1="160" x2="340" y2="184" stroke="#888780" stroke-width="1.5" marker-end="url(#a1)"/>
 <rect x="100" y="184" width="480" height="70" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
 <text x="340" y="208" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#633806">Q @ Kᵀ → scores, shape (T,T) = (4,4)</text>
-<text x="340" y="230" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#633806">every query row meets every key column, HERE</text>
+<text x="340" y="230" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#633806">every query row meets every key column</text>
 <line x1="340" y1="254" x2="340" y2="278" stroke="#888780" stroke-width="1.5" marker-end="url(#a1)"/>
 <rect x="140" y="278" width="400" height="56" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
 <text x="340" y="296" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#085041">softmax(scores) → weights (4,4)</text>
@@ -43,13 +118,57 @@ A token's "hidden state" going into an attention block is a vector of length `d_
 <text x="340" y="394" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#5F5E5A">→ final output (T,d_model) = (4,8)</text>
 </svg>
 
-The only step where token positions actually interact is the amber box: `Q @ Kᵀ`. Everything else (projections, softmax normalization, output projection) is per-token or per-head local. That single fact turns out to explain almost everything else in this post.
+*Figure 1: The attention block. Only the highlighted step mixes information across token positions.*
 
-### How does "splitting heads" actually work mechanically?
+### 2.4 The locus of cross-token interaction
 
-Reshaping `d_model = n_heads × d_head` is pure relabeling, no computation. Take one token's 8-number `K`-vector: chopping it into two groups of 4 consecutive numbers *is* "head 0" and "head 1." Nothing forces that split point; it's just a convention that has to be applied consistently to Q, K, and V so head 0's pieces line up across all three.
+The score computation is the only step in the block in which two distinct token positions interact, and the reason is visible in the algebra. Compare the two products:
 
-Because the split happens on the **output columns of the weight matrix itself**, you can literally hand GPU 0 the left half of `W_K`'s columns and GPU 1 the right half. Each GPU computes its own head from scratch, with zero communication needed until the very end.
+```
+x @ W        one operand (W) is shared by every row
+Q @ Kᵀ       both operands are token-dependent
+```
+
+In the first, the second operand is a fixed weight matrix, so rows are independent. In the second, entry `(i, j)` of the result requires row `i` of `Q` and row `j` of `K`, and `K` is itself derived from every token's hidden state. Computing the score row for query `i` therefore requires access to the key vectors of all positions `j ≤ i`.
+
+This single distinction, whether an operation's operands are all token-independent or not, determines every communication requirement in the rest of this article.
+
+## 3. Parallelism as partitioning of a tensor axis
+
+After the head reshape, the activation tensor has four axes: `(B, T, n_heads, d_head)`. Each parallelism strategy corresponds to partitioning one of these axes across devices. Communication is required exactly when the computation must combine information across slices of the partitioned axis.
+
+<svg width="100%" viewBox="0 0 680 200" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Which parallelism strategy splits which tensor axis</title>
+<text x="340" y="36" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#444441">Tensor shape (B, T, n_heads, d_head): one axis per strategy</text>
+<rect x="40" y="60" width="130" height="56" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+<text x="105" y="80" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#0C447C">B (batch)</text>
+<text x="105" y="100" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#0C447C">→ split by DP</text>
+<rect x="186" y="60" width="130" height="56" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+<text x="251" y="80" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#085041">T (sequence)</text>
+<text x="251" y="100" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#085041">→ split by CP</text>
+<rect x="332" y="60" width="130" height="56" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+<text x="397" y="80" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#3C3489">n_heads</text>
+<text x="397" y="100" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#3C3489">→ split by TP</text>
+<rect x="478" y="60" width="130" height="56" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+<text x="543" y="80" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#444441">d_head</text>
+<text x="543" y="100" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#444441">→ never split</text>
+<text x="340" y="150" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">d_head cannot be split without splitting a single dot product</text>
+<text x="340" y="170" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">mid-computation, so it is not partitioned in practice</text>
+</svg>
+
+*Figure 2: The four axes of the attention activation tensor and the parallelism strategy associated with each.*
+
+Ordering the axes by the communication they require gives `B < n_heads < T < d_head`. This ordering does not follow the position of the axes in the tensor shape; it follows only from whether attention must combine information across the axis.
+
+### 3.1 Data parallelism partitions the batch
+
+Attention is defined strictly within a sequence. No operation in the block combines information from two different batch elements. Partitioning `B` across devices therefore requires no communication at all: each device runs the complete attention computation, over all heads, for its own subset of sequences.
+
+### 3.2 Tensor parallelism partitions the heads
+
+Because each head is computed in complete isolation from the others until the final output projection, the head axis can be partitioned across devices. The mechanism operates on the weight matrices themselves.
+
+The columns of `W_Q`, `W_K`, and `W_V` are grouped by head: the first `d_head` output columns produce head 0, the next `d_head` produce head 1, and so on. Splitting these matrices column-wise therefore assigns whole heads to devices. Each device computes its own heads' queries, keys, and values, runs the entire score, softmax, and weighted-sum sequence locally, and never requires data from any other device.
 
 <svg width="100%" viewBox="0 0 680 440" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>Tensor parallelism: column-wise head split</title>
@@ -80,16 +199,22 @@ Because the split happens on the **output columns of the weight matrix itself**,
 <text x="495" y="300" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">GPU 1</text>
 <rect x="400" y="310" width="180" height="24" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
 <text x="490" y="322" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#085041">K, V: H2, H3</text>
-<text x="340" y="400" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Each GPU caches only its own heads, no duplication</text>
+<text x="340" y="400" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Each GPU caches only its own heads: no duplication</text>
 </svg>
 
-For TP's combine step: each GPU multiplies its head output by its own **row**-slice of `W_O` (not the full matrix), producing a partial `d_model`-sized output, and the true answer is the **sum** of those partials, not a concatenation. So the collective that combines TP's two GPUs is an **all-reduce**, not an all-gather: a distinction that matters later.
+*Figure 3: Column-wise partitioning of the projection weights assigns whole heads to devices. The KV cache partitions along with them.*
 
-### Why doesn't MLA (DeepSeek's attention variant) shard cleanly this way?
+The combine step is less obvious than it first appears. Naively, recombining per-head outputs sounds like a concatenation, which across devices would be an all-gather. Megatron-style tensor parallelism instead fuses the concatenation into the output projection: `W_O` is partitioned by *rows*, so that each device multiplies its own head output by its own row block. Each device thereby produces a tensor of full width `d_model`, but one that represents only a partial contribution to the correct answer. Because splitting a matrix product along its contraction dimension makes the true result the sum of the partial products, the combine is an addition, which across devices is an **all-reduce**, not an all-gather.
 
-Standard multi-head attention has a natural per-head cache: head 1's K/V lives in its own slice. MLA throws that away: it compresses K and V into **one shared latent vector per token**, and every head reconstructs its own K/V from that *same* shared vector via a per-head up-projection. That compression is the entire reason MLA's KV cache is so small.
+Two properties follow. First, TP requires the input `x` to be replicated across the group before the layer begins, which is typically satisfied because the previous layer's all-reduce already broadcast it. Second, the same column-then-row pattern applies unchanged to the feed-forward network (`W_up` partitioned by columns, `W_down` by rows), so a transformer layer under TP costs one all-reduce for attention and one for the FFN.
 
-The problem: if you TP-shard by head, every GPU still needs the *entire* shared latent to reconstruct even its own heads. There's no per-head slice to hand out, because the compression collapsed it into one shared thing.
+### 3.3 The exception: multi-head latent attention
+
+The head-partitioning argument depends on each head owning a private slice of the KV cache. Multi-head latent attention (MLA), used by the DeepSeek model family, violates this assumption by construction.
+
+Rather than caching per-head keys and values, MLA compresses them into a single shared latent vector per token, from which every head reconstructs its own keys and values via a per-head up-projection. This compression is precisely what makes MLA's KV cache small: DeepSeek-V3 caches a latent of width 512, plus a decoupled positional component of width 64, for 576 values per token, in place of full per-head keys and values.
+
+Under head-wise TP, however, every device requires the *entire* latent in order to reconstruct even its own heads. There is no per-head slice to distribute, because the compression collapsed the head structure into one shared object. The cache therefore replicates rather than partitions, and with a TP degree of 8 the model stores eight identical copies, which negates the compression that motivated MLA in the first place.
 
 <svg width="100%" viewBox="0 0 680 480" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>MLA under tensor parallelism: cache duplication</title>
@@ -123,50 +248,25 @@ The problem: if you TP-shard by head, every GPU still needs the *entire* shared 
 <text x="495" y="302" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">GPU 1</text>
 <rect x="405" y="312" width="180" height="24" rx="4" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
 <text x="495" y="324" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#633806">full c_KV (dim 512)</text>
-<text x="340" y="384" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Identical copies. TP didn't split the cache at all</text>
-<text x="340" y="404" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">With TP=8, that's 8 full copies of c_KV, and MLA's savings are erased</text>
-<text x="340" y="428" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">This is why DeepSeek-style models use DP, not TP, for attention</text>
+<text x="340" y="384" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Identical copies: TP does not partition the cache</text>
+<text x="340" y="404" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">With TP=8, eight full copies of c_KV, negating the compression</text>
+<text x="340" y="428" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Consequence: MLA-based models use DP, not TP, for attention</text>
 </svg>
 
-This is why modern MoE serving stacks (and both papers this post is built around) run **DP-EP**, not TP-EP: DP replicates attention entirely (no sharing, no duplication problem), and EP is a completely different axis (sharding *experts*, not KV cache) used for the FFN.
+*Figure 4: MLA's shared latent has no head structure, so head-wise partitioning replicates the cache instead of dividing it.*
 
----
+The consequence is architectural. MoE serving stacks built on MLA models, including both systems that motivated this article, use data parallelism for attention (each instance holds the small latent cache for its own requests, with no sharing and therefore no duplication) and reserve expert parallelism, a different axis entirely, for the feed-forward layers. This is the DP-EP configuration referenced throughout the MoE serving literature.
 
-## Part 2: DP, TP, CP, PP: which axis does each one cut?
+### 3.4 Context parallelism partitions the sequence
 
-Once Q/K/V are reshaped to `(B, T, n_heads, d_head)`, every axis of that tensor is a candidate for a different parallelism strategy:
+Context parallelism divides a *single sequence's* tokens across devices, in contrast to data parallelism, which divides whole sequences. It is motivated by capacity: when a single request's KV cache approaches the memory of one device, that cache must be distributed regardless of how the compute is arranged.
 
-<svg width="100%" viewBox="0 0 680 200" role="img" xmlns="http://www.w3.org/2000/svg">
-<title>Which parallelism strategy splits which tensor axis</title>
-<text x="340" y="36" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#444441">Tensor shape (B, T, n_heads, d_head): one axis per strategy</text>
-<rect x="40" y="60" width="130" height="56" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
-<text x="105" y="80" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#0C447C">B (batch)</text>
-<text x="105" y="100" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#0C447C">→ split by DP</text>
-<rect x="186" y="60" width="130" height="56" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
-<text x="251" y="80" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#085041">T (sequence)</text>
-<text x="251" y="100" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#085041">→ split by CP</text>
-<rect x="332" y="60" width="130" height="56" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
-<text x="397" y="80" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#3C3489">n_heads</text>
-<text x="397" y="100" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#3C3489">→ split by TP</text>
-<rect x="478" y="60" width="130" height="56" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
-<text x="543" y="80" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#444441">d_head</text>
-<text x="543" y="100" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#444441">→ never split</text>
-<text x="340" y="150" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">d_head can't be split without splitting a single dot product</text>
-<text x="340" y="170" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">mid-computation, that's the axis that needs communication</text>
-</svg>
-
-The rule that decides all four: an axis needs communication only when the computation must **combine information across** different slices of it. `B` and `n_heads` are axes attention treats as fully independent (batch elements never interact; heads never interact until the very last step). `T` is the axis attention is *defined* to reduce over: a query needs to see keys from potentially every position, so cutting `T` genuinely separates data the computation needs together. `d_head` would split a single dot product mid-sum, essentially never attempted.
-
-Ranking these by actual communication cost gives `B < n_heads < T < d_head`, **not** simply "deeper in the tensor shape = more communication." `n_heads` (TP) needs one cheap combine step at the very end; `T` (CP) needs genuine ongoing exchange, which is exactly why CP is a whole research subfield and TP mostly isn't.
-
-### How does CP's communication actually work?
-
-Splitting `T` for the Q/K/V *projection* is exactly as free as DP splitting `B`: the projection is per-token, so a GPU can compute Q/K/V for its own local tokens with zero communication. The break happens one step later, at the score computation, because that's the one operation whose entire job is "let every token look at every other token":
+For the projection step, partitioning `T` is exactly as free as partitioning `B`. The projections are per-token, so a device holding tokens 0 and 1 can compute their queries, keys, and values using the full, unpartitioned weight matrices, with no communication, and likewise for a device holding tokens 2 and 3.
 
 <svg width="100%" viewBox="0 0 680 290" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>CP is silent like DP until attention needs to look across tokens</title>
 <defs><marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
-<text x="340" y="30" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#444441">CP splits T: silent until attention needs to look across it</text>
+<text x="340" y="30" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#444441">CP splits T: local until attention must look across it</text>
 <rect x="55" y="50" width="260" height="56" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
 <text x="185" y="68" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#0C447C">x[:, 0:2, :]</text>
 <text x="185" y="86" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#0C447C">(2,2,8), tokens 0,1</text>
@@ -182,12 +282,21 @@ Splitting `T` for the Q/K/V *projection* is exactly as free as DP splitting `B`:
 <text x="495" y="148" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#085041">× W_Q, W_K, W_V (full)</text>
 <text x="495" y="166" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#085041">→ Q,K,V for tokens 2,3</text>
 <line x1="40" y1="210" x2="640" y2="210" stroke="#888780" stroke-width="1" stroke-dasharray="4 3"/>
-<text x="340" y="200" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">same as DP so far, zero communication</text>
-<text x="340" y="228" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">attention itself needs every token's K,V, not just the local shard</text>
-<text x="340" y="262" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">→ this is the query-out / partial-back / merge step below</text>
+<text x="340" y="200" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">identical to DP so far: no communication</text>
+<text x="340" y="228" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">the score computation needs every token's K,V, not only the local shard</text>
+<text x="340" y="262" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">an exchange across shards is therefore required</text>
 </svg>
 
-Two real implementations exist for that cross-boundary exchange. NanoCP/Helix route the query directly to whichever remote GPU holds the needed KV shard, get a partial result + a scaling factor back, and merge (the same online-softmax trick FlashAttention uses internally). Ring Attention does it differently: no fixed destination, just a **rotating relay**:
+*Figure 5: Under context parallelism the projections remain local. The score computation does not.*
+
+The score computation breaks this. The query at position 3 must attend to keys at positions 0 through 3, half of which reside on the other device. Some exchange is unavoidable, and this is the point at which context parallelism becomes structurally more expensive than the other two axes: the cost lies in the middle of the computation, not in a single reconciliation step at the end.
+
+Both known implementations rely on the same mathematical property, the one that underlies FlashAttention's tiling and Flash-Decoding's split reductions. A softmax-weighted average can be computed over disjoint blocks of keys and merged exactly, provided each partial result carries a running maximum and normalizer (equivalently, a log-sum-exp term) alongside its unnormalized output. Given these, the partials recombine to the same value the unpartitioned softmax would have produced.
+
+The two implementations differ in topology rather than in mathematics:
+
+- **Query routing.** The device holding the query sends it to whichever devices hold the relevant KV shards. Each computes a partial attention output and its log-sum-exp locally, and returns both. The originating device merges them. Helix and NanoCP both use this form.
+- **Ring rotation.** No fixed destination. KV chunks are rotated around a cycle of devices; at each hop, a device merges the arriving chunk into its running partial result and forwards its own chunk onward. After `P` hops every device has seen the entire sequence. This is Ring Attention.
 
 <svg width="100%" viewBox="0 0 680 420" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>Ring Attention communication topology</title>
@@ -215,15 +324,25 @@ Two real implementations exist for that cross-boundary exchange. NanoCP/Helix ro
 <text x="340" y="398" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">After N hops, every GPU has seen the whole sequence</text>
 </svg>
 
-Ring trades a longer, bandwidth-friendly relay for training-scale CP groups; the routed/point-to-point style is lower-latency for the smaller, more dynamic groups decode-time serving needs, which is exactly the design choice NanoCP makes.
+*Figure 6: Ring Attention rotates KV chunks around a fixed cycle rather than routing queries to fixed destinations.*
 
-**On PP:** worth a note since it's easy to assume it's training-only. It's genuinely preferred over TP once GPUs span more than one fast-interconnect domain, because TP needs an all-reduce *every layer* (brutal over slow links) while PP only passes activations across one boundary per stage. Sarathi-Serve reports roughly 2× lower median latency for PP vs. TP once crossing nodes over ordinary Ethernet. This is exactly why UltraEP's DeepSeek-V3 config uses `EP64-PP4` rather than adding TP.
+The tradeoff is the usual one. Ring passes fixed-size chunks through a predictable, bandwidth-friendly pattern, which suits the large groups typical of training. Query routing goes directly to the destination and avoids intermediate hops, which suits the tighter latency budgets and smaller, more dynamic groups typical of decode-time serving.
 
----
+### 3.5 The head dimension is not partitioned
 
-## Part 3: The toy transformer
+Splitting `d_head` would divide a single dot product across devices, requiring an exchange of partial sums before the softmax could be applied to any score. The synchronization granularity is far too fine to be practical, and the axis is left intact. (Research on partitioning MLA's latent dimension exists, motivated precisely by the TP limitation in Section 3.3, but it remains an open problem rather than standard practice.)
 
-Rather than keep everything abstract, here's a complete, runnable forward pass, embeddings through two full transformer layers to next-token logits, with the same toy dimensions used throughout (`d_model=8`, `n_heads=2`, `T=4`). Every stage prints its actual shape and values.
+### 3.6 Pipeline parallelism partitions the layer stack
+
+Pipeline parallelism does not partition the activation tensor at all. It assigns different *layers* to different devices, so a device holds layers 1 through 20 and passes activations onward to a device holding layers 21 through 40.
+
+Its cost profile is therefore fundamentally different from TP's. TP requires an all-reduce in every layer, which is frequent, latency-sensitive, synchronous traffic. PP requires only one activation transfer per stage boundary. Consequently PP tolerates slow interconnects far better, and it is the preferred choice once a deployment spans more devices than fit in a single high-bandwidth domain. Sarathi-Serve reports roughly a factor of two lower median latency for PP over TP when serving across nodes connected by commodity Ethernet, for exactly this reason.
+
+The cost PP pays instead is pipeline bubbles: idle stages waiting for work to arrive from upstream, which is most acute under low request load. The common production configuration follows from these two facts: TP within a fast interconnect domain, PP across domains, with DP and EP layered on top.
+
+## 4. A reference implementation
+
+The following is a complete forward pass, from token identifiers to next-token logits, through two transformer layers, using the toy dimensions carried through this article (`d_model = 8`, `n_heads = 2`, `T = 4`, `d_ff = 16`). It uses NumPy only, and prints the shape and value of every intermediate quantity, including the masked score matrix discussed in Section 2.3.
 
 ```python
 import numpy as np
@@ -231,9 +350,6 @@ import numpy as np
 np.random.seed(42)
 np.set_printoptions(precision=2, suppress=True)
 
-# ---------------------------------------------------------------------
-# Toy dimensions -- same numbers used throughout the conversation
-# ---------------------------------------------------------------------
 vocab_size = 6
 d_model    = 8
 n_heads    = 2
@@ -372,15 +488,21 @@ print("only the LAST position's row is the actual 'next token' prediction:",
       next_token_pred[-1])
 ```
 
-The masked score matrix is the part worth staring at: row 0 collapses to `[1,0,0,0]` after softmax (the first token can only attend to itself), while row 3 gets a genuine distribution across all four positions: proof the causal mask is doing exactly what it should.
+Two details in the output are worth confirming against Section 2.3. Row 0 of the softmax weights collapses to `[1, 0, 0, 0]`, since the first token can attend only to itself under the causal mask. Row 3 is the only row with a nonzero weight in all four columns, since the last query is the only one permitted to see the entire sequence.
 
----
+## 5. The feed-forward network
 
-## Part 4: What is the FFN actually *for*?
+The attention block is followed in every layer by a position-wise feed-forward network. Since MoE replaces this component, its structure matters for what follows.
 
-### What do `W_up` and `W_down` do, intuitively?
+### 5.1 Structure
 
-Shape-wise: `W_up` is `(d_model, d_ff)`: expansion. `W_down` is `(d_ff, d_model)`: contraction back to fit the residual add. But the *functional* answer comes from real interpretability research (Geva et al., EMNLP 2021, *"Transformer Feed-Forward Layers Are Key-Value Memories"*): each of the `d_ff` hidden units behaves like one entry in a lookup table. `W_up`'s columns are **keys**: learned pattern detectors a token gets dot-producted against. GELU is the gate deciding how strongly each pattern fired. `W_down`'s rows are **values**: what gets added if that pattern fired.
+The FFN expands each token's vector to a wider inner dimension, applies a nonlinearity, and contracts it back:
+
+```
+ffn_out = GELU(x @ W_up) @ W_down
+```
+
+with `W_up` of shape `(d_model, d_ff)` and `W_down` of shape `(d_ff, d_model)`. The inner width `d_ff` is a capacity parameter, commonly a small multiple of `d_model`. The output width is not free: `ffn_out` is added into the residual stream, and addition requires matching shapes, so it must return to `d_model`.
 
 <svg width="100%" viewBox="0 0 680 400" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>FFN shape flow: narrow, wide, narrow again</title>
@@ -400,17 +522,23 @@ Shape-wise: `W_up` is `(d_model, d_ff)`: expansion. `W_down` is `(d_ff, d_model)
 <rect x="180" y="280" width="320" height="56" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
 <text x="340" y="298" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#633806">x = x + ffn_out</text>
 <text x="340" y="316" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#633806">residual add, shapes must match: (4,8)</text>
-<text x="340" y="360" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Without GELU, two linear layers collapse into one, no extra power</text>
-<text x="340" y="380" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">The residual add is why ffn_out must return to d_model, not stay at d_ff</text>
+<text x="340" y="360" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Without GELU, the two linear maps compose into a single linear map</text>
+<text x="340" y="380" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">The residual add requires ffn_out to return to width d_model</text>
 </svg>
 
-I proved the "collapse without GELU" claim rather than just asserting it: `(x @ W_up) @ W_down` computed directly is numerically identical to `x @ (W_up @ W_down)` collapsed into a single `(d_model, d_model)` matrix, and `np.allclose` returns `True`. Add GELU back in and the two stop matching entirely. The nonlinearity is the *entire* reason the wide middle layer buys any extra capacity.
+*Figure 7: The FFN expands, applies a nonlinearity, and contracts back to the residual width.*
 
-### What does the "value" actually promote?
+The nonlinearity is load-bearing rather than decorative. Without it, matrix multiplication is associative, so
 
-This is the part that made it click for me. A follow-up paper (Geva et al., EMNLP 2022) projects each value-vector through the model's **unembedding matrix**, the same matrix used at the very end to turn a hidden state into vocabulary logits, and finds each one promotes a coherent cluster of *actual words*:
+```
+(x @ W_up) @ W_down  =  x @ (W_up @ W_down)
+```
 
-> "A value vector might promote the cluster {Paris, France, French, European, Seine}, or the cluster {multiply, divide, arithmetic, calculate}."
+and the right-hand side is a single `(d_model, d_model)` matrix. The wide inner layer would contribute no capacity whatsoever. This is easy to confirm numerically: with GELU removed, the two-layer computation and the collapsed single-matrix computation agree to floating-point tolerance, and with GELU restored they do not.
+
+### 5.2 The key-value memory interpretation
+
+The structural account above says what the FFN computes but not what it is for. Interpretability research supplies the second answer. Geva et al. (EMNLP 2021) show that each of the `d_ff` inner units behaves like one entry of a learned associative memory: the columns of `W_up` act as *keys*, pattern detectors that a token's vector is compared against by dot product; the activation function determines how strongly each pattern fires; and the rows of `W_down` act as *values*, the vectors added to the residual stream when the corresponding pattern fires. They further report that the learned patterns are human-interpretable, with lower layers capturing shallower patterns and upper layers capturing more semantic ones.
 
 <svg width="100%" viewBox="0 0 680 380" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>The FFN as a key-value memory</title>
@@ -440,32 +568,45 @@ This is the part that made it click for me. A follow-up paper (Geva et al., EMNL
 <rect x="190" y="230" width="300" height="56" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
 <text x="340" y="248" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#085041">weighted sum of active values</text>
 <text x="340" y="266" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#085041">added into the residual stream</text>
-<text x="340" y="318" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">W_up learns the "keys" (patterns), W_down learns the "values" (what to add)</text>
-<text x="340" y="338" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Every one of the d_ff neurons does this at once, learned from training data</text>
-<text x="340" y="358" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Source: Geva et al., EMNLP 2021 &amp; 2022</text>
+<text x="340" y="318" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">W_up supplies the keys (patterns), W_down the values (what to add)</text>
+<text x="340" y="338" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">All d_ff units are evaluated in parallel; the patterns are learned, not designed</text>
+<text x="340" y="358" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">After Geva et al., EMNLP 2021 and 2022; labels illustrative</text>
 </svg>
 
-Important honesty check: this story only exists *after* training on real data. In the toy script above, `W_up`/`W_down` are random noise. There are no real "capital cities" detectors in there. The finding is that gradient descent *discovers* useful pattern-detectors on its own during training, purely because they're a useful building block for predicting the next token well.
+*Figure 8: The FFN as a bank of learned pattern detectors. The labels are illustrative; no unit is designed to detect a given concept.*
 
-### Why add to the residual stream instead of overwriting it?
+This interpretation applies only to trained weights. In the reference implementation of Section 4, `W_up` and `W_down` are random, and the inner units mean nothing. The claim is that gradient descent *discovers* such detectors, because they turn out to be an effective way of reducing next-token prediction loss.
 
-Because the value vectors are literally votes toward specific output words, and **addition is the only operation that lets those votes accumulate instead of erasing each other.** This is Anthropic's own framing from *"A Mathematical Framework for Transformer Circuits"* (Elhage et al., 2021):
+### 5.3 What the value vectors do
 
-> "Rather than overwriting the results from previous layers, each layer of the residual block 'reads' its input from the residual stream... and then 'writes' its result to the residual stream by adding a linear projection back in."
+A follow-up (Geva et al., EMNLP 2022) makes the function of the value vectors concrete. Projecting an individual value vector through the model's unembedding matrix, the same matrix that converts a final hidden state into vocabulary logits, reveals that it promotes a coherent cluster of related tokens rather than an arbitrary set. A single value vector may raise the probability of a group of geographically related words, or of a group of arithmetic-related words.
 
-If FFN layers overwrote instead of added, deep networks would be pointless: layer 40 couldn't build on anything layer 3 discovered.
+The FFN's contribution to the residual stream is therefore a set of additive, direction-specific votes over the output vocabulary, weighted by how strongly each corresponding pattern matched the token. The authors demonstrate the causal force of this reading by suppressing value vectors associated with undesired token clusters and observing the corresponding drop in those outputs.
 
-### Is `W_down` doing something similar to `V` in Q/K/V?
+### 5.4 The residual stream
 
-Yes, genuinely, not just an analogy. Geva et al. deliberately wrote the FFN formula to mirror attention's: **match → weight → blend**, in both cases. Attention: `output = Σ softmax(Q·K) × V`. FFN: `output = Σ GELU(x·W_up) × W_down`. Same template.
+Each layer reads from the residual stream and writes back by addition, rather than by replacement. Elhage et al. (2021) describe the residual stream as a communication channel between layers, into which each block writes a linear projection of its output while leaving prior contributions intact.
 
-The one real, load-bearing difference: attention's keys are **dynamic**: `K = x @ W_K`, computed fresh from whatever's in context. The FFN's keys are **static, learned parameters**, fixed the moment training ends. That's precisely why the FFN needs zero cross-token communication while attention's score step is the one place that genuinely does. (Second difference, more of a footnote: attention's weights are forced to sum to 1 via softmax; GELU has no such constraint, all `d_ff` keys can fire independently, unconstrained.)
+Given the reading in Section 5.3, addition is the only operation that preserves the accumulated votes of every previous layer. Under replacement, layer 40 could not build on anything layer 3 established, and intermediate representations would carry no interpretable signal. The additivity is also what makes the "logit lens" possible: applying the unembedding matrix to an intermediate residual state yields a meaningful, if rough, prediction, precisely because that state already contains the summed contributions of all preceding layers.
 
----
+### 5.5 Relation to attention
 
-## Part 5: MoE: dispatch and combine
+The correspondence with attention is deliberate rather than coincidental. Both operations follow a match, weight, blend template:
 
-MoE replaces the single shared FFN with many smaller, specialized ones ("experts"), plus a **gate** that decides, per token, which top-k experts should process it. The gate itself is a per-token linear layer, no communication needed yet.
+```
+attention:  output_i = Σ_j  softmax(Q_i · K_j)      · V_j
+FFN:        output_i = Σ_c  GELU(x_i · W_up[:, c])  · W_down[c, :]
+```
+
+Two differences matter. First, attention's keys are *dynamic*: `K = x @ W_K` is recomputed from the surrounding context on every forward pass. The FFN's keys are *static*, fixed at the end of training. This is exactly why the FFN requires no cross-token communication while attention's score step does, and it restates the criterion from Section 2.4 in a second setting. Second, attention's weights are normalized by a softmax and must sum to one across positions, whereas the FFN's activations are unconstrained: all `d_ff` units may fire strongly, or none may.
+
+## 6. Mixture of experts
+
+An MoE layer replaces the single shared FFN with `E` smaller ones, called experts, together with a gate that selects, per token, which `k` of them will process it. In the key-value framing of Section 5.2, this partitions one large pattern bank into several smaller specialized banks and allows each token to consult only the banks relevant to it.
+
+### 6.1 Gating
+
+The gate is a linear map from the token's hidden state to `E` scores, followed by a top-`k` selection and a softmax restricted to the selected experts. Like every other `x @ W` operation, it is per-token and requires no communication.
 
 <svg width="100%" viewBox="0 0 680 380" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>MoE gate routing decision</title>
@@ -495,10 +636,16 @@ MoE replaces the single shared FFN with many smaller, specialized ones ("experts
 <rect x="330" y="255" width="55" height="55" fill="none" stroke="#888780" stroke-width="0.5" stroke-dasharray="3 3"/>
 <rect x="385" y="255" width="55" height="55" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
 <text x="340" y="336" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Every token computes this independently and locally</text>
-<text x="340" y="356" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">e0 was picked by all 4 tokens, already a hot expert before any GPU is involved</text>
+<text x="340" y="356" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">e0 is selected by all four tokens: load is skewed before any GPU is involved</text>
 </svg>
 
-If `e0` and `e1` live on one GPU while `e2`/`e3` live on another, each token's hidden state physically has to travel to wherever its chosen experts are (**dispatch**), get processed there, and travel back to be blended (**combine**):
+*Figure 9: A routing table for four tokens under top-2 routing. Column e0 is already overloaded relative to e2 and e3, purely as a consequence of the router's learned scores.*
+
+Load imbalance therefore originates in the model, not in the system. The routing table above is skewed before any question of device placement arises.
+
+### 6.2 Dispatch and combine
+
+Expert weights are large and are not moved; the tokens are. If a token's selected experts reside on other devices, its hidden state must travel to them. This transfer is called **dispatch**. Each expert then runs its own FFN over whatever tokens arrived, grouped by expert so that one matrix multiplication (a grouped GEMM) serves all tokens routed to it. The results travel back to the tokens' origins, which is called **combine**, and are summed there.
 
 <svg width="100%" viewBox="0 0 680 400" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>MoE dispatch and combine for a single token</title>
@@ -526,18 +673,20 @@ If `e0` and `e1` live on one GPU while `e2`/`e3` live on another, each token's h
 <rect x="190" y="280" width="300" height="44" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
 <text x="340" y="302" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500" fill="#444441">final MoE output for t0</text>
 <text x="340" y="356" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">This repeats independently for every token, simultaneously</text>
-<text x="340" y="376" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">No LSE needed, top-2 weights are already normalized before dispatch</text>
+<text x="340" y="376" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">No LSE rescaling: the top-2 weights are normalized before dispatch</text>
 </svg>
 
-Combine here is simpler than CP's merge: the gate already normalized `w0, w1` locally before dispatch, so it's a plain weighted sum, no rescaling trick required.
+*Figure 10: Dispatch and combine for a single token routed to two experts on different devices.*
 
-### Why does this create a straggler?
+Combine is simpler than the context-parallel merge of Section 3.4, and the reason is instructive. That merge required log-sum-exp rescaling because a softmax normalizer cannot be computed correctly from a partial view of the keys. MoE's gate, by contrast, has already computed a full softmax over the selected experts *locally*, before dispatch. The weights are correct on arrival, so combine is a plain weighted sum.
 
-All 4 tokens' dispatch calls are packed into **one shared collective**, not 4 independent sends. If `e0` gets picked by every token and `e1` gets picked by fewer, the GPU hosting `e0` ends up with far more total traffic than the others, and the collective *as a whole* only completes once the busiest GPU finishes:
+### 6.3 Stragglers
+
+Dispatch and combine are not per-token operations. Every token in the current batch is packed into a single collective over the expert-parallel group, and that collective does not complete for any participant until it has completed for all of them.
 
 <svg width="100%" viewBox="0 0 680 330" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>Dispatch timeline showing GPU wait times</title>
-<text x="598" y="46" text-anchor="end" font-family="sans-serif" font-size="12" fill="#5F5E5A">Barrier, all must arrive here</text>
+<text x="598" y="46" text-anchor="end" font-family="sans-serif" font-size="12" fill="#5F5E5A">Barrier: all ranks must arrive</text>
 <line x1="600" y1="58" x2="600" y2="250" stroke="#5F5E5A" stroke-width="1.5" stroke-dasharray="4 3"/>
 <text x="598" y="256" text-anchor="end" font-family="sans-serif" font-size="12" fill="#5F5E5A">Only then does the next layer start</text>
 <text x="128" y="74" text-anchor="end" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#5F5E5A">GPU 0 (10)</text>
@@ -555,20 +704,43 @@ All 4 tokens' dispatch calls are packed into **one shared collective**, not 4 in
 <rect x="135" y="272" width="16" height="12" rx="3" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
 <text x="157" y="281" font-family="sans-serif" font-size="12" fill="#5F5E5A">Moving data (dispatch)</text>
 <rect x="340" y="272" width="16" height="12" rx="3" fill="none" stroke="#5F5E5A" stroke-width="1" stroke-dasharray="4 3"/>
-<text x="362" y="281" font-family="sans-serif" font-size="12" fill="#5F5E5A">Idle, waiting at barrier</text>
+<text x="362" y="281" font-family="sans-serif" font-size="12" fill="#5F5E5A">Idle: waiting at the barrier</text>
 </svg>
 
-The idle GPUs' hardware is fully free during the dashed span. There's just nothing useful for them to do, because the next layer's computation needs *every* GPU's dispatched tokens assembled together before it can proceed at all. This is exactly the problem UltraEP solves by replicating a hot expert's weights onto a spare GPU in real time and splitting the token load across the replicas, reacting to the *exact*, current-iteration load rather than periodic, stale statistics the way its predecessor (EPLB) does.
+*Figure 11: Token counts per rank (in parentheses) translate directly into transfer time. The lightly loaded ranks idle at the barrier until the heaviest one completes.*
 
-One clarification worth keeping: **continuous batching solves a different problem than this.** It changes which requests are included *between* iterations. Within one iteration, every included token is glued into the same batched kernel calls and the same collective, that's the level the straggler problem actually lives at.
+Consider a rank hosting an expert that the router happens to favour heavily in the current batch. That rank pays for the same imbalance three times in succession, at three distinct cost centres, each scaling with the same token count:
 
----
+1. **Dispatch receive.** More tokens routed to its experts means more bytes arriving over the interconnect.
+2. **Compute.** The grouped GEMM over those tokens is proportionally larger.
+3. **Combine send.** The results, one vector per token, travel back out.
 
-## Part 6: The collective operations underneath everything
+Meanwhile the lightly loaded ranks idle twice: once waiting for the heavy rank's dispatch to complete, and again waiting for its compute and combine. Their hardware is entirely free during both intervals, but the next layer cannot begin, because it requires every rank's tokens to be assembled first.
 
-Everything above eventually reduces to a handful of named collective operations. Worth knowing them by name and cost, not just by what we've called them informally.
+This is the second exception announced in Section 1, and it is the target of the expert load balancing literature: EPLB replicates hot experts on periodically recomputed placements, while UltraEP recomputes the replication plan from the exact post-gating load on the critical path of every layer.
 
-**Broadcast / Scatter**: one rank's data either copied identically to everyone (broadcast), or cut into pieces with one distinct piece per rank (scatter). **Gather / All-Gather**: the reverse; everyone's data converges onto one rank (gather) or onto every rank (all-gather). **Reduce / All-Reduce**: same converge shape, but the center step does real work (a sum), landing on one rank or all of them:
+One clarification is necessary because the terminology invites confusion. *Continuous batching* addresses a different problem. It governs which requests are admitted to or retired from the batch *between* iterations. Within a single iteration, every admitted token is packed into the same kernels and the same collectives, and it is at that level that stragglers arise.
+
+## 7. Collective communication
+
+Both exceptions ultimately reduce to a small set of named collective operations. This section defines them, gives their costs, and identifies which ones the preceding sections have been invoking.
+
+### 7.1 The primitives
+
+**Table 2: The standard collective operations, for `P` ranks.**
+
+| Operation | Result |
+|---|---|
+| Broadcast | One rank's buffer is copied identically to every rank |
+| Scatter | One rank's buffer is partitioned; slice `i` goes to rank `i` |
+| Gather | Every rank's buffer is collected onto one rank |
+| All-gather | Every rank's buffer is collected onto every rank |
+| Reduce | Elementwise reduction (typically a sum) of all buffers, result on one rank |
+| All-reduce | The same reduction, result on every rank |
+| Reduce-scatter | The same reduction, but rank `i` retains only slice `i` of the result |
+| All-to-all | Rank `i`'s slice `j` is sent to rank `j`, for all `i, j` |
+
+Broadcast and scatter share a fan-out shape and differ only in what travels: identical copies in the first case, distinct pieces in the second. Gather, all-gather, reduce, and all-reduce share a converge shape and differ along two dimensions: whether the centre performs a computation (reduce) or merely concatenates (gather), and whether the result is delivered to one rank or to all.
 
 <svg width="100%" viewBox="0 0 680 460" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>Reduce versus all-reduce</title>
@@ -611,9 +783,11 @@ Everything above eventually reduces to a handful of named collective operations.
 <text x="340" y="440" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Every rank ends up holding the identical sum</text>
 </svg>
 
-**All-reduce is exactly what combined TP's two head outputs earlier.** Reduce-scatter is the same converge step, but instead of broadcasting the whole sum back, each rank keeps only its own slice, and in real implementations, **all-reduce isn't a separate primitive at all, it's reduce-scatter followed by all-gather**, chained together.
+*Figure 12: Reduce and all-reduce differ only in whether the result is returned to one rank or to all of them.*
 
-**All-to-all** is the odd one out: no converge/diverge shape at all, just every rank sending something different to every other rank simultaneously. It's literally a matrix transpose:
+All-reduce is the operation that combines the two partial outputs in tensor parallelism (Section 3.2). Reduce-scatter shares the converge step but distributes slices of the result rather than copies of it, and this is not merely a taxonomic curiosity: in practice, all-reduce is not implemented as a distinct primitive at all. It is a reduce-scatter followed by an all-gather.
+
+All-to-all does not fit the converge-diverge pattern. Every rank sends distinct data to every other rank simultaneously, and the operation is exactly a transpose of the block matrix in which entry `(i, j)` is the payload rank `i` owes rank `j`.
 
 <svg width="100%" viewBox="0 0 680 300" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>All-to-all as a matrix transpose</title>
@@ -652,11 +826,31 @@ Everything above eventually reduces to a handful of named collective operations.
 <text x="340" y="270" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">In MoE dispatch, cell (i,j) = "how many of rank i's tokens go to rank j's expert"</text>
 </svg>
 
-### How much does each of these actually cost?
+*Figure 13: All-to-all is a transpose of the send matrix. MoE dispatch is precisely this operation, with token payloads in place of the indices shown.*
 
-The standard tool is the **α-β model**: total time ≈ (number of messages) × α (fixed latency per message) + (bytes moved) × β (per-byte cost). Whether an operation is latency-bound or bandwidth-bound depends on which term dominates, and that's where the choice of *algorithm*, not just which collective, matters enormously.
+### 7.2 The cost model
 
-The single most important concrete result here: **naive all-reduce** (everyone sends to rank 0, it sums, it broadcasts back) costs `(P-1) × n` bytes on the busiest rank, linear in the number of ranks. **Ring all-reduce** (pass data around a ring instead) costs `2(P-1)/P × n`, which *approaches 2n and flatlines* as P grows, essentially independent of rank count:
+The standard model decomposes the time of a communication step into two terms that behave differently:
+
+```
+time  ≈  (number of messages) · α  +  (bytes moved) · β
+```
+
+where `α` is a fixed per-message latency, incurred regardless of payload size, and `β` is the inverse of bandwidth, the cost per byte. An operation is *latency-bound* when the first term dominates and *bandwidth-bound* when the second does. Which regime an operation falls into depends not only on the collective chosen but on the algorithm used to implement it.
+
+### 7.3 Ring all-reduce
+
+The clearest illustration is all-reduce, where the choice of algorithm changes the cost by an order of magnitude while leaving the result identical.
+
+A naive implementation reduces onto a root rank and broadcasts the result back. The root must receive a full `n`-byte contribution from each of the other `P - 1` ranks, so the busiest rank moves `(P - 1) · n` bytes, growing linearly in `P`.
+
+The ring algorithm instead passes data around a cycle. It proceeds in two phases, a reduce-scatter followed by an all-gather, each of which costs `(P - 1)/P · n` bytes per rank, for a total of
+
+```
+2 (P - 1) / P · n
+```
+
+which approaches `2n` from below as `P` grows and is therefore effectively independent of the number of ranks.
 
 <svg width="100%" viewBox="0 0 680 390" role="img" xmlns="http://www.w3.org/2000/svg">
 <title>Naive versus ring all-reduce cost</title>
@@ -685,67 +879,87 @@ The single most important concrete result here: **naive all-reduce** (everyone s
 <text x="242" y="339" font-family="sans-serif" font-size="12" fill="#5F5E5A">naive</text>
 <rect x="340" y="330" width="16" height="12" rx="3" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
 <text x="362" y="339" font-family="sans-serif" font-size="12" fill="#5F5E5A">ring</text>
-<text x="340" y="368" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Ring's cost barely grows as P scales, naive grows linearly, unbounded</text>
+<text x="340" y="368" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Ring cost is nearly flat in P; naive cost grows linearly</text>
 </svg>
 
-That flat curve is why ring all-reduce became the default in every serious distributed training framework. The tradeoff: ring needs `2(P-1)` sequential steps, so for *tiny* messages the fixed per-message latency can dominate anyway. Real implementations (NCCL) switch strategy based on message size.
+*Figure 14: Bytes moved per rank under naive and ring all-reduce, as the group size grows.*
 
-The rest, briefly: **broadcast / scatter / gather** move `~n` bytes per rank, roughly `P`-independent. **All-gather genuinely does scale with `P`**: the combined result is `P·n`, so each rank must receive `(P-1)·n` new bytes; no algorithm avoids this, since the information itself grows. **Reduce-scatter** is exactly half of ring all-reduce (the first phase). **All-to-all** is bandwidth-comparable to reduce-scatter, but its real cost is *latency*: it needs `P-1` distinct messages, and if each one carries only a handful of tokens (the common MoE case), the fixed per-message overhead `α` dominates over the actual bytes. That's the precise reason NanoCP builds a routing-based backend instead of calling a generic all-to-all: it attacks the message-count term directly, skipping pairs that have nothing real to send, rather than paying for a dense `P×P` mesh every single request.
+This result explains why ring-based all-reduce is the default in essentially every distributed training framework. It also explains the tradeoff: the ring requires `2(P - 1)` sequential steps, so the accumulated `α` term can dominate for small messages, where a tree-based algorithm with `O(log P)` depth is faster. Production implementations such as NCCL therefore select an algorithm based on message size.
 
----
- 
+### 7.4 Cost summary
+
+**Table 3: Bandwidth cost per rank under bandwidth-optimal algorithms. Here `n` denotes the size of the full buffer being reduced or gathered.**
+
+| Operation | Bytes moved per rank | Messages |
+|---|---|---|
+| Broadcast, Reduce | approximately `n` | `O(log P)` for tree algorithms |
+| Scatter, Gather | approximately `n` | `O(log P)` for tree algorithms |
+| All-gather | `(P - 1)/P · n` | `P - 1` in ring form |
+| Reduce-scatter | `(P - 1)/P · n` | `P - 1` in ring form |
+| All-reduce (ring) | `2 (P - 1)/P · n` | `2(P - 1)` |
+| All-reduce (naive) | `(P - 1) · n` on the root | `P - 1` |
+| All-to-all | `(P - 1)/P · n` | `P - 1` distinct messages |
+
+Two rows deserve comment. All-gather is the one operation whose cost genuinely grows with `P` in an unavoidable way, since the combined result itself is `P` times a single rank's contribution; no algorithm can avoid delivering that much new information. All-to-all, by contrast, is bandwidth-comparable to reduce-scatter but has a distinct problem: it requires `P - 1` separate messages, and in MoE dispatch the payload of many of those messages is small, since a given rank may route only a handful of tokens to a given distant expert. The fixed `α` term is then charged `P - 1` times against a small `β` term, and the operation becomes latency-bound.
+
+This is the precise sense in which NanoCP's routing-based communication backend improves on a generic all-to-all. A standard collective forces the full `P × P` message structure regardless of how much real traffic each pair carries. A routing table that issues transfers only for the pairs with genuine payloads attacks the message-count term directly, which is the term a general-purpose collective library cannot optimize away on the application's behalf.
+
+## 8. Conclusion
+
+The two systems that motivated this article each attack one of the exceptions identified in Section 1.
+
+NanoCP addresses the sequence-axis exception. It observes that a uniform context-parallel degree forces short requests to pay for a cross-device attention exchange they do not need, and that binding a request's KV cache to the same instance that performs its MoE dispatch makes it impossible to balance attention load and dispatch load at the same time. Its response is to decouple those two bindings and to size the context-parallel degree per request.
+
+UltraEP addresses the dispatch exception. It observes that expert popularity is non-stationary at the granularity of a single microbatch, so any placement computed from historical statistics is already stale when it is used. Its response is to solve a replication and rerouting plan from the exact post-gating load, on the critical path, every layer.
+
+Both are, at bottom, decisions about which collective to invoke, over which group, and how sparsely. The cost model of Section 7 is what makes those decisions legible: NanoCP's routing backend targets the message-count term of the all-to-all cost, and UltraEP's replication targets the imbalance that makes the slowest rank, rather than the average rank, determine the cost of the collective.
+
 ## References
- 
-The two papers this whole post is built around:
- 
+
+The two papers this article was written alongside:
+
 - Chen, J. et al. "NanoCP: Request-Level Dynamic Context Parallelism for Data-Expert Parallel Decoding." [arXiv:2605.21100](https://arxiv.org/abs/2605.21100)
 - Wei, X. et al. "UltraEP: Unleash MoE Training and Inference on Rack-Scale Nodes with Near-Optimal Load Balancing." [arXiv:2606.04101](https://arxiv.org/abs/2606.04101)
 
 Attention, tensor parallelism, and MLA:
- 
-- ROCm, "The vLLM MoE Playbook." [rocm.blogs.amd.com](https://rocm.blogs.amd.com/software-tools-optimization/vllm-moe-guide/README.html)
-- Jarvislabs, "Scaling LLM Inference: DP, PP, TP." [docs.jarvislabs.ai](https://docs.jarvislabs.ai/blog/scaling-llm-inference-dp-pp-tp)
-- vLLM Docs, "Data Parallel Deployment." [docs.vllm.ai](https://docs.vllm.ai/en/latest/serving/data_parallel_deployment/)
-- Brenndoerfer, M. "Tensor Parallelism: Column, Row, and Megatron Patterns." [mbrenndoerfer.com](https://mbrenndoerfer.com/writing/tensor-parallelism-column-row-megatron-communication-patterns)
-- Shoeybi, M. et al. "Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism." [arXiv:2104.04473](https://arxiv.org/pdf/2104.04473)
-- Jang, I. "Analyzing Parallelization of Attention." [insujang.github.io](https://insujang.github.io/2022-08-03/analyzing-parallelization-of-attention/)
-- Bhatia, N. et al. "Helix Parallelism: Rethinking Sharding Strategies for Interactive Multi-Million-Token LLM Decoding." [arXiv:2507.07120](https://arxiv.org/html/2507.07120v1)
-- NVIDIA Developer Blog, "Multi-Million Token Real-Time Inference." [developer.nvidia.com](https://developer.nvidia.com/blog/asking-an-encyclopedia-sized-question-how-to-make-the-world-smarter-with-multi-million-token-real-time-inference/)
-- vLLM GitHub, RFC for Helix Parallelism implementation. [github.com/vllm-project/vllm/issues/34018](https://github.com/vllm-project/vllm/issues/34018)
-- DeepSeek-AI, "DeepSeek-V2 Technical Report." [arXiv:2405.04434](https://arxiv.org/pdf/2405.04434)
-- Vizuara, "Decoding Multi-Head Latent Attention," Part 1 and Part 2. [vizuara.substack.com](https://vizuara.substack.com/p/decoding-multi-head-latent-attention)
-- Towards Data Science, "DeepSeek-V3 Explained 1: Multi-head Latent Attention." [towardsdatascience.com](https://towardsdatascience.com/deepseek-v3-explained-1-multi-head-latent-attention-ed6bee2a67c4/)
-- NVIDIA/TensorRT-LLM GitHub, feature request discussing MLA weight replication under tensor parallelism.
 
-Context parallelism, FlashAttention, and the online-softmax merge:
- 
-- Dao, T. et al. "Flash-Decoding for long-context inference." [pytorch.org/blog](https://pytorch.org/blog/flash-decoding/) (mirrored at [princeton-nlp.github.io](https://princeton-nlp.github.io/flash-decoding/))
-- Meta AI, "Context Parallelism for Scalable Million-Token Inference." [arXiv:2411.01783](https://arxiv.org/pdf/2411.01783)
-- HuggingFace Blog, "FlashAttention: Online Softmax." [huggingface.co/blog](https://huggingface.co/blog/atharv6f/flash-attention-online-softmax)
+- Shoeybi, M. et al. "Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism." [arXiv:2104.04473](https://arxiv.org/pdf/2104.04473)
+- Brenndoerfer, M. "Tensor Parallelism: Column, Row, and Megatron Patterns." [mbrenndoerfer.com](https://mbrenndoerfer.com/writing/tensor-parallelism-column-row-megatron-communication-patterns)
+- Jang, I. "Analyzing Parallelization of Attention." [insujang.github.io](https://insujang.github.io/2022-08-03/analyzing-parallelization-of-attention/)
+- DeepSeek-AI. "DeepSeek-V2 Technical Report." [arXiv:2405.04434](https://arxiv.org/pdf/2405.04434)
+- Vizuara. "Decoding Multi-Head Latent Attention," Parts 1 and 2. [vizuara.substack.com](https://vizuara.substack.com/p/decoding-multi-head-latent-attention)
+- Towards Data Science. "DeepSeek-V3 Explained 1: Multi-head Latent Attention." [towardsdatascience.com](https://towardsdatascience.com/deepseek-v3-explained-1-multi-head-latent-attention-ed6bee2a67c4/)
+- Bhatia, N. et al. "Helix Parallelism: Rethinking Sharding Strategies for Interactive Multi-Million-Token LLM Decoding." [arXiv:2507.07120](https://arxiv.org/html/2507.07120v1)
+- vLLM GitHub. RFC for Helix Parallelism implementation. [github.com/vllm-project/vllm/issues/34018](https://github.com/vllm-project/vllm/issues/34018)
+- ROCm. "The vLLM MoE Playbook." [rocm.blogs.amd.com](https://rocm.blogs.amd.com/software-tools-optimization/vllm-moe-guide/README.html)
+- vLLM Docs. "Data Parallel Deployment." [docs.vllm.ai](https://docs.vllm.ai/en/latest/serving/data_parallel_deployment/)
+- Jarvislabs. "Scaling LLM Inference: DP, PP, TP." [docs.jarvislabs.ai](https://docs.jarvislabs.ai/blog/scaling-llm-inference-dp-pp-tp)
+
+Context parallelism and the online-softmax merge:
+
+- Dao, T. et al. "Flash-Decoding for long-context inference." [pytorch.org/blog](https://pytorch.org/blog/flash-decoding/)
+- Meta AI. "Context Parallelism for Scalable Million-Token Inference." [arXiv:2411.01783](https://arxiv.org/pdf/2411.01783)
+- HuggingFace Blog. "FlashAttention: Online Softmax." [huggingface.co/blog](https://huggingface.co/blog/atharv6f/flash-attention-online-softmax)
+
 Serving architecture, memory, and scheduling:
- 
+
 - Kwon, W. et al. "Efficient Memory Management for Large Language Model Serving with PagedAttention," explained by Brenndoerfer, M. [mbrenndoerfer.com](https://mbrenndoerfer.com/writing/paged-attention-vllm-kv-cache-memory-management)
 - Zhong, Y. et al. "DistServe: Disaggregating Prefill and Decoding for Goodput-Optimized Large Language Model Serving." [arXiv:2401.09670](https://arxiv.org/abs/2401.09670)
-- NVIDIA, "GB200 NVL72." [nvidia.com](https://www.nvidia.com/en-us/data-center/gb200-nvl72/)
-- Introl, "NVLink and Scale-Up Networking." [introl.com](https://introl.com/blog/nvlink-scale-up-networking-gpu-interconnect-infrastructure-2025)
+- Agrawal, A. et al. "Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve." OSDI 2024.
+- NVIDIA. "GB200 NVL72." [nvidia.com](https://www.nvidia.com/en-us/data-center/gb200-nvl72/)
+- Introl. "NVLink and Scale-Up Networking." [introl.com](https://introl.com/blog/nvlink-scale-up-networking-gpu-interconnect-infrastructure-2025)
 
-Straggler dynamics and MoE communication:
- 
+Stragglers and MoE communication:
+
 - Ho, Q. et al. "Solving the Straggler Problem for Iterative Convergent Parallel ML." CMU-PDL Technical Report. [pdl.cmu.edu](https://www.pdl.cmu.edu/PDL-FTP/BigLearning/CMU-PDL-15-102.pdf)
 - Zuo, P. et al. "Serving Large Language Models on Huawei CloudMatrix384." [arXiv:2508.02520](https://arxiv.org/pdf/2508.02520)
-- DeepSeek-AI, "DeepEP: an efficient expert-parallel communication library." [github.com/deepseek-ai/DeepEP](https://github.com/deepseek-ai/DeepEP/blob/main/README.md)
-- DeepSeek-AI, "EPLB: Expert Parallelism Load Balancer." [github.com/deepseek-ai/EPLB](https://github.com/deepseek-ai/EPLB/blob/main/README.md)
-- ROCm, "Dropless MoE Training with Primus-Turbo." [rocm.blogs.amd.com](https://rocm.blogs.amd.com/software-tools-optimization/maxtext-dropless-moe/README.html)
+- DeepSeek-AI. "DeepEP: an efficient expert-parallel communication library." [github.com/deepseek-ai/DeepEP](https://github.com/deepseek-ai/DeepEP/blob/main/README.md)
+- DeepSeek-AI. "EPLB: Expert Parallelism Load Balancer." [github.com/deepseek-ai/EPLB](https://github.com/deepseek-ai/EPLB/blob/main/README.md)
+- ROCm. "Dropless MoE Training with Primus-Turbo." [rocm.blogs.amd.com](https://rocm.blogs.amd.com/software-tools-optimization/maxtext-dropless-moe/README.html)
 
 FFN interpretability and the residual stream:
- 
+
 - Geva, M., Schuster, R., Berant, J., Levy, O. "Transformer Feed-Forward Layers Are Key-Value Memories." EMNLP 2021. [aclanthology.org](https://aclanthology.org/2021.emnlp-main.446/)
 - Geva, M., Caciularu, A., Wang, K., Goldberg, Y. "Transformer Feed-Forward Layers Build Predictions by Promoting Concepts in the Vocabulary Space." EMNLP 2022. [aclanthology.org](https://aclanthology.org/2022.emnlp-main.3/)
-- "MLPs in Transformers." Learn Mechanistic Interpretability. [learnmechinterp.com](https://learnmechinterp.com/topics/mlps-in-transformers/)
 - Elhage, N. et al. "A Mathematical Framework for Transformer Circuits." Transformer Circuits Thread, 2021. [transformer-circuits.pub](https://transformer-circuits.pub/2021/framework/index.html)
-
-Pipeline parallelism in serving:
- 
-- Agrawal, A. et al. "Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve." OSDI 2024.
-- "RServe" (pipeline-parallel serving latency comparison against tensor-parallel vLLM).
-
+- "MLPs in Transformers." Learn Mechanistic Interpretability. [learnmechinterp.com](https://learnmechinterp.com/topics/mlps-in-transformers/)
