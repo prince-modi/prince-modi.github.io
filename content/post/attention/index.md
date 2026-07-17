@@ -673,16 +673,18 @@ Ring all-reduce is the default in most distributed training frameworks for this 
 ### 5.4 Cost summary
 
 **Table 3: Bandwidth cost per rank under bandwidth-optimal algorithms. Here `n` denotes the size of the full buffer being reduced or gathered.**
+| Operation | What it does | Bytes moved per rank | Messages |
+|---|---|---|---|
+| Broadcast | One rank's buffer copied identically to all ranks | approximately `n` | `O(log P)` for tree algorithms |
+| Reduce | Element-wise combine (e.g. sum) of all ranks' buffers → result on one rank | approximately `n` | `O(log P)` for tree algorithms |
+| Scatter | One rank's buffer split into pieces, one distinct piece to each rank | approximately `n` | `O(log P)` for tree algorithms |
+| Gather | Each rank's piece collected onto one rank | approximately `n` | `O(log P)` for tree algorithms |
+| All-gather | Each rank's piece collected onto every rank | `(P - 1)/P · n` | `P - 1` in ring form |
+| Reduce-scatter | Element-wise combine, then each rank keeps only its slice of the result | `(P - 1)/P · n` | `P - 1` in ring form |
+| All-reduce (ring) | Combine all ranks' buffers, result delivered to every rank (= reduce-scatter + all-gather) | `2 (P - 1)/P · n` | `2(P - 1)` |
+| All-reduce (naive) | Same result, but every rank sends to one root that sums and broadcasts back | `(P - 1) · n` on the root | `P - 1` |
+| All-to-all | Every rank sends a distinct piece to every other rank (a transpose) | `(P - 1)/P · n` | `P - 1` distinct messages |
 
-| Operation | Bytes moved per rank | Messages |
-|---|---|---|
-| Broadcast, Reduce | approximately `n` | `O(log P)` for tree algorithms |
-| Scatter, Gather | approximately `n` | `O(log P)` for tree algorithms |
-| All-gather | `(P - 1)/P · n` | `P - 1` in ring form |
-| Reduce-scatter | `(P - 1)/P · n` | `P - 1` in ring form |
-| All-reduce (ring) | `2 (P - 1)/P · n` | `2(P - 1)` |
-| All-reduce (naive) | `(P - 1) · n` on the root | `P - 1` |
-| All-to-all | `(P - 1)/P · n` | `P - 1` distinct messages |
 
 All-gather is the one operation whose cost grows with `P` unavoidably, since the combined result is `P` times a single rank's contribution and no algorithm can avoid delivering that much new information.
 
