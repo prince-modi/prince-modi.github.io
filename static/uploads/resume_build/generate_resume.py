@@ -20,6 +20,7 @@ def load_config(path):
 
 def create_resume():
     config = load_config(CONFIG_FILE)
+    picasso_bullets = config["work_experience"]["picasso_bullets"]
     flotilla_bullets = config["work_experience"]["flotilla_bullets"]
     technical_skills = config["technical_skills"]
     dynamic_project = config["selected_project"]
@@ -45,7 +46,7 @@ def create_resume():
         fontName="Helvetica-Bold",
         fontSize=16,
         alignment=TA_CENTER,
-        spaceAfter=10,
+        spaceAfter=7,
     )
     style_contact = ParagraphStyle(
         "Contact",
@@ -60,7 +61,7 @@ def create_resume():
         parent=styles["Normal"],
         fontName="Helvetica-Bold",
         fontSize=10.5,
-        spaceBefore=5,
+        spaceBefore=4,
         spaceAfter=3,
         uppercase=True,
     )
@@ -100,9 +101,9 @@ def create_resume():
         parent=styles["Normal"],
         fontName="Helvetica",
         fontSize=9.5,
-        leading=12,
+        leading=11.5,
         spaceAfter=2,
-        alignment=TA_JUSTIFY,
+        alignment=TA_LEFT,
     )
     style_pub = ParagraphStyle(
         "Publication",
@@ -111,7 +112,7 @@ def create_resume():
         fontSize=9.5,
         leading=11.5,
         spaceAfter=3,
-        alignment=TA_JUSTIFY,
+        alignment=TA_LEFT,
     )
 
     story = []
@@ -121,6 +122,7 @@ def create_resume():
         t.setStyle(
             TableStyle(
                 [
+                    ("TOPPADDING", (0, 0), (-1, -1), 4),
                     ("BOTTOMPADDING", (0, 0), (-1, -1), 1),
                     ("LINEBELOW", (0, 0), (-1, -1), 0.5, colors.black),
                     ("LEFTPADDING", (0, 0), (-1, -1), 0),
@@ -128,7 +130,7 @@ def create_resume():
             )
         )
         story.append(t)
-        story.append(Spacer(1, 0.07 * inch))
+        story.append(Spacer(1, 0.06 * inch))
 
     def add_entry(institution, location, date, role="", project_title=""):
         header_text = f"{institution}, {location}" if location else institution
@@ -190,7 +192,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.07 * inch))
+    story.append(Spacer(1, 0.06 * inch))
 
     add_entry(
         "Ganpat University",
@@ -205,10 +207,21 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.07 * inch))
+    story.append(Spacer(1, 0.06 * inch))
 
     # --- WORK EXPERIENCE ---
     add_section("WORK EXPERIENCE")
+
+    add_entry(
+        "Picasso Lab, UC San Diego",
+        "",
+        "Jul 2026 – Present",
+        "Graduate Student Researcher, LLM Inference Systems",
+    )
+    for b in picasso_bullets:
+        story.append(Paragraph(f"• {b}", style_bullet))
+
+    story.append(Spacer(1, 0.06 * inch))
 
     add_entry(
         "Indian Institute of Science (IISc)",
@@ -240,7 +253,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.07 * inch))
+    story.append(Spacer(1, 0.06 * inch))
 
     # --- PUBLICATION ---
     add_section("PUBLICATION")
@@ -273,7 +286,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.07 * inch))
+    story.append(Spacer(1, 0.06 * inch))
 
     add_entry(
         'FlashAttention Kernel | <font name="Helvetica-Oblique">Triton, Python</font>',
@@ -286,20 +299,8 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.07 * inch))
+    story.append(Spacer(1, 0.06 * inch))
 
-    add_entry(
-        'System Performance Characterization | <font name="Helvetica-Oblique">C, Linux</font>',
-        "",
-        "Dec 2025",
-    )
-    story.append(
-        Paragraph(
-            "• Developed a suite of micro-benchmarks to evaluate the Rockchip RK3588S SoC, utilizing ARMv8 cycle counters to measure CPU scheduling latencies",
-            style_bullet,
-        )
-    )
-    story.append(Spacer(1, 0.07 * inch))
 
     """
     dynamic_header = (

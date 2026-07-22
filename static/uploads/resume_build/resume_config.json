@@ -1,5 +1,9 @@
 {
   "work_experience": {
+    "picasso_bullets": [
+      "Profiling <b>attention-operator</b> compute and communication cost across prefill (varying prompt/KV-cache lengths) and decode (varying batch size/KV-cache lengths), fitting analytical regression models to measured latencies",
+      "Building a <b>trace-driven simulator</b> that pairs the fitted cost models with multi-turn conversation traces to compare parallelism strategies (CP/TP/DP + EP) for a disaggregated prefill/decode deployment"
+    ],
     "flotilla_bullets": [
       "Architected a distributed training framework in Python/AsyncIO orchestrating <b>1,000+ worker nodes</b>, implementing both synchronous and asynchronous parameter aggregation strategies (FedAvg, FedAsync, tiered aggregation) via a pluggable event-driven state-machine design",
       "Designed a stateful parameter-server architecture with stateless workers, externalizing all orchestration state to <b>Redis</b> for real-time durability, cutting per-round overhead to just <b>1.7%</b> at 1,000+ nodes vs. <b>54.9%</b> for a leading open-source baseline",
