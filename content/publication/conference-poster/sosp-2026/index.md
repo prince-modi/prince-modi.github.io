@@ -4,7 +4,7 @@ authors:
 - admin
 - Varad Kottawar
 - Ayush Govind
-  # date: "2026-09-29"
+date: "2026-07-23"
 
 # Schedule page publish date (NOT publication's date).
 # publishDate: "2025-05-04T23:24:00Z"
@@ -18,7 +18,7 @@ publication_types: ["poster-conference"]
 publication: "32nd ACM Symposium on Operating Systems Principles (2026)"
 publication_short: "SOSP"
 
-abstract: "Computer-use agents (CUAs) built on large language models typically operate desktop applications by emulating human interaction: perceiving the screen and issuing sequences of clicks, drags, and keystrokes. This GUI-based approach forces even simple tasks to be decomposed into long, fine-grained action chains, increasing the number of LLM calls per task and the risk of cascading failures. Prior work has proposed abstracting this navigation burden through declarative interfaces built on OS accessibility APIs, but such approaches remain dependent on the completeness of an application's accessibility metadata and still route actions through the accessibility layer rather than the application's own internal logic. We investigate an alternative: recovering an application's internal command interfaces directly via dynamic instrumentation, bypassing both the GUI and the accessibility tree entirely. Using Frida to trace, identify, and hook internal functions in GIMP, we construct direct invocations for operations such as cropping, flipping, and rotating images, and expose these as an additional tool to a CUA. In a preliminary evaluation, agents equipped with our recovered hooks consumed substantially fewer tokens and completed the task faster than a GUI-only baseline. We discuss open questions around generalizing this approach beyond a single hand-instrumented application, including automated discovery of internal command interfaces from source code or compiled binaries."
+abstract: "Computer-use agents built on LLMs mostly interact with desktop apps the way a person would: they look at a screenshot, figure out where a button is, and click it. Do that a hundred times and you can automate a workflow. But it's slow, brittle, and expensive. Every click is a round trip to the model. Every misread pixel is a chance for the whole chain to fall apart."
 
 tags:
 - Operating Systems
