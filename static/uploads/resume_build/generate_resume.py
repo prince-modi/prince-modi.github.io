@@ -61,7 +61,7 @@ def create_resume():
         parent=styles["Normal"],
         fontName="Helvetica-Bold",
         fontSize=10.5,
-        spaceBefore=4,
+        spaceBefore=3,  # tightened to fit one page (was 4)
         spaceAfter=3,
         uppercase=True,
     )
@@ -102,7 +102,7 @@ def create_resume():
         fontName="Helvetica",
         fontSize=9.5,
         leading=11.5,
-        spaceAfter=2,
+        spaceAfter=1.5,  # tightened to fit one page (was 2)
         alignment=TA_LEFT,
     )
     style_pub = ParagraphStyle(
@@ -122,7 +122,7 @@ def create_resume():
         t.setStyle(
             TableStyle(
                 [
-                    ("TOPPADDING", (0, 0), (-1, -1), 4),
+                    ("TOPPADDING", (0, 0), (-1, -1), 2),  # tightened to fit one page (was 4)
                     ("BOTTOMPADDING", (0, 0), (-1, -1), 1),
                     ("LINEBELOW", (0, 0), (-1, -1), 0.5, colors.black),
                     ("LEFTPADDING", (0, 0), (-1, -1), 0),
@@ -130,7 +130,7 @@ def create_resume():
             )
         )
         story.append(t)
-        story.append(Spacer(1, 0.06 * inch))
+        story.append(Spacer(1, 0.05 * inch))  # tightened to fit one page (was 0.06)
 
     def add_entry(institution, location, date, role="", project_title=""):
         header_text = f"{institution}, {location}" if location else institution
@@ -175,7 +175,7 @@ def create_resume():
         )
     )
 
-    story.append(Spacer(1, 0.06 * inch))
+    story.append(Spacer(1, 0.05 * inch))  # tightened to fit one page (was 0.06)
 
     # --- EDUCATION ---
     add_section("EDUCATION")
@@ -192,7 +192,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.06 * inch))
+    story.append(Spacer(1, 0.05 * inch))
 
     add_entry(
         "Ganpat University",
@@ -207,7 +207,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.06 * inch))
+    story.append(Spacer(1, 0.05 * inch))
 
     # --- WORK EXPERIENCE ---
     add_section("WORK EXPERIENCE")
@@ -221,7 +221,7 @@ def create_resume():
     for b in picasso_bullets:
         story.append(Paragraph(f"• {b}", style_bullet))
 
-    story.append(Spacer(1, 0.06 * inch))
+    story.append(Spacer(1, 0.05 * inch))
 
     add_entry(
         "Indian Institute of Science (IISc)",
@@ -233,7 +233,7 @@ def create_resume():
     for b in flotilla_bullets:
         story.append(Paragraph(f"• {b}", style_bullet))
 
-    story.append(Spacer(1, 0.06 * inch))
+    story.append(Spacer(1, 0.05 * inch))
 
     add_entry(
         "Sterlite Technologies Limited",
@@ -253,10 +253,19 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.06 * inch))
+    story.append(Spacer(1, 0.05 * inch))
 
     # --- PUBLICATION ---
     add_section("PUBLICATION")
+    story.append(
+        Paragraph(
+            "<b>Prince Modi</b>, Varad Kottawar, Ayush Govind. "
+            "<b>Recovering Internal Command Interfaces from Applications for Direct Agent Invocation.</b> "
+            "<i>SOSP 2026 Poster Session (to appear)</i>",
+            style_pub,
+        )
+    )
+    story.append(Spacer(1, 0.05 * inch))
     story.append(
         Paragraph(
             "Roopkatha B., <b>Prince Modi</b>, et al. "
@@ -265,7 +274,7 @@ def create_resume():
             style_pub,
         )
     )
-    story.append(Spacer(1, 0.06 * inch))
+    story.append(Spacer(1, 0.05 * inch))
 
     # --- PROJECTS ---
     add_section("PROJECTS")
@@ -286,7 +295,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.06 * inch))
+    story.append(Spacer(1, 0.05 * inch))
 
     add_entry(
         'FlashAttention Kernel | <font name="Helvetica-Oblique">Triton, Python</font>',
@@ -299,8 +308,7 @@ def create_resume():
             style_bullet,
         )
     )
-    story.append(Spacer(1, 0.06 * inch))
-
+    story.append(Spacer(1, 0.05 * inch))
 
     """
     dynamic_header = (
