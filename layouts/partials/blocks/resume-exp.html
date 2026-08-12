@@ -18,30 +18,12 @@
       {{ with $block.content.text }}{{ . | emojify | $page.RenderString }}{{ end }}
 
       {{ if $block.content.items }}
-      {{ $exp_len := len $block.content.items }}
+      <div class="timeline">
       {{ range $idx, $key := $block.content.items }}
-      <div class="row experience mb-3">
-        <!-- Timeline (Left Side) -->
-        <div class="col-auto text-center flex-column d-none d-sm-flex">
-          <div class="row h-50">
-            <div class="col {{if gt $idx 0}}border-right{{end}}" style="border-color: var(--line-color, #ccc);">&nbsp;</div>
-            <div class="col">&nbsp;</div>
-          </div>
-          <div class="m-2">
-            <span class="badge badge-pill" 
-                  style="background-color: var(--dot-color, #333); border: 2px solid var(--line-color, #ccc);">
-              &nbsp;
-            </span>
-          </div>
-          <div class="row h-50">
-            <div class="col {{if lt $idx (sub $exp_len 1)}}border-right{{end}}" style="border-color: var(--line-color, #ccc);">&nbsp;</div>
-            <div class="col">&nbsp;</div>
-          </div>
-        </div>
+      <div class="timeline-item" id="{{ .id }}">
+        <span class="timeline-dot" aria-hidden="true"></span>
 
-        <!-- Content (Right Side) -->
-        <div class="col py-3" id="{{ .id }}">
-          <div class="card-simple view-card p-3" style="margin-bottom: 0;" > <!-- Reduce bottom margin here -->
+        <div class="card-simple view-card p-3">
             <div class="section-subheading article-title mb-1 mt-1" >
               <!-- Job Title with Icon Selection -->
               {{/* Check if the icon choice is set for this experience */}}
@@ -110,9 +92,9 @@
               {{ end }}
             </div>
           </div>
-        </div>
       </div>
       {{ end }}
+      </div>
       {{ end }}
     </div>
   </div>

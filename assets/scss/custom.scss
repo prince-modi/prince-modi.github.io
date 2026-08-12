@@ -1,5 +1,27 @@
+// Palette tokens — keep in sync with data/themes/custom.toml
+$color-ink: #1f2430;
+$color-text: #3f4752;
+$color-accent: #3454a3;
+$color-accent-soft: #eef1f8;
+$color-line: #b7c4e0;
+
+$color-ink-dark: #eef1f6;
+$color-accent-dark: #7ea1e0;
+$color-accent-soft-dark: #26324a;
+$color-line-dark: #435b82;
+
+:root {
+    --line-color: #{$color-line};
+    --dot-color: #{$color-accent};
+}
+
+.dark {
+    --line-color: #{$color-line-dark};
+    --dot-color: #{$color-accent-dark};
+}
+
 p {
-    color: #4c4b4b;
+    color: $color-text;
 }
 
 .footnotes {
@@ -28,9 +50,9 @@ p {
 
 
 .article-style a {
-    color: #5a464c;
+    color: $color-accent;
     font-weight: normal;
-    border-bottom: 1px solid #5a464c;
+    border-bottom: 1px solid $color-accent;
 }
 
 a.footnote-ref {
@@ -46,17 +68,17 @@ a.footnote-ref::after {
 }
 
 .article-title a {
-    color: #313131;
+    color: $color-ink;
     font-weight: normal;
     transition: color 0.6s ease;
 }
 
 ::selection {
-    background: rgba(90, 70, 76, 0.15);
+    background: rgba(52, 84, 163, 0.15);
 }
 
 ::-moz-selection {
-    background: rgba(90, 70, 76, 0.15);
+    background: rgba(52, 84, 163, 0.15);
 }
 
 h1 {
@@ -92,17 +114,20 @@ figure figcaption {
 }
 
 .navbar {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+    border-bottom: 1px solid rgba(16, 24, 40, 0.07);
 }
 
 code {
-    background-color: #f3f6ee;
-    color: #5a464c;
+    background-color: $color-accent-soft;
+    color: $color-accent;
     word-wrap: break-word;
     border-radius: 0.25rem;
     font-size: 80%;
-    border: 1px solid #5a464c;
+    border: 1px solid $color-accent;
     padding: 0.2rem;
 }
 
@@ -128,21 +153,21 @@ details p {
 
 .table th,
 .table td {
-    color: #4c4b4b;
+    color: $color-text;
     border-top: 1px solid silver;
     border-bottom: 1px solid silver;
 }
 
 table>tbody {
-    color: #4c4b4b;
+    color: $color-text;
 }
 
 .alert,
 .article-style aside,
 .alert-note {
-    color: rgb(90, 70, 76);
-    background-color: #f3f6ee;
-    border-color: #5a464c;
+    color: $color-accent;
+    background-color: $color-accent-soft;
+    border-color: $color-accent;
 }
 
 .article-style aside p::before,
@@ -151,7 +176,7 @@ div.alert>div:first-child::before {
     top: -0.5rem;
     left: -2rem;
     font-size: 1.5rem;
-    color: #5a464c;
+    color: $color-accent;
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     content: '\f05a';
@@ -190,8 +215,11 @@ body.dark,
 }
 
 .dark .navbar {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    border: 1px solid #2b2a2a;
+    background: rgba(43, 42, 42, 0.75);
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 body.dark,
@@ -200,31 +228,31 @@ body.dark,
 }
 
 .dark code {
-    background-color: #2b2a2a;
-    color: silver;
+    background-color: $color-accent-soft-dark;
+    color: $color-accent-dark;
     word-wrap: break-word;
     border-radius: 0.25rem;
     font-size: 80%;
-    border: 1px solid silver;
+    border: 1px solid $color-accent-dark;
     padding: 0.2rem;
 }
 
 .dark .btn-outline-primary {
-    color: #f3f6ee;
-    border-color: #f3f6ee;
+    color: $color-accent-dark;
+    border-color: $color-accent-dark;
 }
 
 .dark .form-control {
-    color: #f3f6ee;
+    color: $color-ink-dark;
     background-color: #373636;
 }
 
 .dark .alert,
 .dark .article-style aside,
 .dark .alert-note {
-    color: #c3c3c3;
-    background-color: #434343;
-    border-color: #c3c3c3;
+    color: $color-accent-dark;
+    background-color: $color-accent-soft-dark;
+    border-color: $color-accent-dark;
 }
 
 .dark .article-style aside p::before,
@@ -233,7 +261,7 @@ body.dark,
     top: -0.5rem;
     left: -2rem;
     font-size: 1.5rem;
-    color: #c3c3c3;
+    color: $color-accent-dark;
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     content: '\f05a';
@@ -303,17 +331,17 @@ body.dark,
 }
 
 .dark .article-style a {
-    color: #f3f6ee;
+    color: $color-accent-dark;
     font-weight: normal;
-    border-bottom: 1px solid #f3f6ee;
+    border-bottom: 1px solid $color-accent-dark;
 }
 
 .dark ::selection {
-    background: rgba(243, 246, 238, 0.15);
+    background: rgba(126, 161, 224, 0.2);
 }
 
 .dark ::-moz-selection {
-    background: rgba(243, 246, 238, 0.15);
+    background: rgba(126, 161, 224, 0.2);
 }
 
 .dark a.footnote-ref {
@@ -332,4 +360,353 @@ body.dark,
     aside#sidebar-nav {
         display: none !important;
     }
+}
+
+/*************************************************
+ *  Timeline (Education / Experience)
+ **************************************************/
+
+.timeline {
+    --timeline-indent: 32px;
+    --timeline-rail: 10px;
+    --timeline-dot: 12px;
+    position: relative;
+    padding-left: var(--timeline-indent);
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 28px;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+/* Connector runs from THIS item's dot to the NEXT item's dot — never past the last one. */
+.timeline-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 20px;
+    bottom: -20px;
+    left: calc(var(--timeline-rail) - var(--timeline-indent) - 1px);
+    width: 2px;
+    background: var(--line-color);
+}
+
+.timeline-dot {
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    left: calc(var(--timeline-rail) - var(--timeline-indent) - (var(--timeline-dot) / 2));
+    width: var(--timeline-dot);
+    height: var(--timeline-dot);
+    border-radius: 50%;
+    background: var(--dot-color);
+    border: 2px solid var(--line-color);
+    box-sizing: content-box;
+}
+
+@media (max-width: 575.98px) {
+    .timeline {
+        padding-left: 0;
+    }
+
+    .timeline-item::after,
+    .timeline-dot {
+        display: none;
+    }
+}
+
+/*************************************************
+ *  Card polish (Education / Experience / Publications / Posts)
+ **************************************************/
+
+.card-simple {
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-simple.view-card:hover {
+    box-shadow: 0 8px 20px rgba(16, 24, 40, 0.08), 0 2px 6px rgba(16, 24, 40, 0.06);
+    transform: translateY(-2px);
+}
+
+.dark .card-simple {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.dark .card-simple.view-card:hover {
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+}
+
+/*************************************************
+ *  Skills — quiet stacked list
+ **************************************************/
+
+.skill-group-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $color-ink;
+    margin-bottom: 0.6rem;
+}
+
+.dark .skill-group-title {
+    color: $color-ink-dark;
+}
+
+.skill-divider {
+    width: 2.75rem;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.18);
+    margin-bottom: 1.4rem;
+}
+
+.dark .skill-divider {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.skill-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+}
+
+.skill-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+}
+
+.skill-icon {
+    flex: 0 0 auto;
+    width: 1.1rem;
+    padding-top: 0.2rem;
+    text-align: center;
+    color: $color-ink;
+}
+
+.dark .skill-icon {
+    color: $color-ink-dark;
+}
+
+.skill-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: $color-text;
+}
+
+.dark .skill-name {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.skill-description {
+    margin: 0.2rem 0 0;
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.5);
+    line-height: 1.45;
+}
+
+.dark .skill-description {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/*************************************************
+ *  Article narration
+ **************************************************/
+
+.narration-player {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin: 0 0 1.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(52, 84, 163, 0.2);
+    background: $color-accent-soft;
+    max-width: 26rem;
+}
+
+.narration-toggle {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: none;
+    background: $color-accent;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.narration-toggle:hover {
+    transform: scale(1.06);
+}
+
+.narration-body {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.narration-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $color-accent;
+    margin-bottom: 0.3rem;
+}
+
+.narration-scrub {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.narration-seek {
+    flex: 1 1 auto;
+    accent-color: $color-accent;
+    cursor: pointer;
+}
+
+.narration-time {
+    flex: 0 0 auto;
+    font-size: 0.7rem;
+    font-variant-numeric: tabular-nums;
+    color: $color-text;
+    white-space: nowrap;
+}
+
+.dark .narration-player {
+    border-color: rgba(126, 161, 224, 0.25);
+    background: $color-accent-soft-dark;
+}
+
+.dark .narration-toggle {
+    background: $color-accent-dark;
+    color: #1c2333;
+}
+
+.dark .narration-label {
+    color: $color-accent-dark;
+}
+
+.dark .narration-seek {
+    accent-color: $color-accent-dark;
+}
+
+.dark .narration-time {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/*************************************************
+ *  Hero (About / profile)
+ **************************************************/
+
+#profile .avatar {
+    box-shadow: 0 0 0 4px #ffffff, 0 0 0 6px rgba(52, 84, 163, 0.35), 0 16px 32px rgba(16, 24, 40, 0.14);
+}
+
+.dark #profile .avatar {
+    box-shadow: 0 0 0 4px #2b2a2a, 0 0 0 6px rgba(126, 161, 224, 0.35), 0 16px 32px rgba(0, 0, 0, 0.45);
+}
+
+.portrait-title h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: $color-ink;
+    margin: 24px 0 6px;
+}
+
+.dark .portrait-title h2 {
+    color: $color-ink-dark;
+}
+
+.portrait-title h3:first-of-type {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: $color-accent;
+}
+
+.dark .portrait-title h3:first-of-type {
+    color: $color-accent-dark;
+}
+
+.portrait-title h3:not(:first-of-type) {
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.network-icon a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: $color-accent-soft;
+    color: $color-accent !important;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.network-icon li:hover {
+    transform: translateY(-2px);
+}
+
+.network-icon a:hover {
+    background: rgba(52, 84, 163, 0.16);
+}
+
+.dark .network-icon a {
+    background: $color-accent-soft-dark;
+    color: $color-accent-dark !important;
+}
+
+.dark .network-icon a:hover {
+    background: rgba(126, 161, 224, 0.22);
+}
+
+.big-icon {
+    font-size: 1.1rem !important;
+}
+
+/*************************************************
+ *  Section headings (Skills / Education / Experience / Publications / Posts / Hobbies)
+ **************************************************/
+
+.section-heading h1 {
+    position: relative;
+    padding-top: 0.9rem;
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: $color-ink;
+}
+
+.section-heading h1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.25rem;
+    height: 4px;
+    border-radius: 2px;
+    background: $color-accent;
+}
+
+.dark .section-heading h1 {
+    color: $color-ink-dark;
+}
+
+.dark .section-heading h1::before {
+    background: $color-accent-dark;
 }

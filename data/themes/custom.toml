@@ -3,36 +3,36 @@ name = "Custom"
 
 [light]
   # Primary
-  primary = "#5a464c"
+  primary = "#3454a3"
 
   # Links
-  link = "#5a464c"
-  link_hover = "#3e3d3d"
+  link = "#3454a3"
+  link_hover = "#28407e"
 
   # Menu
   menu_primary = "#fefefe"
   menu_text = "#3e3d3d"
-  menu_text_active = "#3e3d3d"
-  menu_title = "#5a464c"
+  menu_text_active = "#3454a3"
+  menu_title = "#3454a3"
 
   # Home sections
-  home_section_odd = "#fefefe"
-  home_section_even = "#fefefe"
+  home_section_odd = "#ffffff"
+  home_section_even = "#f4f6fb"
 
 [dark]
   # Primary
-  primary = "#f3f6ee"
+  primary = "#7ea1e0"
 
   # Links
-  link = "#f3f6ee"
-  link_hover = "#fefefe"
+  link = "#7ea1e0"
+  link_hover = "#a8c2ec"
 
   # Menu
   menu_primary = "#2b2a2a"
   menu_text = "#f3f6ee"
-  menu_text_active = "#fefefe"
-  menu_title = "#f3f6ee"
+  menu_text_active = "#7ea1e0"
+  menu_title = "#7ea1e0"
 
   # Home sections
   home_section_odd = "#2b2a2a"
-  home_section_even = "#2b2a2a"
+  home_section_even = "#242731"

@@ -75,17 +75,19 @@ features:
     gravatar: false
     shape: circle
   comment:
-    provider: ''
+    # Lightweight comments via GitHub Discussions (giscus).
+    provider: 'giscus'
     disqus:
       shortname: ''
       show_count: true
     commento:
       url: ''
     giscus:
-      repo: ''
-      repo_id: ''
-      category: ''
-      category_id: ''
+      repo: 'prince-modi/prince-modi.github.io'
+      repo_id: 'R_kgDOHLaF4Q'
+      category: 'Announcements'
+      category_id: 'DIC_kwDOHLaF4c4DDMGA'
+      theme: '/giscus/theme.css'
   search:
     provider: wowchemy
     algolia:

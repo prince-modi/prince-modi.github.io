@@ -41,38 +41,38 @@
           
           <!-- Wrap skill group in its own column -->
           <div class="{{ $columns_class }} mb-4">
-            <div class="skill-group-title font-weight-bold mb-2">
-              {{ .name | markdownify | emojify }}
+            <div class="skill-group">
+              <div class="skill-group-title">{{ .name | markdownify | emojify }}</div>
+              <div class="skill-divider"></div>
               {{ with .description }}
                 <p class="small text-muted mb-2">{{ . | markdownify | emojify }}</p>
               {{ end }}
-            </div>
 
-            <!-- List of skills within the skill group (stacked vertically) -->
-            <div class="skill-items">
-              {{ range .items }}
-                <div class="skills-content d-flex align-items-start mb-2">
-                  {{ with .icon }}
-                    <span class="skills-icon mr-2">
-                      {{ if eq . "emoji" }}
-                        {{ . | emojify }}
-                      {{ else if eq . "custom" }}
-                        {{ $svg_icon := resources.Get (printf "media/icons/%s.svg" .) }}
-                        {{ if $svg_icon }}<img src="{{ $svg_icon.RelPermalink }}" alt="{{ . }}" class="svg-icon svg-baseline" loading="lazy">{{ end }}
-                      {{ else }}
-                        <!-- <i class="fas fa-{{ . }}"></i> Default to FontAwesome icon -->
-                        <i class="{{ . }}"></i> <!-- Default to FontAwesome icon -->
+              <!-- Skills within the skill group, shown as a stacked list -->
+              <div class="skill-items">
+                {{ range .items }}
+                  <div class="skill-row">
+                    <span class="skill-icon">
+                      {{ with .icon }}
+                        {{ if eq . "emoji" }}
+                          {{ . | emojify }}
+                        {{ else if eq . "custom" }}
+                          {{ $svg_icon := resources.Get (printf "media/icons/%s.svg" .) }}
+                          {{ if $svg_icon }}<img src="{{ $svg_icon.RelPermalink }}" alt="" class="svg-icon svg-baseline" loading="lazy">{{ end }}
+                        {{ else }}
+                          <i class="{{ . }}"></i>
+                        {{ end }}
                       {{ end }}
                     </span>
-                  {{ end }}
-                  <div class="skills-name">
-                    <strong>{{ .name | markdownify | emojify }}</strong>
-                    {{ with .description }}
-                      <p class="skills-description small text-muted mb-0">{{ . | markdownify | emojify }}</p>
-                    {{ end }}
+                    <div class="skill-text">
+                      <div class="skill-name">{{ .name | markdownify | emojify }}</div>
+                      {{ with .description }}
+                        <p class="skill-description">{{ . | markdownify | emojify }}</p>
+                      {{ end }}
+                    </div>
                   </div>
-                </div>
-              {{ end }}
+                {{ end }}
+              </div>
             </div>
           </div>
           

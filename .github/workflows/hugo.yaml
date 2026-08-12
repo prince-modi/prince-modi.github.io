@@ -11,8 +11,9 @@ on:
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# contents: write is needed so the build job can commit generated narration audio back to the repo.
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -63,6 +64,25 @@ jobs:
             hugo-
       - name: Configure Git
         run: git config core.quotepath false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install audio generation dependencies
+        run: |
+          pip install --disable-pip-version-check requests
+          command -v ffmpeg || sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Generate narration audio
+        continue-on-error: true
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python3 scripts/generate_audio.py
+      - name: Commit generated audio
+        continue-on-error: true
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: generate narration audio [skip ci]"
+          file_pattern: "static/audio/*.mp3"
       - name: Build with Hugo
         run: |
           hugo \

@@ -32,14 +32,18 @@ sections:
           date_end: 2027-06-01
           description: |
             Graduate student at UCSD, focusing on **Distributed Systems**
-            
+
+            **GPA:** *3.88/4.00*
+
             **Relevant Courses:**
-            - *Graduate Operating Systems*
-            - *Computer Architecture*
-            - *LLM Systems Optimization*
+            - *Distributed Systems*
+            - *Deep Learning Systems*
+            - *LLM System Optimization*
 
             **Projects:**
             - *System Measurement*: Developed a suite of micro-benchmarks to evaluate the Rockchip RK3588S SoC, utilizing ARMv8 cycle counters to measure CPU scheduling and OS primitive latencies with nanosecond precision.([Link](https://princemodi.me/post/system-measurement/))
+            - *Distributed Container Snapshotting*: Built a Chandy-Lamport based snapshotting system with a reliable-UDP sidecar proxy to checkpoint and restore live, distributed containerized applications.([Link](https://princemodi.me/post/chandy-lamport/))
+            - *Modern GPU DSLs*: Benchmarked RMSNorm and Flash Attention-2 across Helion, Triton, Gluon, and CuTe on four NVIDIA GPU generations to evaluate performance/portability trade-offs.([Link](https://princemodi.me/post/flash-attention-dsl/))
  
         - title: Bachelor of Technology in Computer Engineering
           icon_choice: "university"
@@ -68,6 +72,18 @@ sections:
     id: experience
     content:
       items:
+        - title: 'Graduate Student Researcher, LLM Inference Systems'
+          icon_choice: "university"
+          id: picasso
+          company: Picasso Lab, UC San Diego
+          company_url: ''
+          company_logo: ''
+          date_start: 2026-07-01
+          location: San Diego
+          description: |
+            - Profiling the **attention operator** in transformer LLM inference across prefill (prompt/KV-cache lengths) and decode (batch size/KV-cache lengths), fitting analytical models to measured compute and communication latencies
+            - Building a **trace-driven simulator** over multi-turn LLM conversation traces to compare parallelism strategies (CP/TP/DP + EP) for a disaggregated prefill/decode serving deployment
+
         - title: 'Research Collaborator (Remote)'
           icon_choice: "university"
           id: iisc2

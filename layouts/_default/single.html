@@ -5,7 +5,6 @@
   {{ partial "page_header" . }}
   <div class="wrapper">
 
-
   {{ if (eq .Params.toc true) }}
   <nav style="position: sticky; position: -webkit-sticky; top: 1rem;">
   <aside style="float: right; padding: 1rem; margin-left: 1.5rem;" id="sidebar-nav">
@@ -17,7 +16,26 @@
 
   <div class="article-container">
 
-    <div class="article-style">
+  {{ if eq .Type "post" }}
+  {{ $audioPath := printf "audio/%s.mp3" .File.ContentBaseName }}
+  {{ if fileExists (printf "static/%s" $audioPath) }}
+  <div class="narration-player" id="narration-player">
+    <button type="button" class="narration-toggle" id="narration-toggle" aria-label="Play narration">
+      <i class="fas fa-play" aria-hidden="true"></i>
+    </button>
+    <div class="narration-body">
+      <div class="narration-label">Listen to this article</div>
+      <div class="narration-scrub">
+        <input type="range" id="narration-seek" class="narration-seek" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+        <span class="narration-time" id="narration-time">0:00 / 0:00</span>
+      </div>
+    </div>
+    <audio id="narration-audio" preload="none" src="{{ $audioPath | relURL }}"></audio>
+  </div>
+  {{ end }}
+  {{ end }}
+
+    <div class="article-style" id="article-content">
       {{ .Content }}
     </div>
 
@@ -26,5 +44,63 @@
   </div>
   </div>
 </article>
+
+{{ if eq .Type "post" }}
+<script>
+(function () {
+  var player = document.getElementById('narration-player');
+  if (!player) return;
+  var audio = document.getElementById('narration-audio');
+  var toggleBtn = document.getElementById('narration-toggle');
+  var icon = toggleBtn.querySelector('i');
+  var seek = document.getElementById('narration-seek');
+  var timeLabel = document.getElementById('narration-time');
+
+  function formatTime(s) {
+    if (!isFinite(s) || s < 0) return '0:00';
+    var m = Math.floor(s / 60);
+    var sec = Math.floor(s % 60);
+    return m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+
+  function updateTime() {
+    var duration = audio.duration || 0;
+    timeLabel.textContent = formatTime(audio.currentTime) + ' / ' + formatTime(duration);
+    if (duration) {
+      seek.value = (audio.currentTime / duration) * 100;
+    }
+  }
+
+  toggleBtn.addEventListener('click', function () {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+
+  audio.addEventListener('play', function () {
+    icon.className = 'fas fa-pause';
+  });
+  audio.addEventListener('pause', function () {
+    icon.className = 'fas fa-play';
+  });
+  audio.addEventListener('ended', function () {
+    icon.className = 'fas fa-play';
+  });
+  audio.addEventListener('timeupdate', updateTime);
+  audio.addEventListener('loadedmetadata', updateTime);
+  audio.addEventListener('error', function () {
+    player.style.display = 'none';
+  });
+
+  seek.addEventListener('input', function () {
+    if (audio.duration) {
+      audio.currentTime = (seek.value / 100) * audio.duration;
+    }
+  });
+})();
+</script>
+{{ end }}
 
 {{- end -}}

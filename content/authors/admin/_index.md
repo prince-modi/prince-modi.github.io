@@ -17,7 +17,7 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: Master's Student
+role: Master's Student, LLM Systems (Inference)
 
 # Organizations/Affiliations to show in About widget
 organizations:
@@ -25,7 +25,7 @@ organizations:
     url: https://cse.ucsd.edu/
 
 # Short bio (displayed in user profile at end of posts)
-bio: Distributed Systems@UCSD
+bio: LLM Systems (Inference) @ UCSD
 
 # # Interests to show in About widget
 # interests:
@@ -42,6 +42,9 @@ skills:
       - name: Python
         description: 'Used extensively in development of Flotilla and various personal projects'
         icon: 'fa-brands fa-python'
+      - name: PyTorch
+        description: 'Built CNNs, LSTMs, and transformer (ALBERT) models for Flotilla, now used for attention-operator profiling at Picasso Lab'
+        icon: 'fa-solid fa-brain'
       - name: Docker
         description: 'Used heavily across jobs and personal projects'
         icon: 'fa-brands fa-docker'
@@ -57,30 +60,30 @@ skills:
       - name: gRPC
         description: 'Integrated into a custom distributed framework using ProtoBuf definitions'
         icon: 'fa-solid fa-diagram-project'
-      - name: MQTT
-        description: 'Used while building a custom distributed framework and homelab projects'
-        icon: 'fa-solid fa-diagram-project'
       - name: Redis
         description: 'Built a simplified version in Python to understand the internals'
         icon: 'fa-solid fa-database'
-      - name: Git
-        description: 'Implemented a basic version in Python to understand internal mechanisms'
-        icon: 'fa-brands fa-git'
+      - name: Triton
+        description: 'Implemented FlashAttention-2 and RMSNorm kernels, benchmarked against Helion, Gluon, and CuTe across four GPU generations'
+        icon: 'fa-solid fa-bolt'
+      - name: Podman
+        description: 'Built a reliable-UDP sidecar proxy that triggers privileged checkpoints for distributed container snapshotting'
+        icon: 'fa-solid fa-cube'
 
   - name: 'Familiar'
     items:
       - name: Go
         description: 'Explored through personal projects focused on distributed systems'
         icon: 'fa-brands fa-golang'
-      - name: PyTorch
-        description: 'Built CNNs, LSTMs, and custom dataloaders for a custom federated learning framework'
-        icon: 'fa-solid fa-brain'
       - name: Lua
         description: 'Used to write custom NeoVim plugins and enhance editor behavior'
         icon: 'fa-solid fa-code'
-      - name: MongoDB
-        description: 'Used during an internship while working with NoSQL data models'
-        icon: 'fa-solid fa-database'
+      - name: HuggingFace
+        description: 'Used alongside PyTorch for transformer (ALBERT) model training and evaluation in Flotilla'
+        icon: 'fa-solid fa-robot'
+      - name: SGLang
+        description: 'Used for disaggregated prefill/decode LLM inference serving research at Picasso Lab'
+        icon: 'fa-solid fa-server'
 
 social:
   - icon: envelope
@@ -107,7 +110,7 @@ social:
 highlight_name: true
 ---
 
-I'm a first-year Master's student in the Department of Computer Science and Engineering at UC San Diego, specializing in Distributed Systems. I have hands-on experience working on scalable and resilient systems, including development of [*Flotilla*](https://github.com/dream-lab/flotilla/), a modular federated learning framework, during my time at the Indian Institute of Science. While working on Flotilla, I became especially interested in the challenges of fault tolerance, consistency, and recovery in distributed systems. My broader interests span distributed computing, datacenter systems, and operating systems.
+I'm a Master's student in the Department of Computer Science and Engineering at UC San Diego, working on LLM systems (inference). Before that, I worked on scalable and resilient systems, including development of [*Flotilla*](https://github.com/dream-lab/flotilla/), a modular federated learning framework, during my time at the Indian Institute of Science. While working on Flotilla, I became especially interested in the challenges of fault tolerance, consistency, and recovery in distributed systems. My broader interests span distributed computing, datacenter systems, and LLM systems.
 
 <div class="container">
   <div class="row">
@@ -115,6 +118,11 @@ I'm a first-year Master's student in the Department of Computer Science and Engi
     <div class="col-12 col-md-4 mb-4">
       <a href=#experience><h3>Experience</h3></a>
       <ul class="fa-ul">
+        <li>
+          <a href="#picasso"><span class="fa-li"><i class="fas fa-briefcase"></i></span>
+          Grad Researcher</a><br/>
+          <span style="font-size: 0.85em; color: #666;">Picasso Lab (2026–)</span>
+        </li>
         <li>
           <a href="#iisc"><span class="fa-li"><i class="fas fa-briefcase"></i></span>
           Research Associate</a><br/>
