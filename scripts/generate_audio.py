@@ -1,15 +1,23 @@
 #!/usr/bin/env python3
-"""Generate narration audio for blog posts via the OpenAI TTS API.
+"""Generate narration audio + word-level timestamps for blog posts via OpenAI.
 
 Scans content/post/<slug>/index.md, and for any post that doesn't already
-have a static/audio/<slug>.mp3, strips the markdown down to plain text,
-splits it into chunks under OpenAI's per-request character limit, synthesizes
-each chunk, and concatenates them into a single mp3 via ffmpeg.
+have a static/audio/<slug>.mp3, strips the markdown down to plain text
+(dropping code blocks, images, and math notation -- none of which read
+aloud sensibly), splits it into chunks under OpenAI's per-request character
+limit, synthesizes each chunk with the TTS API, transcribes each chunk back
+with Whisper to recover word-level timestamps (offset by cumulative chunk
+duration), and concatenates the chunks into a single mp3 via ffmpeg. Word
+timestamps are written to static/audio/<slug>.words.json for the frontend's
+click-to-seek / read-along highlighting.
 
 Requires OPENAI_API_KEY in the environment. If it's not set, exits quietly
-(so local `hugo` builds without the key don't fail).
+(so local `hugo` builds without the key don't fail). Transcription failures
+are non-fatal -- the mp3 is still produced, just without a .words.json.
 """
 
+import hashlib
+import json
 import os
 import re
 import subprocess
@@ -24,8 +32,10 @@ POSTS_DIR = REPO_ROOT / "content" / "post"
 AUDIO_DIR = REPO_ROOT / "static" / "audio"
 TTS_MODEL = "tts-1"
 TTS_VOICE = "onyx"
+TRANSCRIBE_MODEL = "whisper-1"
 MAX_CHARS = 3800  # OpenAI's TTS input limit is 4096 chars; leave margin
-API_URL = "https://api.openai.com/v1/audio/speech"
+SPEECH_URL = "https://api.openai.com/v1/audio/speech"
+TRANSCRIBE_URL = "https://api.openai.com/v1/audio/transcriptions"
 
 
 def strip_frontmatter(text):
@@ -39,6 +49,10 @@ def strip_frontmatter(text):
 def markdown_to_text(md):
     text = md
     text = re.sub(r"```.*?```", "", text, flags=re.DOTALL)  # fenced code blocks
+    text = re.sub(r"\$\$.*?\$\$", "", text, flags=re.DOTALL)  # block math ($$...$$)
+    text = re.sub(r"\\\[.*?\\\]", "", text, flags=re.DOTALL)  # block math (\[...\])
+    text = re.sub(r"\$[^$\n]+\$", "", text)  # inline math ($...$)
+    text = re.sub(r"\\\(.*?\\\)", "", text)  # inline math (\(...\))
     text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)  # images
     text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)  # links -> link text
     text = re.sub(r"`([^`]*)`", r"\1", text)  # inline code -> content
@@ -80,13 +94,39 @@ def chunk_text(text, max_chars=MAX_CHARS):
 
 def synthesize_chunk(text, api_key):
     response = requests.post(
-        API_URL,
+        SPEECH_URL,
         headers={"Authorization": f"Bearer {api_key}"},
         json={"model": TTS_MODEL, "voice": TTS_VOICE, "input": text},
         timeout=120,
     )
     response.raise_for_status()
     return response.content
+
+
+def transcribe_chunk(audio_bytes, api_key):
+    """Returns a list of {"word", "start", "end"} dicts (seconds, relative to this chunk)."""
+    response = requests.post(
+        TRANSCRIBE_URL,
+        headers={"Authorization": f"Bearer {api_key}"},
+        files={"file": ("chunk.mp3", audio_bytes, "audio/mpeg")},
+        data={
+            "model": TRANSCRIBE_MODEL,
+            "response_format": "verbose_json",
+            "timestamp_granularities[]": "word",
+        },
+        timeout=120,
+    )
+    response.raise_for_status()
+    return response.json().get("words", [])
+
+
+def get_duration_seconds(path):
+    result = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
+        check=True, capture_output=True, text=True,
+    )
+    return float(result.stdout.strip())
 
 
 def concat_mp3s(mp3_paths, output_path):
@@ -107,13 +147,14 @@ def concat_mp3s(mp3_paths, output_path):
         os.unlink(list_path)
 
 
+def content_hash(text):
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
 def generate_for_post(post_dir, api_key):
     slug = post_dir.name
     index_md = post_dir / "index.md"
     if not index_md.exists():
-        return False
-    output_path = AUDIO_DIR / f"{slug}.mp3"
-    if output_path.exists():
         return False
 
     raw = index_md.read_text(encoding="utf-8")
@@ -122,10 +163,23 @@ def generate_for_post(post_dir, api_key):
         print(f"  skip {slug}: not enough text content")
         return False
 
+    output_path = AUDIO_DIR / f"{slug}.mp3"
+    hash_path = AUDIO_DIR / f"{slug}.hash"
+    words_path = AUDIO_DIR / f"{slug}.words.json"
+    current_hash = content_hash(text)
+
+    if (output_path.exists() and hash_path.exists()
+            and hash_path.read_text(encoding="utf-8").strip() == current_hash):
+        return False  # unchanged since last generation
+
+    is_regen = output_path.exists()
     chunks = chunk_text(text)
-    print(f"  {slug}: {len(text)} chars -> {len(chunks)} chunk(s)")
+    note = " (content changed, regenerating)" if is_regen else ""
+    print(f"  {slug}: {len(text)} chars -> {len(chunks)} chunk(s){note}")
 
     AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+    all_words = []
+    time_offset = 0.0
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
         part_paths = []
@@ -134,9 +188,33 @@ def generate_for_post(post_dir, api_key):
             part_path = tmp_path / f"part-{i:03d}.mp3"
             part_path.write_bytes(audio_bytes)
             part_paths.append(part_path)
+
+            try:
+                words = transcribe_chunk(audio_bytes, api_key)
+                for w in words:
+                    all_words.append({
+                        "w": w["word"],
+                        "s": round(w["start"] + time_offset, 2),
+                        "e": round(w["end"] + time_offset, 2),
+                    })
+            except Exception as e:
+                print(f"    WARNING: transcription failed for {slug} chunk {i}: {e}", file=sys.stderr)
+
+            time_offset += get_duration_seconds(part_path)
+
         concat_mp3s(part_paths, output_path)
 
+    hash_path.write_text(current_hash, encoding="utf-8")
     print(f"  wrote {output_path.relative_to(REPO_ROOT)}")
+
+    if all_words:
+        words_path.write_text(json.dumps(all_words), encoding="utf-8")
+        print(f"  wrote {words_path.relative_to(REPO_ROOT)} ({len(all_words)} words)")
+    else:
+        # Don't leave a stale words file around from a previous version of this post's audio.
+        words_path.unlink(missing_ok=True)
+        print(f"  no word timestamps for {slug} (transcription unavailable)")
+
     return True
 
 

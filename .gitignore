@@ -11,3 +11,7 @@ jsconfig.json
 node_modules/
 go.sum
 .hugo_build.lock
+
+# Python
+__pycache__/
+*.pyc

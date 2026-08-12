@@ -710,3 +710,71 @@ body.dark,
 .dark .section-heading h1::before {
     background: $color-accent-dark;
 }
+
+/*************************************************
+ *  Narration read-along (word highlight + caption)
+ **************************************************/
+
+.narr-word {
+    border-radius: 0.2em;
+    transition: background 0.1s ease;
+}
+
+.narr-word[data-start] {
+    cursor: pointer;
+}
+
+.narr-word[data-start]:hover {
+    background: rgba(52, 84, 163, 0.14);
+}
+
+.narr-word-active {
+    background: rgba(52, 84, 163, 0.22);
+}
+
+.dark .narr-word[data-start]:hover {
+    background: rgba(126, 161, 224, 0.2);
+}
+
+.dark .narr-word-active {
+    background: rgba(126, 161, 224, 0.3);
+}
+
+.narr-caption {
+    position: absolute;
+    z-index: 20;
+    max-width: 22rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.6rem;
+    background: $color-ink;
+    color: #fff;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    box-shadow: 0 8px 20px rgba(16, 24, 40, 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.narr-caption mark {
+    background: transparent;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: $color-accent-dark;
+}
+
+.narr-caption.visible {
+    opacity: 1;
+}
+
+.dark .narr-caption {
+    background: #f4f6fb;
+    color: $color-ink;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+}
+
+.dark .narr-caption mark {
+    color: $color-ink;
+    text-decoration-color: $color-accent;
+}

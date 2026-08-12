@@ -19,7 +19,9 @@
   {{ if eq .Type "post" }}
   {{ $audioPath := printf "audio/%s.mp3" .File.ContentBaseName }}
   {{ if fileExists (printf "static/%s" $audioPath) }}
-  <div class="narration-player" id="narration-player">
+  {{ $wordsPath := printf "audio/%s.words.json" .File.ContentBaseName }}
+  {{ $hasWords := fileExists (printf "static/%s" $wordsPath) }}
+  <div class="narration-player" id="narration-player" {{ if $hasWords }}data-words="{{ $wordsPath | relURL }}"{{ end }}>
     <button type="button" class="narration-toggle" id="narration-toggle" aria-label="Play narration">
       <i class="fas fa-play" aria-hidden="true"></i>
     </button>
@@ -99,6 +101,146 @@
       audio.currentTime = (seek.value / 100) * audio.duration;
     }
   });
+
+  // Read-along: wrap article words in spans, sync-highlight against the
+  // playing audio, show a small caption near the active word, and let
+  // clicking any word seek playback there. Lazily initialized on first
+  // play so visitors who never press play don't pay the DOM cost.
+  var wordsUrl = player.getAttribute('data-words');
+  var wordSyncReady = false;
+
+  function setupWordSync(words) {
+    var content = document.getElementById('article-content');
+    if (!content || !words || !words.length) return;
+
+    var skipTags = { CODE: 1, PRE: 1, SCRIPT: 1, STYLE: 1, BUTTON: 1, INPUT: 1, AUDIO: 1 };
+    var domWords = [];
+
+    function wrap(node) {
+      if (node.nodeType === 3) {
+        var text = node.nodeValue;
+        if (!text || !/\S/.test(text)) return;
+        var frag = document.createDocumentFragment();
+        var parts = text.split(/(\s+)/);
+        for (var p = 0; p < parts.length; p++) {
+          var part = parts[p];
+          if (part === '') continue;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+          } else {
+            var span = document.createElement('span');
+            span.className = 'narr-word';
+            span.textContent = part;
+            frag.appendChild(span);
+            domWords.push({ el: span, text: part });
+          }
+        }
+        node.parentNode.replaceChild(frag, node);
+      } else if (node.nodeType === 1) {
+        if (skipTags[node.tagName]) return;
+        var children = Array.prototype.slice.call(node.childNodes);
+        for (var c = 0; c < children.length; c++) wrap(children[c]);
+      }
+    }
+    wrap(content);
+
+    function normalize(s) {
+      // Strip ALL non-alphanumerics (not just non-apostrophes) so straight vs
+      // Hugo's typographic smart quotes ('/' don't) don't cause false mismatches.
+      return s.toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    var j = 0;
+    var lookahead = 6;
+    for (var i = 0; i < domWords.length; i++) {
+      var target = normalize(domWords[i].text);
+      if (!target) continue;
+      var found = -1;
+      for (var k = j; k < Math.min(j + lookahead, words.length); k++) {
+        if (normalize(words[k].w) === target) { found = k; break; }
+      }
+      if (found !== -1) {
+        domWords[i].el.dataset.start = words[found].s;
+        domWords[i].el.dataset.end = words[found].e;
+        j = found + 1;
+      }
+    }
+
+    var matched = domWords.filter(function (w) { return w.el.dataset.start !== undefined; });
+    if (!matched.length) return;
+
+    var caption = document.createElement('div');
+    caption.className = 'narr-caption';
+    document.body.appendChild(caption);
+
+    var activeEl = null;
+
+    function findActiveIndex(t) {
+      var lo = 0, hi = matched.length - 1, ans = -1;
+      while (lo <= hi) {
+        var mid = (lo + hi) >> 1;
+        if (parseFloat(matched[mid].el.dataset.start) <= t) { ans = mid; lo = mid + 1; }
+        else { hi = mid - 1; }
+      }
+      return ans;
+    }
+
+    function clearActive() {
+      if (activeEl) activeEl.classList.remove('narr-word-active');
+      activeEl = null;
+      caption.classList.remove('visible');
+    }
+
+    function updateActive() {
+      var idx = findActiveIndex(audio.currentTime);
+      if (idx === -1) { clearActive(); return; }
+      var w = matched[idx];
+      if (w.el === activeEl) return;
+      if (activeEl) activeEl.classList.remove('narr-word-active');
+      activeEl = w.el;
+      activeEl.classList.add('narr-word-active');
+
+      var startI = Math.max(0, idx - 5);
+      var endI = Math.min(matched.length - 1, idx + 5);
+      var html = '';
+      for (var i2 = startI; i2 <= endI; i2++) {
+        var txt = matched[i2].text.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+        html += (i2 === idx) ? '<mark>' + txt + '</mark> ' : txt + ' ';
+      }
+      caption.innerHTML = html;
+
+      var rect = activeEl.getBoundingClientRect();
+      var top = rect.top + window.scrollY - caption.offsetHeight - 10;
+      if (top < window.scrollY + 8) top = rect.bottom + window.scrollY + 10;
+      var left = rect.left + window.scrollX + rect.width / 2 - caption.offsetWidth / 2;
+      left = Math.max(8, Math.min(left, document.documentElement.scrollWidth - caption.offsetWidth - 8));
+      caption.style.top = top + 'px';
+      caption.style.left = left + 'px';
+      caption.classList.add('visible');
+    }
+
+    audio.addEventListener('timeupdate', updateActive);
+    audio.addEventListener('pause', function () { caption.classList.remove('visible'); });
+    audio.addEventListener('ended', clearActive);
+
+    content.addEventListener('click', function (evt) {
+      var span = evt.target.closest && evt.target.closest('.narr-word');
+      if (!span || span.dataset.start === undefined) return;
+      audio.currentTime = parseFloat(span.dataset.start);
+      if (audio.paused) audio.play();
+    });
+  }
+
+  if (wordsUrl) {
+    audio.addEventListener('play', function loadWordsOnce() {
+      if (wordSyncReady) return;
+      wordSyncReady = true;
+      fetch(wordsUrl)
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (words) { if (words) setupWordSync(words); })
+        .catch(function () {});
+    }, { once: true });
+  }
 })();
 </script>
 {{ end }}
