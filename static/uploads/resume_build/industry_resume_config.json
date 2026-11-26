@@ -1,0 +1,96 @@
+{
+  "name": "Prince Modi",
+  "contact": {
+    "location": "San Diego, CA",
+    "phone": "+1 (628) 724-8625",
+    "phone_url": "tel:+16287248625",
+    "email": "princebmodi@outlook.com",
+    "website": "https://princemodi.me",
+    "github": "https://github.com/prince-modi",
+    "linkedin": "https://www.linkedin.com/in/modi-prince/"
+  },
+  "education": [
+    {
+      "institution": "University of California, San Diego",
+      "degree": "MS Computer Science | GPA: 3.88/4.00",
+      "date": "Expected Mar 2027"
+    },
+    {
+      "institution": "Ganpat University, India",
+      "degree": "B. Tech. Computer Engineering | GPA: 3.96/4.00 | Academic scholarship; ranked 2nd of 60+",
+      "date": "Jul 2022"
+    }
+  ],
+  "experience": [
+    {
+      "organization": "Picasso Lab, UC San Diego",
+      "role": "Graduate Student Researcher, LLM Inference Systems",
+      "date": "Jun 2026 - Present",
+      "bullets": [
+        "Redesigning <b>MoE expert-parallel dispatch/combine</b> collectives to remove synchronization barriers, targeting GPU idle time caused by straggler ranks under token-load imbalance.",
+        "Built a <b>trace-driven simulator</b> modeling DP/TP/EP/CP inference on <b>8&#215;H100</b>, validated against real <b>Qwen3-30B MoE</b> runs (within <b>10%</b> of measured performance), enabling parallelism selection without costly GPU sweeps."
+      ]
+    },
+    {
+      "organization": "Indian Institute of Science (IISc), Bangalore",
+      "role": "Project Associate, Distributed Systems",
+      "date": "Jan 2023 - Nov 2024",
+      "detail": "Full-time through Apr 2024; then volunteer research collaborator",
+      "bullets": [
+        "Built <b>Flotilla</b>, a Python/AsyncIO federated learning framework for <b>1,000+ workers</b>, supporting synchronous and asynchronous aggregation through a pluggable event-driven state machine.",
+        "Designed a <b>Redis-backed parameter server</b> with stateless workers, reducing per-round overhead to <b>1.7%</b> at 1,000+ nodes versus <b>54.9%</b> for an open-source baseline.",
+        "Implemented <b>gRPC/MQTT</b> worker discovery, heartbeat monitoring, incremental checkpoints, and hot failover; recovered a live session on a standby server within <b>820 ms</b>.",
+        "Validated CNN, LSTM, and ALBERT training across NVIDIA Jetson GPUs and ARM devices, tolerating <b>~40% worker dropout</b> with negligible accuracy impact."
+      ]
+    },
+    {
+      "organization": "Sterlite Technologies Limited, Ahmedabad",
+      "role": "Software Engineering Intern",
+      "date": "Jan 2022 - Aug 2022",
+      "bullets": [
+        "Refactored Docker images in Linux CI/CD pipelines, reducing image size by <b>35%</b> and build time by <b>50%</b>."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Distributed Container Snapshotting",
+      "date": "Jun 2026",
+      "code_url": "https://github.com/nathanparekh/dead-nodes-tell-no-tales",
+      "bullets": [
+        "Built <b>Chandy-Lamport snapshots</b> of live containers with Python, CRIU, and Podman, plus a transparent reliable-UDP sidecar with sequencing and retransmission.",
+        "Verified consistent counter state after multi-host snapshot/restore under concurrent traffic, delay, and packet loss."
+      ]
+    },
+    {
+      "title": "GPU Kernel Performance and Portability",
+      "date": "Feb 2026",
+      "code_url": "https://github.com/prince-modi/gpu-kernel-dev",
+      "bullets": [
+        "Implemented <b>FlashAttention-2 and RMSNorm</b> in Helion, Triton, Gluon, and CuTe; benchmarked throughput and utilization across <b>four NVIDIA GPU generations</b>.",
+        "Used Nsight Compute to identify memory-throughput losses on T4 for A100-tuned Triton/Gluon kernels."
+      ]
+    }
+  ],
+  "research": [
+    {
+      "venue": "NeurIPS 2026 InterpScience workshop (poster)",
+      "title": "Autointerp Simulation Scores Track Token Naming, Not Explanation Truth"
+    },
+    {
+      "venue": "SOSP 2026 (poster)",
+      "title": "Recovering Internal Command Interfaces from Applications for Direct Agent Invocation",
+      "url": "https://princemodi.me/uploads/sosp_2026.pdf"
+    },
+    {
+      "venue": "JPDC 2025 (journal)",
+      "title": "Flotilla: A Scalable, Modular and Resilient Federated Learning Framework for Heterogeneous Resources",
+      "url": "https://arxiv.org/pdf/2507.02295"
+    }
+  ],
+  "skills": [
+    {"label": "Languages", "text": "Python, C, Go, Java, Bash/Shell"},
+    {"label": "ML systems", "text": "PyTorch, Hugging Face, SGLang, NCCL, Triton, Nsight Compute"},
+    {"label": "Infrastructure", "text": "Linux, Docker/Podman, CRIU, CI/CD, AWS EC2, gRPC, MQTT, Redis, PostgreSQL, Git"}
+  ]
+}

@@ -102,7 +102,7 @@ def create_resume():
         fontName="Helvetica",
         fontSize=9.5,
         leading=11.5,
-        spaceAfter=1.5,  # tightened to fit one page (was 2)
+        spaceAfter=1.2,
         alignment=TA_LEFT,
     )
     style_pub = ParagraphStyle(
@@ -130,7 +130,7 @@ def create_resume():
             )
         )
         story.append(t)
-        story.append(Spacer(1, 0.05 * inch))  # tightened to fit one page (was 0.06)
+        story.append(Spacer(1, 0.02 * inch))
 
     def add_entry(institution, location, date, role="", project_title=""):
         header_text = f"{institution}, {location}" if location else institution
@@ -189,6 +189,12 @@ def create_resume():
         Paragraph(
             "• Relevant Coursework: Distributed Systems, "
             "Deep Learning Systems, LLM System Optimization",
+            style_bullet,
+        )
+    )
+    story.append(
+        Paragraph(
+            "• Teaching Assistant: CSE 123 Computer Networks (Prof. Alex Snoeren), Fall 2026",
             style_bullet,
         )
     )
@@ -255,17 +261,20 @@ def create_resume():
     )
     story.append(Spacer(1, 0.05 * inch))
 
-    # --- PUBLICATION ---
-    add_section("PUBLICATION")
+    # --- POSTERS ---
+    add_section("POSTERS")
     story.append(
         Paragraph(
             "<b>Prince Modi</b>, Varad Kottawar, Ayush Govind. "
             "<b>Recovering Internal Command Interfaces from Applications for Direct Agent Invocation.</b> "
-            "<i>SOSP 2026 Poster Session (to appear)</i>",
+            "<i>32nd ACM SIGOPS Symposium on Operating Systems Principles (SOSP 2026), Poster Session</i>",
             style_pub,
         )
     )
     story.append(Spacer(1, 0.05 * inch))
+
+    # --- PUBLICATIONS ---
+    add_section("PUBLICATIONS")
     story.append(
         Paragraph(
             "Roopkatha B., <b>Prince Modi</b>, et al. "
@@ -285,26 +294,26 @@ def create_resume():
     )
     story.append(
         Paragraph(
-            "• Designed a distributed <b>snapshotting system</b> for stateful containerized applications, implementing the <b>Chandy-Lamport algorithm</b> to capture globally consistent cuts across nodes communicating over UDP",
+            "• Built <b>Chandy-Lamport snapshots</b> for live distributed containers, coordinating CRIU/Podman checkpoints across nodes",
             style_bullet,
         )
     )
     story.append(
         Paragraph(
-            "• Built a <b>reliable-UDP sidecar proxy</b> using sequence numbering, buffering, and acknowledgment retransmission to guarantee in-order, exactly-once delivery without modifying application code",
+            "• Implemented a transparent <b>reliable-UDP sidecar</b> with sequencing and retransmission; tested multi-host snapshot and restore on a counter app whose shared value stayed consistent under concurrent traffic, delay, and packet loss",
             style_bullet,
         )
     )
     story.append(Spacer(1, 0.05 * inch))
 
     add_entry(
-        'FlashAttention Kernel | <font name="Helvetica-Oblique">Triton, Python</font>',
+        'GPU Kernel Performance | <font name="Helvetica-Oblique">Helion, Triton, Gluon, CuTe</font>',
         "",
         "Feb 2026",
     )
     story.append(
         Paragraph(
-            "• Implementing <b>FlashAttention</b> and RMSNorm kernels in <b>Triton</b>, applying <b>tiled softmax</b> and <b>online normalization</b> to minimize HBM memory accesses and improve throughput for long-context LLM inference",
+            "• Implemented and benchmarked <b>FlashAttention-2</b> and RMSNorm in Helion, Triton, Gluon, and CuTe across four NVIDIA GPU generations; profiled throughput and portability with Nsight Compute",
             style_bullet,
         )
     )

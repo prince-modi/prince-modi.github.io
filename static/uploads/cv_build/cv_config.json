@@ -1,0 +1,165 @@
+{
+  "name": "Prince Modi",
+  "contact": {
+    "email": "princebmodi@outlook.com",
+    "website": "https://princemodi.me",
+    "github": "https://github.com/prince-modi",
+    "scholar": "https://scholar.google.com"
+  },
+  "education": [
+    {
+      "institution": "University of California, San Diego",
+      "degree": "MS Computer Science | GPA: 3.88/4.00",
+      "date": "Sept 2025 - Jun 2027",
+      "details": ["Relevant coursework: Distributed Systems, Deep Learning Systems, LLM System Optimization"]
+    },
+    {
+      "institution": "Ganpat University, India",
+      "degree": "B. Tech. Computer Engineering | GPA: 3.96/4.00",
+      "date": "Aug 2018 - Jul 2022",
+      "details": ["Relevant coursework: Operating Systems, Cloud Computing", "Academic scholarship; 2nd rank among 60+ students"]
+    }
+  ],
+  "experience": [
+    {
+      "organization": "Picasso Lab, University of California, San Diego",
+      "role": "Graduate Student Researcher, LLM Inference Systems",
+      "date": "Jun 2026 - Present",
+      "bullets": [
+        "Built a trace-driven simulator, with attention costs fitted to measurements on H100s, that compares 40 combinations of data, tensor, context and expert parallelism; on agentic traces the fastest layout kept changing during a run, while on chat traces one layout stayed fastest.",
+        "Reproduced FlashMoE under skewed expert routing, showing that tokens exceeding a GPU’s fixed expert capacity are dropped.",
+        "Developing agentic workloads and baselines to evaluate a design that reduces synchronization barriers at the dispatch and combine steps of MoE layers."
+      ]
+    },
+    {
+      "organization": "Indian Institute of Science (IISc), Bangalore",
+      "role": "Project Associate, Distributed Systems",
+      "date": "Jan 2023 - Nov 2024",
+      "role_detail": "Full-time through Apr 2024; volunteer research collaborator through Nov 2024",
+      "subheading": "Flotilla: Distributed Federated Learning Framework",
+      "bullets": [
+        "Architected a Python/AsyncIO training framework for 1,000+ worker nodes, with synchronous and asynchronous aggregation through a pluggable event-driven state machine.",
+        "Designed a Redis-backed parameter server with stateless workers, reducing per-round overhead to 1.7% at 1,000+ nodes versus 54.9% for an open-source baseline.",
+        "Built gRPC and MQTT worker discovery, heartbeat-based liveness detection, incremental checkpointing, and hot failover; a standby server recovered a session within 820 ms.",
+        "Validated training across NVIDIA Jetson GPUs and ARM edge devices using CNN, LSTM, and ALBERT models; tolerated about 40% worker dropout with negligible accuracy impact.",
+        "Deployed Flotilla across a containerized cluster of 1,000+ concurrent clients and contributed architecture and scalability analysis published at HiPC 2023 and JPDC 2025."
+      ]
+    },
+    {
+      "organization": "Sterlite Technologies Limited, Ahmedabad",
+      "role": "Software Engineering Intern",
+      "date": "Jan 2022 - Aug 2022",
+      "bullets": [
+        "Refactored Docker images on Linux CI/CD pipelines, reducing image size by 35% and build time by 50%.",
+        "Integrated Liquibase to track MongoDB schema changes across environments."
+      ]
+    }
+  ],
+  "teaching": [
+    {
+      "organization": "University of California, San Diego",
+      "role": "Teaching Assistant, CSE 123: Computer Networks | Prof. Alex Snoeren",
+      "date": "Sept 2026 - Dec 2026",
+      "bullets": []
+    },
+    {
+      "organization": "Indian Institute of Science (IISc), Bangalore",
+      "role": "Teaching Assistant, Data Engineering at Scale | Prof. Yogesh Simmhan",
+      "date": "Aug 2023 - Dec 2023",
+      "bullets": []
+    }
+  ],
+  "publications": [
+    {
+      "title": "Flotilla: A Scalable, Modular and Resilient Federated Learning Framework for Heterogeneous Resources",
+      "authors": "Roopkatha B., Prince Modi, Jinal Vyas, Abhijit S. Chundru, Tejas C., Harsha Varun Marisetty, Manik Gupta, Yogesh Simmhan",
+      "venue": "Journal of Parallel and Distributed Computing (JPDC 2025)",
+      "url": "https://arxiv.org/pdf/2507.02295",
+      "code_url": "https://github.com/dream-lab/flotilla"
+    }
+  ],
+  "posters": [
+    {
+      "title": "Autointerp Simulation Scores Track Token Naming, Not Explanation Truth",
+      "authors": "Ayush Satish Govind, Prince Modi, Ishit Gulati",
+      "venue": "NeurIPS 2026 Workshop on InterpScience",
+      "url": "https://princemodi.me/uploads/neurips_interpscience_2026.pdf"
+    },
+    {
+      "title": "Recovering Internal Command Interfaces from Applications for Direct Agent Invocation",
+      "authors": "Prince Modi, Varad Kottawar, Ayush Govind",
+      "venue": "32nd ACM SIGOPS Symposium on Operating Systems Principles (SOSP 2026), Poster Session",
+      "url": "https://princemodi.me/uploads/sosp_2026.pdf"
+    },
+    {
+      "title": "Towards a Modular Federated Learning Framework on Edge Devices",
+      "authors": "Roopkatha B., Prince Modi, Harsha Varun Marisetty, Manik Gupta, Yogesh Simmhan",
+      "venue": "30th IEEE International Conference on High Performance Computing, Data, and Analytics (HiPC 2023)",
+      "url": "https://princemodi.me/uploads/hipcsrs_2023_fedml.pdf",
+      "code_url": "https://github.com/dream-lab/flotilla"
+    },
+    {
+      "title": "Towards Perception-based Collision Avoidance for UAVs when Guiding the Visually Impaired",
+      "authors": "Suman Raj, Swapnil Padhi, Ruchi Bhoot, Prince Modi, Yogesh Simmhan",
+      "venue": "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2023), Late-Breaking Results",
+      "url": "https://arxiv.org/abs/2506.14857"
+    }
+  ],
+  "projects": [
+    {
+      "title": "Distributed Container Snapshotting",
+      "stack": "Python, Podman, CRIU",
+      "date": "Jun 2026",
+      "post_url": "https://princemodi.me/post/chandy-lamport/",
+      "code_url": "https://github.com/nathanparekh/dead-nodes-tell-no-tales",
+      "bullets": [
+        "Built Chandy-Lamport snapshots of live containers using CRIU/Podman checkpoints across nodes.",
+        "Implemented a transparent reliable-UDP sidecar with sequencing and retransmission; tested multi-host snapshot and restore on a counter app whose shared value stayed consistent under concurrent traffic, delay, and packet loss."
+      ]
+    },
+    {
+      "title": "GPU Kernel Performance and Portability",
+      "stack": "Helion, Triton, Gluon, CuTe",
+      "date": "Feb 2026",
+      "post_url": "https://princemodi.me/post/flash-attention-dsl/",
+      "code_url": "https://github.com/prince-modi/gpu-kernel-dev",
+      "bullets": [
+        "Implemented FlashAttention-2 and RMSNorm in Helion, Triton, Gluon, and CuTe; benchmarked throughput and utilization across four NVIDIA GPU generations.",
+        "Profiled kernels with Nsight Compute and compared portability, finding A100-tuned Triton/Gluon configurations lost memory throughput on T4."
+      ]
+    },
+    {
+      "title": "System Performance Characterization",
+      "stack": "C, Linux (Armbian)",
+      "date": "Dec 2025",
+      "post_url": "https://princemodi.me/post/system-measurement/",
+      "bullets": [
+        "Benchmarked CPU, OS, memory, network, and filesystem performance on Rockchip RK3588S.",
+        "Used ARMv8 cycle counters for nanosecond-scale scheduling and syscall measurements, accounting for timing overhead."
+      ]
+    }
+  ],
+  "development": [
+    "6.824: Distributed Computer Systems, MIT OpenCourseWare (Aug 2021)",
+    "Algorithms: Design and Analysis I and II, Stanford University / edX (Jun 2021)",
+    "The Bits and Bytes of Computer Networking, Google / Coursera (Jan 2021)"
+  ],
+  "service": [
+    {
+      "title": "23rd IEEE/ACM CCGrid, Senior Student Volunteer",
+      "date": "May 2023",
+      "text": "Co-organized a 300+ participant conference, coordinated three poster sessions, and assisted keynote speakers."
+    },
+    {
+      "title": "IISc Open Day, Student Volunteer",
+      "date": "Mar 2023",
+      "text": "Coordinated DREAM: Lab project presentation sessions."
+    }
+  ],
+  "skills": [
+    "Languages: Python, C, Go, Java, Bash/Shell",
+    "ML/LLM: PyTorch, Hugging Face, SGLang, NCCL, Triton",
+    "Systems and cloud: Linux/Unix, Docker/Podman, CI/CD, AWS EC2, Cloudflare Tunnels",
+    "Distributed systems and data: gRPC, Protocol Buffers, MQTT, REST APIs, Redis, PostgreSQL, MongoDB, Git"
+  ]
+}

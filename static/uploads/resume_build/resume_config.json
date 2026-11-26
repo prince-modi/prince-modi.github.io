@@ -1,8 +1,8 @@
 {
   "work_experience": {
     "picasso_bullets": [
-      "Profiling <b>attention-operator</b> compute and communication cost across prefill (varying prompt/KV-cache lengths) and decode (varying batch size/KV-cache lengths), fitting analytical regression models to measured latencies",
-      "Building a <b>trace-driven simulator</b> that pairs the fitted cost models with multi-turn conversation traces to compare parallelism strategies (CP/TP/DP + EP) for a disaggregated prefill/decode deployment"
+      "Building a <b>trace-driven simulator</b> to select CP/TP/DP/EP configurations dynamically for agentic LLM workloads dominated by prefill and append-prefill, using measured attention cost models",
+      "Investigating ways to reduce <b>collective-communication synchronization barriers</b> in attention and MoE during prefill-heavy serving"
     ],
     "flotilla_bullets": [
       "Architected a distributed training framework in Python/AsyncIO orchestrating <b>1,000+ worker nodes</b>, implementing both synchronous and asynchronous parameter aggregation strategies (FedAvg, FedAsync, tiered aggregation) via a pluggable event-driven state-machine design",
@@ -24,8 +24,8 @@
   "selected_project": {
     "title": "Distributed Container Snapshotting",
     "bullets": [
-      "Designed a distributed <b>snapshotting system</b> for stateful containerized applications, implementing the <b>Chandy-Lamport algorithm</b> to capture globally consistent cuts across nodes communicating over UDP",
-      "Built a <b>reliable-UDP sidecar proxy</b> using sequence numbering, buffering, and acknowledgment retransmission to guarantee in-order, exactly-once delivery without modifying application code"
+      "Built <b>Chandy-Lamport snapshots</b> for live distributed containers, coordinating CRIU/Podman checkpoints across nodes",
+      "Implemented a transparent <b>reliable-UDP sidecar</b> with sequencing and retransmission; tested multi-host snapshot and restore on a counter app whose shared value stayed consistent under concurrent traffic, delay, and packet loss"
     ],
     "stack": "Python, Podman, CRIU",
     "date": "June 2026"
