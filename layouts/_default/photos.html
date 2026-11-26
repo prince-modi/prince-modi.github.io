@@ -1,0 +1,20 @@
+{{- define "main" -}}
+<div class="home-minimal">
+  <section class="hm-section hm-section-first">
+    <h1 class="hm-page-title">{{ .Title }}</h1>
+    {{- range .Params.trips }}
+    {{- $dir := .dir }}
+    <div id="{{ .id }}" class="ph-trip">
+      <h2>{{ .title }} <span class="hm-date">{{ .date }}</span></h2>
+      <div class="ph-grid">
+        {{- range .photos }}
+        <a href="{{ printf "%s%s.jpg" $dir .name | relURL }}" target="_blank" rel="noopener">
+          <img src="{{ printf "%s%s-thumb.jpg" $dir .name | relURL }}" alt="{{ .alt }}" loading="lazy">
+        </a>
+        {{- end }}
+      </div>
+    </div>
+    {{- end }}
+  </section>
+</div>
+{{- end -}}

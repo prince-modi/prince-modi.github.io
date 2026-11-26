@@ -1,0 +1,15 @@
+{{- define "main" -}}
+<div class="home-minimal">
+  <section class="hm-section hm-section-first">
+    <h1 class="hm-page-title">{{ .Title }}</h1>
+    {{- range (where .Pages "Kind" "page").GroupByDate "2006" }}
+    <h2>{{ .Key }}</h2>
+    <ul class="hm-dated">
+      {{- range .Pages.ByDate.Reverse }}
+      <li><span class="hm-date">{{ .Date.Format "Jan 2" }}</span><a class="hm-text" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+  </section>
+</div>
+{{- end -}}

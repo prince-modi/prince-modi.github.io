@@ -19,6 +19,7 @@ publication_types: ["poster-conference"]
 # Conference name and optional abbreviated conference name.
 publication: "30th IEEE International Conference on High Performance Computing, Data, and Analytics (2023)"
 publication_short: "HiPC"
+venue_tag: "HiPC Poster"
 
 abstract: 'In this poster, we introduce *Flotilla*, a modular, model-agnostic Federated Learning (FL) framework that supports synchronous client-selection and aggregation strategies, and FL model deployment and training on edge client clusters, with telemetry for advanced systems research.'
 

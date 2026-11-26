@@ -15,8 +15,9 @@ date: "2026-07-23"
 publication_types: ["poster-conference"]
 
 # Conference name and optional abbreviated conference name.
-publication: "32nd ACM Symposium on Operating Systems Principles (2026)"
+publication: "32nd ACM Symposium on Operating Systems Principles (2026), Poster Session"
 publication_short: "SOSP"
+venue_tag: "SOSP Poster"
 
 abstract: "Computer-use agents built on LLMs mostly interact with desktop apps the way a person would: they look at a screenshot, figure out where a button is, and click it. Do that a hundred times and you can automate a workflow. But it's slow, brittle, and expensive. Every click is a round trip to the model. Every misread pixel is a chance for the whole chain to fall apart."
 

@@ -22,16 +22,15 @@
   {{/* MLA Style */}}
   {{ else }}
 
-  <span class="article-metadata li-cite-author">
-    {{ partial "page_metadata_authors" $item }}.
-  </span>
-  <a href="{{ $item.RelPermalink }}">{{ $item.Title }}</a>.
-  {{ if $item.Params.publication_short }}
-    {{- $item.Params.publication_short | markdownify -}},
-  {{ else if $item.Params.publication }}
-    {{- $item.Params.publication | markdownify -}},
-  {{ end }}
-  {{- $item.Date.Format "2006" -}}.
+  <a class="cite-title" href="{{ $item.RelPermalink }}">{{ $item.Title }}</a>
+  <div class="article-metadata li-cite-author">
+    {{ partial "page_metadata_authors" $item }}
+  </div>
+  {{- $venue := $item.Params.venue_tag | default $item.Params.publication_short | default $item.Params.publication | default "" -}}
+  {{- $year := $item.Date.Format "2006" }}
+  <div class="cite-venue">
+    {{- with $venue }}{{ . | markdownify }}{{ if not (in . $year) }}, {{ $year }}{{ end }}{{ else }}{{ $year }}{{ end -}}
+  </div>
 
   {{ if $has_attachments }}
   <div class="btn-links">

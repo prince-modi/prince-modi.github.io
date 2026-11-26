@@ -1,14 +1,14 @@
 // Palette tokens — keep in sync with data/themes/custom.toml
-$color-ink: #1f2430;
-$color-text: #3f4752;
-$color-accent: #3454a3;
-$color-accent-soft: #eef1f8;
-$color-line: #b7c4e0;
+$color-ink: #0f1724;
+$color-text: #1e293b;
+$color-accent: #9a4a07;
+$color-accent-soft: #efe2d2;
+$color-line: #cbd3df;
 
-$color-ink-dark: #eef1f6;
-$color-accent-dark: #7ea1e0;
-$color-accent-soft-dark: #26324a;
-$color-line-dark: #435b82;
+$color-ink-dark: #f2f4f8;
+$color-accent-dark: #f0b35a;
+$color-accent-soft-dark: #1a2436;
+$color-line-dark: #26324a;
 
 :root {
     --line-color: #{$color-line};
@@ -74,11 +74,11 @@ a.footnote-ref::after {
 }
 
 ::selection {
-    background: rgba(52, 84, 163, 0.15);
+    background: rgba(154, 74, 7, 0.15);
 }
 
 ::-moz-selection {
-    background: rgba(52, 84, 163, 0.15);
+    background: rgba(154, 74, 7, 0.15);
 }
 
 h1 {
@@ -114,7 +114,7 @@ figure figcaption {
 }
 
 .navbar {
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px) saturate(180%);
     -webkit-backdrop-filter: blur(10px) saturate(180%);
     box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
@@ -210,12 +210,12 @@ body.dark,
 }
 
 .dark .card-simple {
-    background-color: #373636;
-    border-color: #555555;
+    background-color: #172133;
+    border-color: #26324a;
 }
 
 .dark .navbar {
-    background: rgba(43, 42, 42, 0.75);
+    background: rgba(15, 23, 36, 0.85);
     backdrop-filter: blur(10px) saturate(180%);
     -webkit-backdrop-filter: blur(10px) saturate(180%);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
@@ -224,7 +224,7 @@ body.dark,
 
 body.dark,
 .dark {
-    background: #2b2a2a
+    background: #0f1724
 }
 
 .dark code {
@@ -244,7 +244,7 @@ body.dark,
 
 .dark .form-control {
     color: $color-ink-dark;
-    background-color: #373636;
+    background-color: #172133;
 }
 
 .dark .alert,
@@ -286,12 +286,12 @@ body.dark,
 
 .dark table>tbody>tr:nth-child(odd)>td,
 .dark table>tbody>tr:nth-child(odd)>th {
-    background-color: #2b2a2a;
+    background-color: #0f1724;
 }
 
 .dark table>tbody>tr:hover>td,
 .dark table>tbody>tr:hover>th {
-    background-color: #2b2a2a;
+    background-color: #0f1724;
 }
 
 .dark pre code {
@@ -300,17 +300,17 @@ body.dark,
 
 .dark .chroma {
     color: #f8f8f2;
-    background-color: #2b2a2a;
+    background-color: #0f1724;
     border-radius: 0.25rem;
     font-size: 90%;
-    border: 1px solid #555555;
+    border: 1px solid #26324a;
     padding: 1rem;
 }
 
 .dark .btn-primary,
 .dark .btn.btn-primary.active {
-    background-color: #2b2a2a;
-    border: 1px solid #555555;
+    background-color: #0f1724;
+    border: 1px solid #26324a;
     color: #f8f8f2;
 }
 
@@ -337,11 +337,11 @@ body.dark,
 }
 
 .dark ::selection {
-    background: rgba(126, 161, 224, 0.2);
+    background: rgba(240, 179, 90, 0.2);
 }
 
 .dark ::-moz-selection {
-    background: rgba(126, 161, 224, 0.2);
+    background: rgba(240, 179, 90, 0.2);
 }
 
 .dark a.footnote-ref {
@@ -528,7 +528,7 @@ body.dark,
     margin: 0 0 1.75rem;
     padding: 0.75rem 1rem;
     border-radius: 0.85rem;
-    border: 1px solid rgba(52, 84, 163, 0.2);
+    border: 1px solid rgba(154, 74, 7, 0.2);
     background: $color-accent-soft;
     max-width: 26rem;
 }
@@ -586,7 +586,7 @@ body.dark,
 }
 
 .dark .narration-player {
-    border-color: rgba(126, 161, 224, 0.25);
+    border-color: rgba(240, 179, 90, 0.25);
     background: $color-accent-soft-dark;
 }
 
@@ -612,11 +612,11 @@ body.dark,
  **************************************************/
 
 #profile .avatar {
-    box-shadow: 0 0 0 4px #ffffff, 0 0 0 6px rgba(52, 84, 163, 0.35), 0 16px 32px rgba(16, 24, 40, 0.14);
+    box-shadow: 0 0 0 4px #ffffff, 0 0 0 6px rgba(154, 74, 7, 0.35), 0 16px 32px rgba(16, 24, 40, 0.14);
 }
 
 .dark #profile .avatar {
-    box-shadow: 0 0 0 4px #2b2a2a, 0 0 0 6px rgba(126, 161, 224, 0.35), 0 16px 32px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 0 0 4px #0f1724, 0 0 0 6px rgba(240, 179, 90, 0.35), 0 16px 32px rgba(0, 0, 0, 0.45);
 }
 
 .portrait-title h2 {
@@ -663,7 +663,7 @@ body.dark,
 }
 
 .network-icon a:hover {
-    background: rgba(52, 84, 163, 0.16);
+    background: rgba(154, 74, 7, 0.16);
 }
 
 .dark .network-icon a {
@@ -672,7 +672,7 @@ body.dark,
 }
 
 .dark .network-icon a:hover {
-    background: rgba(126, 161, 224, 0.22);
+    background: rgba(240, 179, 90, 0.22);
 }
 
 .big-icon {
@@ -725,19 +725,19 @@ body.dark,
 }
 
 .narr-word[data-start]:hover {
-    background: rgba(52, 84, 163, 0.14);
+    background: rgba(154, 74, 7, 0.14);
 }
 
 .narr-word-active {
-    background: rgba(52, 84, 163, 0.22);
+    background: rgba(154, 74, 7, 0.22);
 }
 
 .dark .narr-word[data-start]:hover {
-    background: rgba(126, 161, 224, 0.2);
+    background: rgba(240, 179, 90, 0.2);
 }
 
 .dark .narr-word-active {
-    background: rgba(126, 161, 224, 0.3);
+    background: rgba(240, 179, 90, 0.3);
 }
 
 .narr-caption {
@@ -777,4 +777,408 @@ body.dark,
 .dark .narr-caption mark {
     color: $color-ink;
     text-decoration-color: $color-accent;
+}
+
+/*************************************************
+ *  Minimal academic refresh
+ **************************************************/
+
+body:not(.dark) {
+    background: #ffffff;
+}
+
+h1, h2, h3, .article-title {
+    letter-spacing: -0.01em;
+}
+
+.navbar-brand {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+}
+
+.home-minimal {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 4.5rem 1.25rem 3rem;
+    color: $color-text;
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+.home-minimal a {
+    color: $color-accent;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(154, 74, 7, 0.25);
+    transition: border-color 0.15s ease;
+}
+
+.home-minimal a:hover {
+    border-bottom-color: $color-accent;
+}
+
+.hm-hero {
+    display: flex;
+    gap: 2.25rem;
+    align-items: flex-start;
+    margin-bottom: 3.25rem;
+}
+
+.hm-avatar {
+    flex: 0 0 auto;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.hm-name,
+.hm-section h2 {
+    font-family: 'DM Sans', sans-serif;
+}
+
+.hm-name {
+    margin: 0 0 0.25rem;
+    font-size: 2.2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: $color-ink;
+}
+
+.hm-role {
+    margin: 0 0 1.1rem;
+    font-size: 0.95rem;
+    color: #5b6578;
+}
+
+.hm-bio p {
+    margin-bottom: 0.9rem;
+}
+
+.hm-links {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.hm-sep {
+    margin: 0 0.45rem;
+    color: #8f98a8;
+}
+
+.hm-section {
+    margin-top: 2.75rem;
+}
+
+.hm-section h2 {
+    margin: 0 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #cbd3df;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: $color-ink;
+}
+
+.home-minimal ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.hm-dated li {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    gap: 1rem;
+    padding: 0.3rem 0;
+}
+
+.hm-date {
+    color: #6b7486;
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    padding-top: 0.1rem;
+}
+
+.home-minimal a.hm-text {
+    border-bottom: none;
+}
+
+.home-minimal a.hm-text:hover {
+    text-decoration: underline;
+}
+
+.hm-pubs li {
+    margin-bottom: 1.25rem;
+}
+
+.home-minimal a.hm-pub-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: $color-ink;
+    border-bottom: none;
+}
+
+.home-minimal a.hm-pub-title:hover {
+    color: $color-accent;
+}
+
+.hm-pub-authors,
+.hm-pub-venue {
+    font-size: 0.9rem;
+}
+
+.hm-pub-authors strong {
+    color: $color-ink;
+    font-weight: 600;
+}
+
+.hm-pub-venue {
+    color: #5b6578;
+}
+
+.hm-pub-venue a {
+    font-size: 0.85rem;
+}
+
+.hm-roles li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.4rem 0;
+}
+
+.hm-role-title {
+    color: $color-ink;
+    font-weight: 500;
+}
+
+.hm-role-org {
+    display: block;
+    font-size: 0.9rem;
+    color: #5b6578;
+}
+
+.hm-more {
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+}
+
+.home-minimal p {
+    color: $color-text;
+}
+
+/* Dark mode */
+.dark .home-minimal,
+.dark .home-minimal p {
+    color: #d6dbe4;
+}
+
+.dark .hm-name,
+.dark .hm-section h2,
+.dark .home-minimal a.hm-pub-title,
+.dark .hm-pub-authors strong,
+.dark .hm-role-title {
+    color: $color-ink-dark;
+}
+
+.dark .home-minimal a {
+    color: $color-accent-dark;
+    border-bottom-color: rgba(240, 179, 90, 0.3);
+}
+
+.dark .home-minimal a.hm-pub-title:hover {
+    color: $color-accent-dark;
+}
+
+.dark .hm-section h2 {
+    border-bottom-color: #26324a;
+}
+
+.dark .hm-role,
+.dark .hm-pub-venue,
+.dark .hm-role-org {
+    color: #8f9bb0;
+}
+
+.dark .hm-date,
+.dark .hm-sep {
+    color: #6f7c93;
+}
+
+@media (max-width: 640px) {
+    .home-minimal {
+        padding-top: 2.5rem;
+    }
+
+    .hm-hero {
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .hm-avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .hm-name {
+        font-size: 1.8rem;
+    }
+
+    .hm-dated li {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .hm-roles li {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+/*************************************************
+ *  Line breaking
+ **************************************************/
+
+/* Avoid single-word last lines in prose, and balance multi-line titles. */
+p, li, .hm-text, .pub-list-item, .article-style {
+    text-wrap: pretty;
+}
+
+h1, h2, h3, h4, .article-title, .hm-pub-title, .card-title {
+    text-wrap: balance;
+}
+
+/* Keep short inline links in one piece. */
+.hm-bio a,
+.hm-dated .hm-text a,
+.hm-links a,
+.hm-role a,
+.hm-more a {
+    white-space: nowrap;
+}
+
+.hm-pub-links {
+    white-space: nowrap;
+}
+
+.hm-pub-links a {
+    margin-left: 0.5rem;
+}
+
+/* Publications list (citation view): put each title on its own line. */
+.pub-list-item.view-citation .cite-title {
+    display: block;
+    margin-bottom: 0.15rem;
+    font-weight: 600;
+    text-wrap: balance;
+}
+
+.pub-list-item.view-citation .cite-venue {
+    font-style: italic;
+    color: #5b6578;
+}
+
+.dark .pub-list-item.view-citation .cite-venue {
+    color: #8f9bb0;
+}
+
+.pub-list-item.view-citation .pub-icon {
+    display: none;
+}
+
+.pub-list-item.view-citation .li-cite-author {
+    margin-bottom: 0;
+}
+
+/*************************************************
+ *  Venue tags, posts page, footer
+ **************************************************/
+
+.hm-tag {
+    display: inline-block;
+    margin-right: 0.5rem;
+    padding: 0.05rem 0.45rem;
+    border: 1px solid $color-line;
+    border-radius: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: $color-accent;
+    vertical-align: 0.15rem;
+    white-space: nowrap;
+}
+
+.dark .hm-tag {
+    border-color: $color-line-dark;
+    color: $color-accent-dark;
+}
+
+.hm-section-first {
+    margin-top: 0;
+}
+
+.hm-page-title {
+    margin: 0 0 1.5rem;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: $color-ink;
+}
+
+.dark .hm-page-title {
+    color: $color-ink-dark;
+}
+
+.hm-section-first h2 {
+    margin-top: 2rem;
+}
+
+.site-footer-minimal {
+    padding: 2rem 0 2.5rem;
+    text-align: center;
+}
+
+.site-footer-minimal p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #6b7486;
+}
+
+.dark .site-footer-minimal p {
+    color: #6f7c93;
+}
+
+/* Photos page */
+.ph-trip {
+    margin-bottom: 2.5rem;
+    scroll-margin-top: 5rem;
+}
+
+.ph-trip h2 .hm-date {
+    margin-left: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 400;
+}
+
+.ph-grid {
+    columns: 3 200px;
+    column-gap: 0.75rem;
+}
+
+.home-minimal .ph-grid a {
+    display: block;
+    margin-bottom: 0.75rem;
+    break-inside: avoid;
+    border-bottom: none;
+}
+
+.ph-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.4rem;
+    transition: opacity 0.15s ease;
+}
+
+.ph-grid a:hover img {
+    opacity: 0.88;
 }

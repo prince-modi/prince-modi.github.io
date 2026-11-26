@@ -1,0 +1,102 @@
+{{- define "main" -}}
+{{- $home := . -}}
+{{- $author := site.GetPage "/authors/admin" -}}
+{{- $pubName := $author.Params.publication_name | default $author.Title -}}
+{{- $labels := dict "envelope" "Email" "linkedin" "LinkedIn" "graduation-cap" "Scholar" "github" "GitHub" "cv" "CV" "file-lines" "Resume" -}}
+
+<div class="home-minimal">
+
+  <section id="about" class="hm-hero">
+    {{- with $author.Resources.GetMatch "avatar*" }}
+      {{- $img := .Fill "320x320 Center q90" }}
+      <img class="hm-avatar" src="{{ $img.RelPermalink }}" width="160" height="160" alt="Photo of {{ $author.Title }}">
+    {{- end }}
+    <div class="hm-intro">
+      <h1 class="hm-name">{{ $author.Title }}</h1>
+      <p class="hm-role">
+        {{ $author.Params.role }}{{ with index ($author.Params.organizations | default slice) 0 }}<br><a href="{{ .url }}">{{ .name }}</a>{{ end }}
+      </p>
+      <div class="hm-bio">{{ .Content }}</div>
+      <p class="hm-links">
+        {{- range $i, $s := $author.Params.social }}
+          {{- $link := $s.link }}
+          {{- if not (or (hasPrefix $link "http") (hasPrefix $link "mailto:")) }}{{ $link = $link | relURL }}{{ end }}
+          {{- if $i }}<span class="hm-sep" aria-hidden="true">·</span>{{ end }}
+          <a href="{{ $link }}"{{ if hasPrefix $link "http" }} target="_blank" rel="noopener"{{ end }}>{{ index $labels $s.icon | default $s.icon }}</a>
+        {{- end }}
+      </p>
+    </div>
+  </section>
+
+  {{- with .Params.news }}
+  <section id="news" class="hm-section">
+    <h2>News</h2>
+    <ul class="hm-dated">
+      {{- range . }}
+      <li><span class="hm-date">{{ .date }}</span><span class="hm-text">{{ .text | $home.RenderString }}
+</span></li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+
+  <section id="publications" class="hm-section">
+    <h2>Publications</h2>
+    <ul class="hm-pubs">
+      {{- range (where site.RegularPages "Section" "publication").ByDate.Reverse }}
+      <li>
+        {{- with .Params.venue_tag | default .Params.publication_short }}<span class="hm-tag">{{ . }}</span>{{ end }}
+        <a class="hm-pub-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <div class="hm-pub-authors">
+          {{- range $i, $a := .Params.authors }}{{ if $i }}, {{ end }}{{ if eq $a "admin" }}<strong>{{ $pubName }}</strong>{{ else }}{{ $a }}{{ end }}{{ end -}}
+        </div>
+        <div class="hm-pub-venue">
+          <em>{{ .Params.publication | $home.RenderString | plainify | replaceRE `\s*\[[^\]]*\]` "" }}</em>
+          <span class="hm-pub-links">
+          {{- with .Params.url_pdf }}<a href="{{ . | relURL }}">pdf</a>{{ end }}
+          {{- with .Params.url_code }}<a href="{{ . }}">code</a>{{ end }}
+          {{- with .Params.doi }}<a href="https://doi.org/{{ . }}">doi</a>{{ end -}}
+          </span>
+        </div>
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+
+  <section id="posts" class="hm-section">
+    <h2>Writing</h2>
+    <ul class="hm-dated">
+      {{- range first 5 (where site.RegularPages "Section" "post").ByDate.Reverse }}
+      <li><span class="hm-date">{{ .Date.Format "Jan 2006" }}</span><a class="hm-text" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{- end }}
+    </ul>
+    <p class="hm-more"><a href="{{ "post/" | relURL }}">All posts →</a></p>
+  </section>
+
+  {{- range slice (slice "experience" "Experience") (slice "education" "Education") }}
+  {{- $key := index . 0 }}{{ $title := index . 1 }}
+  {{- with index $home.Params $key }}
+  <section id="{{ $key }}" class="hm-section">
+    <h2>{{ $title }}</h2>
+    <ul class="hm-roles">
+      {{- range . }}
+      <li>
+        <div><span class="hm-role-title">{{ .role }}</span><span class="hm-role-org">{{ .org }}</span></div>
+        <span class="hm-date">{{ .dates }}</span>
+      </li>
+      {{- end }}
+    </ul>
+    {{- if eq $key "experience" }}<p class="hm-more"><a href="{{ "uploads/CV.pdf" | relURL }}">Full CV →</a></p>{{ end }}
+  </section>
+  {{- end }}
+  {{- end }}
+
+  {{- with .Params.outside_work }}
+  <section id="outside" class="hm-section">
+    <h2>Outside work</h2>
+    <p>{{ . | $home.RenderString }}</p>
+  </section>
+  {{- end }}
+
+</div>
+{{- end -}}

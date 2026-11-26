@@ -2,6 +2,9 @@
 # Display name
 title: Parikshit (Prince) Modi
 
+# Name for official uses (paper author lists, citations)
+publication_name: Prince Modi
+
 # Name pronunciation (optional)
 name_pronunciation: 
 

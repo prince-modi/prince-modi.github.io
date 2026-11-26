@@ -10,6 +10,9 @@
 {{- $highlight_active_link := site.Params.header.navbar.highlight_active_link | default true -}}
 <body id="top" data-spy="scroll" {{ if $show_navbar }}data-offset="70"{{end}} data-target="{{ if or .IsHome (eq .Type "widget_page") | and $highlight_active_link }}#navbar-main{{else}}#TableOfContents{{end}}" class="page-wrapper {{with .Params.design.css_class}}{{.}}{{end}} {{ if not (.Scratch.Get "light") }}dark{{end}} {{ if not $show_navbar }}no-navbar{{end}}" {{with .File}}data-wc-page-id="{{.UniqueID}}"{{end}} {{with .Params.design.css_style}}style="{{. | safeCSS}}"{{end}}>
 
+  {{/* Default new visitors to the dark (navy) theme; the toggle still works and is remembered. */}}
+  <script>try { if (localStorage.getItem('wcTheme') === null) localStorage.setItem('wcTheme', '1'); } catch (e) {}</script>
+
   {{/* Initialise Hugo Blox. */}}
   {{ $js_license := printf "/*! Hugo Blox Builder v%s | https://hugoblox.com/ */\n" site.Data.hugoblox.version }}
   {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}

@@ -4,205 +4,61 @@ title: ''
 date: 2022-10-24
 type: landing
 
-sections:
-  - block: about.biography
-    id: about
-    content:
-      title: Hi, I'm Parikshit!
-      username: admin
+# The homepage is rendered by layouts/index.html from the fields below.
 
-  - block: resume-skills
-    id: skills
-    title: Skills
-    content:
-      username: admin
-    design:
-      show_skill_percentage: false
+news:
+  - date: Nov 2026
+    text: 'Hiked Garnet Peak near Julian. Brought a camera, mostly wore it as a necklace ([photos](/photos/#garnet-peak)).'
+  - date: Nov 2026
+    text: 'Our paper on autointerp simulation scores will appear at the NeurIPS 2026 Workshop on Interpretability as a Science ([paper](/publication/conference-poster/autointerp-simulation-scores-2026/)).'
+  - date: Sep 2026
+    text: 'Teaching assistant for CSE 123: Computer Networks with Prof. Alex Snoeren.'
+  - date: Sep 2026
+    text: 'Bryce Canyon and Zion, with a detour to Kolob Canyon. My legs have filed a formal complaint ([photos](/photos/#zion)).'
+  - date: Aug 2026
+    text: 'Sequoia and Kings Canyon: stood next to a tree that is a lot older than me, then stayed up for the Milky Way ([photos](/photos/#sequoia)).'
+  - date: Jul 2026
+    text: 'Poster on recovering internal command interfaces for agents accepted at [SOSP 2026](/publication/conference-poster/sosp-2026/) in Prague.'
+  - date: Jul 2026
+    text: 'Joined Picasso Lab at UC San Diego as a graduate student researcher, working on LLM inference systems.'
+  - date: Jul 2026
+    text: "Now going by Parikshit. Prince still works too, I'll answer to either."
+  - date: Sep 2025
+    text: 'Started my MS in Computer Science at UC San Diego.'
+  - date: May 2025
+    text: '[Flotilla](/publication/journal-paper/jpdc-flotilla-2025/), our federated learning framework, published in the Journal of Parallel and Distributed Computing.'
 
-  - block: resume-exp
-    title: Education
-    id: education
-    content:
-      items:
-        - title: Master of Science in Computer Science
-          icon_choice: "university"
-          id: ucsd
-          institution: University of California San Diego
-          date_start: 2025-09-22
-          date_end: 2027-06-01
-          description: |
-            Graduate student at UCSD, focusing on **Distributed Systems**
+experience:
+  - role: Graduate Student Researcher
+    org: Picasso Lab, UC San Diego
+    dates: Jul 2026 – Present
+  - role: 'Teaching Assistant, CSE 123: Computer Networks'
+    org: UC San Diego
+    dates: Sep 2026 – Dec 2026
+  - role: Research Collaborator (remote)
+    org: DREAM:Lab, Indian Institute of Science, Bangalore
+    dates: Apr 2024 – Nov 2024
+  - role: Research Associate
+    org: DREAM:Lab, Indian Institute of Science, Bangalore
+    dates: Jan 2023 – Apr 2024
+  - role: Teaching Assistant, Data Engineering at Scale
+    org: Indian Institute of Science, Bangalore
+    dates: Aug 2023 – Dec 2023
+  - role: Software Engineering Intern
+    org: Sterlite Technologies, Ahmedabad
+    dates: Jan 2022 – Aug 2022
 
-            **GPA:** *3.88/4.00*
+education:
+  - role: MS, Computer Science
+    org: University of California San Diego
+    dates: Sep 2025 – Jun 2027
+  - role: BTech, Computer Engineering
+    org: Ganpat University (UVPCE)
+    dates: Jul 2018 – Jun 2022
 
-            **Relevant Courses:**
-            - *Distributed Systems*
-            - *Deep Learning Systems*
-            - *LLM System Optimization*
-
-            **Projects:**
-            - *System Measurement*: Developed a suite of micro-benchmarks to evaluate the Rockchip RK3588S SoC, utilizing ARMv8 cycle counters to measure CPU scheduling and OS primitive latencies with nanosecond precision.([Link](https://princemodi.me/post/system-measurement/))
-            - *Distributed Container Snapshotting*: Built a Chandy-Lamport based snapshotting system with a reliable-UDP sidecar proxy to checkpoint and restore live, distributed containerized applications.([Link](https://princemodi.me/post/chandy-lamport/))
-            - *Modern GPU DSLs*: Benchmarked RMSNorm and Flash Attention-2 across Helion, Triton, Gluon, and CuTe on four NVIDIA GPU generations to evaluate performance/portability trade-offs.([Link](https://princemodi.me/post/flash-attention-dsl/))
- 
-        - title: Bachelor of Technology in Computer Engineering
-          icon_choice: "university"
-          id: guni
-          institution: Ganpat University - UVPCE
-          date_start: 2018-07-01
-          date_end: 2022-06-01
-          description: |
-            **GPA:** *3.96/4.00*
-            
-            **Achievements:**
-            - Academic scholarship for securing 2nd rank out of 60+ students
-            
-            **Relevant Courses:**
-            - *Operating Systems*
-            - *Computer Networks*
-            - *Cloud Computing*
-            - *Big Data Analytics*
-            
-            **Projects:**
-            - *BitTorrent Client*: Built a peer-to-peer file-sharing client using Python's AsyncIO and BitTorrent protocol with a custom Bencode parser
-            - *GIST*: Developed a YouTube video summarizer using NLTK, BART model, SQLite, and Tkinter
-
-  - block: resume-exp
-    title: Experience
-    id: experience
-    content:
-      items:
-        - title: 'Graduate Student Researcher, LLM Inference Systems'
-          icon_choice: "university"
-          id: picasso
-          company: Picasso Lab, UC San Diego
-          company_url: ''
-          company_logo: ''
-          date_start: 2026-07-01
-          location: San Diego
-          description: |
-            - Profiling the **attention operator** in transformer LLM inference across prefill (prompt/KV-cache lengths) and decode (batch size/KV-cache lengths), fitting analytical models to measured compute and communication latencies
-            - Building a **trace-driven simulator** over multi-turn LLM conversation traces to compare parallelism strategies (CP/TP/DP + EP) for a disaggregated prefill/decode serving deployment
-
-        - title: 'Research Collaborator (Remote)'
-          icon_choice: "university"
-          id: iisc2
-          company: Indian Institute of Science (IISc), Bangalore
-          company_url: ''
-          company_logo: ''
-          date_start: 2024-04-30
-          date_end: 2024-11-01
-          location: Bangalore
-          description: |
-            - Continued voluntary collaboration with the DREAM:Lab to finalize research validation for the JPDC 2025 publication
-            - Authored the in-depth system architecture and scalability analysis for Flotilla, leading to its acceptance in the Journal of Parallel and Distributed Computing (JPDC)
-            - Orchestrated containerized deployments using custom Docker images across distributed clusters to validate system performance on 1000+ concurrent clients
-            
-        - title: 'Research Associate (DREAM:Lab)'
-          icon_choice: "university"
-          id: iisc
-          company: Indian Institute of Science (IISc), Bangalore
-          company_url: ''
-          company_logo: ''
-          date_start: 2023-01-01
-          date_end: 2024-04-30
-          location: Bangalore
-          description: |
-            **Responsibilities include:**
-            - Built an asynchronous federated learning framework (Flotilla) in Python, optimized for edge hardware deployment
-            - Implemented server and client sides using MQTT and gRPC for efficient message passing and coordination in federated learning
-            - Designed a custom Redis-based state store with checkpointing to enable recovery from full server failures without data loss or disruption
-            - Integrated client selection and aggregation strategies from current research for performance, accuracy, and turnaround optimization
-            - Collaborated with PhD students under Prof. Manik Gupta (BITS Pilani) and Prof. Yogesh Simmhan (IISc) to ensure Flotilla's scalability and reliability
-            - Configured and managed an 80+ node edge cluster (Nvidia Jetsons, Raspberry Pis), supporting lab infrastructure and projects including Flotilla
-            
-            **Volunteering:**
-            - *Senior Student Volunteer*, Indian Institute of Science – IEEE/ACM CCGrid 2023: Co-organized a 300+ participant conference; coordinated 3 poster sessions and assisted keynote speakers and faculty
-            - *Student Volunteer*, IISc Open Day 2023: Coordinated presentation sessions for DREAM:Lab projects
-            
-        - title: Teaching Assistant, Data Engineering at Scale
-          icon_choice: "university"
-          company: Indian Institute of Science (IISc), Bangalore
-          company_url: ''
-          company_logo: ''
-          date_start: 2023-08-01
-          date_end: 2023-12-31
-          location: Bangalore
-          description: |
-            **Responsibilities include:**
-            - Taught a graduate-level course to a class of 40+ students, comprising topics such as HDFS, Map-Reduce, Apache Spark
-            - Facilitated and led a 2-hour lab session per week, prepared and graded assignments, conducted one-on-one office hours, and conducted doubt-clearing sessions
-            
-        - title: Software Engineering Intern (Intellza)
-          id: intern
-          company: Sterlite Technologies Limited, Ahmedabad
-          company_url: ''
-          company_logo: ''
-          date_start: 2022-01-01
-          date_end: 2022-08-31
-          location: Ahmedabad
-          description: |
-            **Responsibilities include:**
-            - Developed Intellza, a unified data storage and analytics platform, alongside a cross-functional team
-            - Developed and integrated a module to maintain and track schema changes for MongoDB on Intellza using LiquiBase
-            - Created Docker images and optimized the existing images as per Docker's recommendations, reducing the image size to 35% and improving the build times of the project's CI/CD pipeline by 50%
-
-  - block: collection
-    id: featured-publications
-    content:
-      title: Featured publications
-      filters:
-        folders:
-          - publication
-        featured_only: true
-    design:
-      columns: '2'
-      view: card
-
-  - block: collection
-    id: posts
-    content:
-      title: Recent posts
-      subtitle: ''
-      text: ''
-      count: 3
-      filters:
-        folders:
-          - post
-        author: ""
-        category: ""
-        tag: ""
-        exclude_featured: false
-        exclude_future: false
-        exclude_past: false
-        publication_type: ""
-      offset: 0
-      order: desc
-    design:
-      view: card
-      columns: '2'
-
-  - block: resume-hobbies
-    title: Hobbies
-    id: hobbies
-    content:
-      items:
-        - title: Reading
-          icon_choice: "book-open-reader"
-          description: "Currently reading: *A Wise Man's Fear* and *Thinking, Fast and Slow*"
-        - title: Tennis & Pickleball
-          icon_choice: "trophy"
-          description: "Just enjoy hitting the ball around and having a good time with friends"
-        - title: Formula 1
-          icon_choice: "flag-checkered"
-          description: "Following F1 races, team strategies, and technological advancements"
-        - title: Home Lab
-          icon_choice: "computer"
-          description: "Running PiHole and PFSense, experimenting with network setups"
-        - title: 3D Printing
-          icon_choice: "print"
-          description: "Designing and printing 3D models for personal projects or prototyping"
-        - title: Astronomy
-          icon_choice: "meteor"
-          description: "Stargazing and exploring celestial bodies, learning about the universe"
+outside_work: "Outside of work I read (currently *A Wise Man's Fear* and *Thinking, Fast and Slow*), play tennis and pickleball, follow Formula 1, run a small home lab with Pi-hole and pfSense, 3D print things, and look at the stars when the sky is clear. I also go hiking whenever I can, and I keep some [photos](/photos/) from those trips."
 ---
+
+I'm a Master's student in Computer Science and Engineering at UC San Diego, working on LLM systems (inference). My broader interests span distributed computing, datacenter systems, and LLM systems.
+
+Before that, I worked on scalable and resilient systems, including development of [Flotilla](https://github.com/dream-lab/flotilla/), a modular federated learning framework, during my time at the Indian Institute of Science. While working on Flotilla, I became especially interested in the challenges of fault tolerance, consistency, and recovery in distributed systems.
