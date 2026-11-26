@@ -1,0 +1,31 @@
+{{- define "main" -}}
+{{- /* Map lowercase upload paths to their real names so /uploads/cv.pdf, /uploads/Cv.PDF, etc. reach /uploads/CV.pdf. */ -}}
+{{- $uploads := dict -}}
+{{- range readDir "static/uploads" -}}
+  {{- if not .IsDir -}}
+    {{- $uploads = merge $uploads (dict (printf "/uploads/%s" (lower .Name)) (printf "/uploads/%s" .Name)) -}}
+  {{- end -}}
+{{- end }}
+<script>
+  (function () {
+    var files = {{ $uploads | jsonify | safeJS }};
+    var p = decodeURIComponent(window.location.pathname).toLowerCase();
+    var aliases = { "/cv": "/uploads/CV.pdf", "/cv/": "/uploads/CV.pdf", "/resume": "/uploads/resume.pdf", "/resume/": "/uploads/resume.pdf" };
+    var target = files[p] || aliases[p];
+    if (target && target !== window.location.pathname) { window.location.replace(target); }
+  })();
+</script>
+
+<div class="home-minimal">
+  <section class="hm-section hm-section-first">
+    <h1 class="hm-page-title">Page not found</h1>
+    <p>That page doesn't exist. These might be what you were looking for:</p>
+    <ul class="hm-dated">
+      <li><span class="hm-date">CV</span><a class="hm-text" href="{{ "uploads/CV.pdf" | relURL }}">Curriculum vitae (PDF)</a></li>
+      <li><span class="hm-date">Resume</span><a class="hm-text" href="{{ "uploads/resume.pdf" | relURL }}">Resume (PDF)</a></li>
+      <li><span class="hm-date">GitHub</span><a class="hm-text" href="https://github.com/prince-modi" target="_blank" rel="noopener">github.com/prince-modi</a></li>
+      <li><span class="hm-date">Home</span><a class="hm-text" href="{{ "/" | relURL }}">Back to the homepage</a></li>
+    </ul>
+  </section>
+</div>
+{{- end -}}
