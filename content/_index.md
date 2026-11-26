@@ -8,21 +8,13 @@ type: landing
 
 news:
   - date: Nov 2026
-    text: 'Hiked Garnet Peak near Julian. Brought a camera, mostly wore it as a necklace ([photos](/photos/#garnet-peak)).'
-  - date: Nov 2026
     text: 'Our paper on autointerp simulation scores will appear at the NeurIPS 2026 Workshop on Interpretability as a Science ([paper](/publication/conference-poster/autointerp-simulation-scores-2026/)).'
   - date: Sep 2026
     text: 'Teaching assistant for CSE 123: Computer Networks with Prof. Alex Snoeren.'
-  - date: Sep 2026
-    text: 'Bryce Canyon and Zion, with a detour to Kolob Canyon. My legs have filed a formal complaint ([photos](/photos/#zion)).'
-  - date: Aug 2026
-    text: 'Sequoia and Kings Canyon: stood next to a tree that is a lot older than me, then stayed up for the Milky Way ([photos](/photos/#sequoia)).'
   - date: Jul 2026
     text: 'Poster on recovering internal command interfaces for agents accepted at [SOSP 2026](/publication/conference-poster/sosp-2026/) in Prague.'
   - date: Jul 2026
     text: 'Joined Picasso Lab at UC San Diego as a graduate student researcher, working on LLM inference systems.'
-  - date: Jul 2026
-    text: "Now going by Parikshit. Prince still works too, I'll answer to either."
   - date: Sep 2025
     text: 'Started my MS in Computer Science at UC San Diego.'
   - date: May 2025
