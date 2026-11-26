@@ -8,7 +8,7 @@ sections:
   - block: about.biography
     id: about
     content:
-      title: Hi, I'm Prince!
+      title: Hi, I'm Parikshit!
       username: admin
 
   - block: resume-skills

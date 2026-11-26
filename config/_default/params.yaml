@@ -44,7 +44,7 @@ header:
 
 footer:
   copyright:
-    notice: '© {year} Prince Modi. This work is licensed under {license}'
+    notice: '© {year} Parikshit (Prince) Modi. This work is licensed under {license}'
     license:
       enable: true
       allow_derivatives: true

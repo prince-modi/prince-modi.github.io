@@ -3,7 +3,7 @@
 # Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-title: Prince Modi # Website name
+title: Parikshit (Prince) Modi # Website name
 baseURL: 'https://prince-modi.github.io/' # Website URL 
 
 ############################

@@ -1,6 +1,6 @@
 ---
 # Display name
-title: Prince Modi
+title: Parikshit (Prince) Modi
 
 # Name pronunciation (optional)
 name_pronunciation: 
