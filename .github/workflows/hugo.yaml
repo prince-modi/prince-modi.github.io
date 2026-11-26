@@ -41,8 +41,6 @@ jobs:
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
-      - name: Install Dart Sass
-        run: sudo snap install dart-sass
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -68,21 +66,32 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Find posts that need narration audio
+        id: audio
+        # Each post's audio is stored with a hash of its text, so unchanged posts are skipped
+        # without installing ffmpeg or calling the API.
+        run: |
+          needed=$(python3 scripts/generate_audio.py --check)
+          echo "Posts needing audio: ${needed:-none}"
+          echo "needed=$needed" >> "$GITHUB_OUTPUT"
       - name: Install audio generation dependencies
+        if: steps.audio.outputs.needed != ''
         run: |
           pip install --disable-pip-version-check requests
-          command -v ffmpeg || sudo apt-get update && sudo apt-get install -y ffmpeg
+          command -v ffmpeg || { sudo apt-get update && sudo apt-get install -y ffmpeg; }
       - name: Generate narration audio
+        if: steps.audio.outputs.needed != ''
         continue-on-error: true
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python3 scripts/generate_audio.py
       - name: Commit generated audio
+        if: steps.audio.outputs.needed != ''
         continue-on-error: true
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: generate narration audio [skip ci]"
-          file_pattern: "static/audio/*.mp3"
+          file_pattern: "static/audio/*.mp3 static/audio/*.hash static/audio/*.words.json"
       - name: Build with Hugo
         run: |
           hugo \
@@ -99,6 +108,9 @@ jobs:
             b=$(basename "$f"); l=$(printf '%s' "$b" | tr '[:upper:]' '[:lower:]')
             if [ "$b" != "$l" ] && [ ! -e "public/uploads/$l" ]; then cp "$f" "public/uploads/$l"; echo "copied $b -> $l"; fi
           done
+      - name: Check internal links
+        # Fails the deploy if any internal link or asset is missing (case-sensitive, like GitHub Pages).
+        run: python3 scripts/check_links.py public "${{ steps.pages.outputs.base_url }}"
       - name: Cache Save
         id: cache-save
         uses: actions/cache/save@v4

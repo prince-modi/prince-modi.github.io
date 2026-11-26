@@ -1,0 +1,45 @@
+{{- $admin := site.GetPage "authors/admin" -}}
+{{- $official := "Prince Modi" -}}
+{{- with $admin }}{{ with .Params.publication_name }}{{ $official = . }}{{ end }}{{ end -}}
+
+{{- /* Person record on the homepage, so search engines tie "Parikshit Modi" and "Prince Modi" to one person. */ -}}
+{{- if .IsHome }}
+{{- $same := slice -}}
+{{- with $admin }}{{ range .Params.social }}{{ if hasPrefix .link "http" }}{{ $same = $same | append .link }}{{ end }}{{ end }}{{ end -}}
+{{- $person := dict
+  "@context" "https://schema.org"
+  "@type" "Person"
+  "name" "Parikshit Modi"
+  "alternateName" (slice $official "Parikshit (Prince) Modi")
+  "url" site.BaseURL
+  "jobTitle" "Graduate Student Researcher"
+  "affiliation" (dict "@type" "CollegeOrUniversity" "name" "University of California San Diego" "url" "https://ucsd.edu/")
+  "alumniOf" (slice (dict "@type" "CollegeOrUniversity" "name" "Indian Institute of Science"))
+  "sameAs" $same
+-}}
+{{- with $admin }}{{ with .Resources.GetMatch "avatar*" }}{{ $person = merge $person (dict "image" (.Fill "400x400 Center").Permalink) }}{{ end }}{{ end }}
+<script type="application/ld+json">{{ $person | jsonify | safeJS }}</script>
+{{- end }}
+
+{{- /* Google Scholar (Highwire) tags on publication pages. */ -}}
+{{- if and .IsPage (eq .Section "publication") }}
+<meta name="citation_title" content="{{ .Title }}" />
+{{- range .Params.authors }}
+  {{- if eq . "admin" }}
+<meta name="citation_author" content="{{ $official }}" />
+  {{- else }}
+<meta name="citation_author" content="{{ . }}" />
+  {{- end }}
+{{- end }}
+<meta name="citation_publication_date" content="{{ .Date.Format "2006/01/02" }}" />
+{{- $venue := trim (.Params.publication | default "" | markdownify | plainify | htmlUnescape | replaceRE `\s*\[[^\]]*\]` "") " " }}
+{{- if in .Params.publication_types "article-journal" }}
+<meta name="citation_journal_title" content="{{ $venue }}" />
+{{- else if $venue }}
+<meta name="citation_conference_title" content="{{ $venue }}" />
+{{- end }}
+{{- with .Params.doi }}<meta name="citation_doi" content="{{ . }}" />{{ end }}
+{{- with .Params.url_pdf }}
+  {{- if hasSuffix (lower .) ".pdf" }}<meta name="citation_pdf_url" content="{{ . | absURL }}" />{{ end }}
+{{- end }}
+{{- end }}

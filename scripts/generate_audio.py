@@ -25,7 +25,10 @@ import sys
 import tempfile
 from pathlib import Path
 
-import requests
+try:
+    import requests
+except ImportError:  # only needed for generation, not for --check
+    requests = None
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = REPO_ROOT / "content" / "post"
@@ -53,6 +56,7 @@ def markdown_to_text(md):
     text = re.sub(r"\\\[.*?\\\]", "", text, flags=re.DOTALL)  # block math (\[...\])
     text = re.sub(r"\$[^$\n]+\$", "", text)  # inline math ($...$)
     text = re.sub(r"\\\(.*?\\\)", "", text)  # inline math (\(...\))
+    text = re.sub(r"\{\{[<%].*?[>%]\}\}", "", text, flags=re.DOTALL)  # Hugo shortcodes
     text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)  # images
     text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)  # links -> link text
     text = re.sub(r"`([^`]*)`", r"\1", text)  # inline code -> content
@@ -218,7 +222,31 @@ def generate_for_post(post_dir, api_key):
     return True
 
 
+def posts_needing_audio():
+    """Slugs whose narration is missing or out of date (no network or ffmpeg needed)."""
+    needed = []
+    for post_dir in sorted(POSTS_DIR.iterdir()) if POSTS_DIR.exists() else []:
+        index_md = post_dir / "index.md"
+        if not index_md.exists():
+            continue
+        text = markdown_to_text(strip_frontmatter(index_md.read_text(encoding="utf-8")))
+        if len(text) < 50:
+            continue
+        mp3 = AUDIO_DIR / f"{post_dir.name}.mp3"
+        hash_path = AUDIO_DIR / f"{post_dir.name}.hash"
+        if not (mp3.exists() and hash_path.exists()
+                and hash_path.read_text(encoding="utf-8").strip() == content_hash(text)):
+            needed.append(post_dir.name)
+    return needed
+
+
 def main():
+    if "--check" in sys.argv:
+        # Print the posts that need audio; CI uses this to skip installing ffmpeg and calling the API.
+        needed = posts_needing_audio()
+        print(" ".join(needed))
+        return 0
+
     api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
         print("OPENAI_API_KEY not set, skipping audio generation.")

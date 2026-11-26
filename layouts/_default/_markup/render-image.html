@@ -29,6 +29,10 @@
       {{- if $img -}}
         {{- $isSVG := eq $img.MediaType.SubType "svg" -}}
         {{- $isGIF := eq $img.MediaType.SubType "gif" -}}
+        {{- if $isGIF -}}
+          {{- $width = $width | default $img.Width -}}
+          {{- $height = $height | default $img.Height -}}
+        {{- end -}}
         {{- if $isSVG | or $isGIF -}}
           <img alt="{{ $alt }}"
            src="{{ $img.RelPermalink }}"
@@ -55,6 +59,12 @@
                {{- with $img_class }} class="{{.}}"{{end}} />
         {{- end }}
       {{- else -}}
+        {{- if and (not $is_remote) (fileExists (path.Join "static" $destination)) -}}
+          {{- with imageConfig (path.Join "static" $destination) -}}
+            {{- $width = $width | default .Width -}}
+            {{- $height = $height | default .Height -}}
+          {{- end -}}
+        {{- end -}}
         <img src="{{ $destination | safeURL }}" alt="{{ $alt }}" loading="lazy" {{ if $zoom }}data-zoomable{{end}}
              {{- with $width }} width="{{.}}"{{end}} {{- with $height }} height="{{.}}"{{end}}
              {{- with $img_class }} class="{{.}}"{{end}} />

@@ -183,5 +183,5 @@ This Rudrashtakam, spoken by sages to please Lord Hare,
 *ye pa­than­ti na­raa bhak­tyaa te­shaaṁ sham­bhuḥ pra­se­e­dati*  
 Whoever recites it with devotion, Shambhu is pleased with them.  
 
-![Image](Tungnath.JPG)
-**My recent trip to Tungnath, one of the highest Lord Shiva temples in the world.**
+![At the Tungnath temple, June 2025](/media/trips/tungnath-2025/temple.jpg)
+**My recent trip to Tungnath, one of the highest Lord Shiva temples in the world.** More photos from the trek are on my [photos page](/photos/#tungnath).

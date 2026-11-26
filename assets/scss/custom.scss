@@ -1182,3 +1182,78 @@ h1, h2, h3, h4, .article-title, .hm-pub-title, .card-title {
 .ph-grid a:hover img {
     opacity: 0.88;
 }
+
+/* BibTeX toggle on homepage publications. */
+.hm-bib-toggle {
+    margin-left: 0.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: $color-accent;
+    cursor: pointer;
+}
+
+.hm-bib-toggle:hover {
+    text-decoration: underline;
+}
+
+.hm-bib {
+    position: relative;
+    margin-top: 0.5rem;
+}
+
+.hm-bib pre {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    white-space: pre;
+    overflow-x: auto;
+    border: 1px solid $color-line;
+    border-radius: 6px;
+    background: #f6f8fb;
+    color: $color-text;
+}
+
+.hm-bib-copy {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.5rem;
+    z-index: 2;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.75rem;
+    border: 1px solid $color-line;
+    border-radius: 4px;
+    background: #ffffff;
+    color: $color-text;
+    cursor: pointer;
+}
+
+.dark .hm-bib-toggle {
+    color: $color-accent-dark;
+}
+
+.dark .hm-bib pre {
+    border-color: $color-line-dark;
+    background: $color-accent-soft-dark;
+    color: #d6dbe4;
+}
+
+.dark .hm-bib-copy {
+    border-color: $color-line-dark;
+    background: #0f1724;
+    color: #d6dbe4;
+}
+
+/* Visible keyboard focus. */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 2px;
+}
+
+.dark a:focus-visible,
+.dark button:focus-visible {
+    outline-color: $color-accent-dark;
+}

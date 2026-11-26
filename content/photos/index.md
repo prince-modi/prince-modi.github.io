@@ -36,6 +36,7 @@ trips:
     date: Jun 2025
     dir: /media/trips/tungnath-2025/
     photos:
+      - { name: temple, alt: "Standing in front of the stone Tungnath temple, with an orange flag and pilgrims around" }
       - { name: snow-peaks, alt: "Snow-covered Himalayan peaks rising above a dark ridge and low cloud" }
       - { name: clouds-valley, alt: "Clouds drifting through forested valleys below distant snow peaks" }
       - { name: trail-view, alt: "Green slopes and valleys with mist, seen from the trail" }

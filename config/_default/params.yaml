@@ -17,6 +17,7 @@ appearance:
 marketing:
   seo:
     site_type: Person
+    description: "Parikshit (Prince) Modi is a Master's student in Computer Science at UC San Diego working on LLM inference systems. Previously worked on Flotilla, a federated learning framework, at the Indian Institute of Science."
     local_business_type: ''
     org_name: ''
   analytics:
@@ -89,14 +90,14 @@ features:
       category_id: 'DIC_kwDOHLaF4c4DDMGA'
       theme: '/giscus/theme.css'
   search:
-    provider: wowchemy
+    provider: ''
     algolia:
       app_id: ''
       api_key: ''
       index_name: ''
       show_logo: false
   map:
-    provider: 'mapnik'
+    provider: ''
     api_key: ''
     zoom: 15
 

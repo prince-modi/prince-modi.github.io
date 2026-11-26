@@ -1,0 +1,10 @@
+{{- /* Looping, muted video used in place of an animated GIF. Usage: {{< gifvideo src="main.mp4" alt="..." >}} with an optional same-named .jpg poster in the page bundle. */ -}}
+{{- $src := .Get "src" -}}
+{{- $video := .Page.Resources.GetMatch $src -}}
+{{- $poster := .Page.Resources.GetMatch (replace $src (path.Ext $src) ".jpg") -}}
+<figure>
+  <video autoplay loop muted playsinline preload="metadata" aria-label="{{ .Get "alt" }}" style="width: 100%; height: auto;"
+    {{- with $poster }} poster="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}"{{ end }}>
+    <source src="{{ with $video }}{{ .RelPermalink }}{{ else }}{{ $src }}{{ end }}" type="video/mp4">
+  </video>
+</figure>

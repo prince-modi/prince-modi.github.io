@@ -56,8 +56,16 @@
           {{- with .Params.url_pdf }}<a href="{{ . | relURL }}">pdf</a>{{ end }}
           {{- with .Params.url_code }}<a href="{{ . }}">code</a>{{ end }}
           {{- with .Params.doi }}<a href="https://doi.org/{{ . }}">doi</a>{{ end -}}
+          {{- $bib := .Resources.GetMatch "cite.bib" }}
+          {{- with $bib }}<button type="button" class="hm-bib-toggle" aria-expanded="false" aria-controls="bib-{{ .RelPermalink | md5 | truncate 8 "" }}">bib</button>{{ end -}}
           </span>
         </div>
+        {{- with $bib }}
+        <div class="hm-bib" id="bib-{{ .RelPermalink | md5 | truncate 8 "" }}" hidden>
+          <button type="button" class="hm-bib-copy">copy</button>
+          <pre><code>{{ trim .Content " \n\t" }}</code></pre>
+        </div>
+        {{- end }}
       </li>
       {{- end }}
     </ul>
@@ -99,4 +107,23 @@
   {{- end }}
 
 </div>
+<script>
+  document.querySelectorAll('.hm-bib-toggle').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('aria-controls'));
+      var open = box.hidden;
+      box.hidden = !open;
+      b.setAttribute('aria-expanded', String(open));
+    });
+  });
+  document.querySelectorAll('.hm-bib-copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var text = b.parentNode.querySelector('code').textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        b.textContent = 'copied';
+        setTimeout(function () { b.textContent = 'copy'; }, 1500);
+      });
+    });
+  });
+</script>
 {{- end -}}

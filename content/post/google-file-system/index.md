@@ -19,7 +19,7 @@ tags:
 
 The paper *The Google File System* by Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung (Google) presents details of a distributed file system designed to support distributed applications and the various assumptions and design decisions that were made.
 
-![Credit: google.com](main.gif)
+{{< gifvideo src="main.mp4" alt="Animated Google logo" >}}
 Credit: [google.com](https://www.google.com)
 
 ## Introduction
