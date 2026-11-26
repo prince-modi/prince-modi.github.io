@@ -90,6 +90,15 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/" \
             --cacheDir "${{ runner.temp }}/hugo_cache"
+      - name: Add lowercase copies of uploads
+        # GitHub Pages URLs are case-sensitive; this makes e.g. /uploads/cv.pdf work alongside /uploads/CV.pdf.
+        # Done here because macOS checkouts cannot hold both names in one folder.
+        run: |
+          for f in public/uploads/*; do
+            [ -f "$f" ] || continue
+            b=$(basename "$f"); l=$(printf '%s' "$b" | tr '[:upper:]' '[:lower:]')
+            if [ "$b" != "$l" ] && [ ! -e "public/uploads/$l" ]; then cp "$f" "public/uploads/$l"; echo "copied $b -> $l"; fi
+          done
       - name: Cache Save
         id: cache-save
         uses: actions/cache/save@v4
