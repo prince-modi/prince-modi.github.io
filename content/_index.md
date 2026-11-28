@@ -8,7 +8,7 @@ type: landing
 
 news:
   - date: Nov 2026
-    text: 'Our paper on autointerp simulation scores will appear at the NeurIPS 2026 Workshop on Interpretability as a Science ([paper](/publication/conference-poster/autointerp-simulation-scores-2026/)).'
+    text: 'Our poster on autointerp simulation scores will be presented at the NeurIPS 2026 Workshop on Interpretability as a Science ([poster](/publication/conference-poster/autointerp-simulation-scores-2026/)).'
   - date: Sep 2026
     text: 'Teaching assistant for CSE 123: Computer Networks with Prof. Alex Snoeren.'
   - date: Jul 2026
